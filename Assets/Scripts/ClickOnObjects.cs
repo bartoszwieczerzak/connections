@@ -8,6 +8,8 @@ public class ClickOnObjects : MonoBehaviour
     private Planet sourcePlanet;
     private Planet targetPlanet;
 
+    public Ship shipPrefab;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,8 +59,17 @@ public class ClickOnObjects : MonoBehaviour
 
                     if (sourcePlanet.Units>1) {
                         int unitsToSend = Mathf.FloorToInt(sourcePlanet.Units / 2);
+
                         sourcePlanet.RemoveUnits(unitsToSend);
                         targetPlanet.AddUnits(unitsToSend);
+
+                        Vector3 deploymentPosition = sourcePlanet.transform.position + new Vector3(1f, 1f, 0f);
+
+                        Ship ship = Instantiate(shipPrefab, deploymentPosition, Quaternion.identity);
+                        ship.crew = unitsToSend;
+                        ship.source = sourcePlanet;
+                        ship.target = targetPlanet;
+                        ship.Attack();
                     }
 
                     sourcePlanet = null;
