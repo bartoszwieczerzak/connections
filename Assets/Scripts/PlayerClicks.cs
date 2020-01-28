@@ -42,24 +42,31 @@ public class PlayerClicks : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0)) {
             if (highlightedPlanet) {
-                if (!sourcePlanet) {
+                if (!sourcePlanet && highlightedPlanet.Owner != Owner.NONE) {
                     sourcePlanet = highlightedPlanet;
                     selectedPlanetHighlight.transform.position = sourcePlanet.transform.position;
                     selectedPlanetHighlight.SetActive(true);
-                } else {
+                } else if (sourcePlanet) {
                     targetPlanet = highlightedPlanet;
                 }
 
-                if (sourcePlanet && targetPlanet && sourcePlanet.Owner == Owner.PLAYER && sourcePlanet.Units > 1) {                    
-                    if (targetPlanet.Owner == Owner.AI) {
-                        AttackEnemy();
-                    } else {
-                        SendTroops();
+                if (sourcePlanet && targetPlanet)
+                {
+                    if (sourcePlanet.Owner == Owner.PLAYER && sourcePlanet.Units > 1)
+                    {
+                        if (targetPlanet.Owner == Owner.AI)
+                        {
+                            AttackEnemy();
+                        }
+                        else
+                        {
+                            SendTroops();
+                        }
+
+                        selectedPlanetHighlight.SetActive(false);
+
+                        SendShip(sourcePlanet, targetPlanet);
                     }
-
-                    selectedPlanetHighlight.SetActive(false);
-
-                    SendShip(sourcePlanet, targetPlanet);
 
                     sourcePlanet = null;
                     lastTargetPlanet = targetPlanet;
