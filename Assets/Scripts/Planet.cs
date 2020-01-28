@@ -8,10 +8,16 @@ public class Planet : MonoBehaviour
     [SerializeField]
     private Owner owner = Owner.NONE;
 
-    public int Units { get => units; set => units = value; }
+    [SerializeField]
+    private Material playerMaterial;
 
-    void Update()
-    {
+    [SerializeField]
+    private Material enemyMaterial;
+
+    public int Units { get => units; set => units = value; }
+    public Owner Owner { get => owner; set => owner = value; }
+
+    void Update() {
         
     }
 
@@ -22,10 +28,18 @@ public class Planet : MonoBehaviour
     public void RemoveUnits(int amount) {
         Units -= amount;
 
-        if (amount < 0) amount = 0;
+        if (Units < 0) {
+            Units = 0;
+        }
     }
 
     public void ChangeOwnership(Owner newOwner) {
-        owner = newOwner;
+        Owner = newOwner;
+
+        if (Owner.Equals(Owner.PLAYER)) {
+            gameObject.GetComponent<MeshRenderer>().material = playerMaterial;
+        } else {
+            gameObject.GetComponent<MeshRenderer>().material = enemyMaterial;
+        }
     }
 }
