@@ -59,6 +59,8 @@ public class PlayerClicks : MonoBehaviour
 
                     selectedPlanetHighlight.SetActive(false);
 
+                    SendShip(sourcePlanet, targetPlanet);
+
                     sourcePlanet = null;
                     lastTargetPlanet = targetPlanet;
                     targetPlanet = null;
@@ -103,8 +105,8 @@ public class PlayerClicks : MonoBehaviour
     }
 
     private void AttackEnemy() {
-        //SendShip(sourcePlanet);
-        
+        // SendShip(sourcePlanet, targetPlanet);
+
         int unitsToSend = Mathf.FloorToInt(sourcePlanet.Units / 2);
         Debug.Log("HAS: " + sourcePlanet.Units + " AND WILL REMOVE: " + unitsToSend);
         sourcePlanet.RemoveUnits(unitsToSend);
@@ -133,21 +135,16 @@ public class PlayerClicks : MonoBehaviour
         targetPlanet.ChangeOwnership(Owner.PLAYER);
     }
 
-    private void SendShip(Planet sourcePlanet) {
-        if (sourcePlanet.Units > 1) {
+    private void SendShip(Planet sourcePlanet, Planet targetPlanet)
+    {
+        if (sourcePlanet.Units > 1)
+        {
             int unitsToSend = Mathf.FloorToInt(sourcePlanet.Units / 2);
 
             sourcePlanet.RemoveUnits(unitsToSend);
             targetPlanet.AddUnits(unitsToSend);
 
-            Vector3 deploymentPosition = sourcePlanet.transform.position + new Vector3(1f, 1f, 0f);
-
-            GameObject shipGo = Instantiate(shipPrefab, deploymentPosition, Quaternion.identity);
-            Ship ship = shipGo.GetComponent<Ship>();
-            ship.crew = unitsToSend;
-            ship.source = sourcePlanet;
-            ship.target = targetPlanet;
-            ship.Attack();
+            sourcePlanet.SendFleet(targetPlanet);
         }
     }
 }

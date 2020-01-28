@@ -53,4 +53,16 @@ public class Planet : MonoBehaviour
             gameObject.GetComponent<MeshRenderer>().material = enemyMaterial;
         }
     }
+
+    public void SendFleet(Planet targetPlanet)
+    {
+        Debug.Log("Sending fleet");
+
+        Vector3 sourcePlanetPosition = transform.position;
+        Vector3 heading = sourcePlanetPosition - targetPlanet.transform.position;
+
+        ParticleSystem transfer = GetComponentInChildren<ParticleSystem>();
+        transfer.transform.rotation = Quaternion.LookRotation(-heading);
+        transfer.Play();
+    }
 }
