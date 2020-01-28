@@ -8,17 +8,19 @@ public class Planet : MonoBehaviour
     [SerializeField]
     private Owner owner = Owner.NONE;
 
+    public int Units { get => units; set => units = value; }
+
     void Update()
     {
         
     }
 
     public void AddUnits(int amount) {
-        units += amount;
+        Units += amount;
     }
 
     public void RemoveUnits(int amount) {
-        units -= amount;
+        Units -= amount;
 
         if (amount < 0) amount = 0;
     }

@@ -267,6 +267,7 @@ GameObject:
   - component: {fileID: 1061367485579934960}
   - component: {fileID: 1061367485579934961}
   - component: {fileID: 1061367485579934965}
+  - component: {fileID: 1251884853}
   m_Layer: 0
   m_Name: Planet
   m_TagString: PLANET
@@ -362,3 +363,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   units: 10
   owner: 2
+--- !u!114 &1251884853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1061367485579934958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9b37b6cbe6d3d47832c9cdd5627e78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
