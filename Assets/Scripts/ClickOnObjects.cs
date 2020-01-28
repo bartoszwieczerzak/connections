@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class ClickOnObjects : MonoBehaviour
 {
+    private Planet highlightedPlanet;
+    private Planet sourcePlanet;
+    private Planet targetPlanet;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,8 +22,45 @@ public class ClickOnObjects : MonoBehaviour
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit)) {
-            if(hit.transform.tag == "PLANET") {
-                Debug.Log("JUST HIT A PLANET");
+            if(hit.transform.tag == "PLANET")
+            {
+                highlightedPlanet = hit.transform.GetComponent<Planet>();
+
+                //Debug.Log("Highlighted planer " + highlightedPlanet.name);
+            }
+        }
+        else
+        {
+            highlightedPlanet = null;
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (highlightedPlanet)
+            {
+                if (!sourcePlanet)
+                {
+                    sourcePlanet = highlightedPlanet;
+
+                    Debug.Log("Setting source to " + sourcePlanet.name);
+                }
+                else
+                {
+                    targetPlanet = highlightedPlanet;
+
+                    Debug.Log("Setting target to " + targetPlanet.name);
+                }
+
+                if (sourcePlanet && targetPlanet)
+                {
+                    Debug.Log("Attack!");
+
+                    sourcePlanet.RemoveUnits(100);
+                    targetPlanet.AddUnits(100);
+
+                    sourcePlanet = null;
+                    targetPlanet = null;
+                }
             }
         }
     }
