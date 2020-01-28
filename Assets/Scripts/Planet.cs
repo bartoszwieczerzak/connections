@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class Planet : MonoBehaviour
 {
@@ -17,8 +18,18 @@ public class Planet : MonoBehaviour
     public int Units { get => units; set => units = value; }
     public Owner Owner { get => owner; set => owner = value; }
 
-    void Update() {
-        
+    void Start() {
+        //StartCoroutine(AddTroopsCoroutine());
+    }
+
+    IEnumerator AddTroopsCoroutine() {
+        yield return new WaitForSeconds(3);
+
+        if (Owner != Owner.NONE) {
+            Units += 1;
+        }
+
+        StartCoroutine(AddTroopsCoroutine());
     }
 
     public void AddUnits(int amount) {

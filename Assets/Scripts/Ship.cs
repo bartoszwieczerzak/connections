@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Ship : MonoBehaviour
 {
@@ -14,15 +12,12 @@ public class Ship : MonoBehaviour
 
     private bool isAttacking = false;
 
-    private void Start()
-    {
+    private void Start() {
         rb = GetComponent<Rigidbody>();
     }
 
-    private void Update()
-    {
-        if (isAttacking)
-        {
+    private void Update() {
+        if (isAttacking) {
             Vector3 heading = target.transform.position - source.transform.position;
 
             rb.velocity = heading * speed;
@@ -31,8 +26,7 @@ public class Ship : MonoBehaviour
         }
     }
 
-    public void Attack()
-    {
+    public void Attack() {
         if (source && target && crew > 0)
         {
             isAttacking = true;
