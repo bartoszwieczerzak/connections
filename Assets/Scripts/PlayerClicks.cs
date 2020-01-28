@@ -46,7 +46,7 @@ public class PlayerClicks : MonoBehaviour
                     sourcePlanet = highlightedPlanet;
                     selectedPlanetHighlight.transform.position = sourcePlanet.transform.position;
                     selectedPlanetHighlight.SetActive(true);
-                } else if (sourcePlanet && highlightedPlanet.Owner != Owner.PLAYER) {
+                } else if (sourcePlanet) {
                     targetPlanet = highlightedPlanet;
                 }
 
