@@ -55,8 +55,11 @@ public class ClickOnObjects : MonoBehaviour
                 {
                     Debug.Log("Attack!");
 
-                    sourcePlanet.RemoveUnits(100);
-                    targetPlanet.AddUnits(100);
+                    if (sourcePlanet.Units>1) {
+                        int unitsToSend = Mathf.FloorToInt(sourcePlanet.Units / 2);
+                        sourcePlanet.RemoveUnits(unitsToSend);
+                        targetPlanet.AddUnits(unitsToSend);
+                    }
 
                     sourcePlanet = null;
                     targetPlanet = null;
