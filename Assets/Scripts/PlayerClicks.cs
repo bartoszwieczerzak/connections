@@ -47,43 +47,62 @@ public class PlayerClicks : MonoBehaviour
             moveMarker.SetPosition(1, -(sourcePlanet.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)));
         }
 
-        if (Input.GetMouseButtonDown(0)) {
-            if (highlightedPlanet) {
-                if (!sourcePlanet && highlightedPlanet.Owner == Owner.PLAYER) {
-                    sourcePlanet = highlightedPlanet;
-                    selectedPlanetHighlight.transform.position = sourcePlanet.transform.position;
-                    selectedPlanetHighlight.SetActive(true);
-                } else if (sourcePlanet) {
-                    targetPlanet = highlightedPlanet;
-                }
+        if (Input.GetMouseButtonDown(0) && CanSelectAsSourcePlanet(highlightedPlanet))
+        {
+            sourcePlanet = highlightedPlanet;
+            selectedPlanetHighlight.transform.position = sourcePlanet.transform.position;
+            selectedPlanetHighlight.SetActive(true);
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (CanSelectAsTargetPlanet(highlightedPlanet))
+            {
+                targetPlanet = highlightedPlanet;
+            } else if (sourcePlanet) {
+                LineRenderer moveMarker = sourcePlanet.GetComponentInChildren<LineRenderer>();
+                moveMarker.SetPosition(1, Vector3.zero);
 
-                if (sourcePlanet && targetPlanet)
-                {
-                    if (sourcePlanet.Owner == Owner.PLAYER && sourcePlanet.Units > 1)
-                    {
-                        if (targetPlanet.Owner == Owner.AI)
-                        {
-                            AttackEnemy();
-                        }
-                        else
-                        {
-                            SendTroops();
-                        }
+                selectedPlanetHighlight.SetActive(false);
 
-                        selectedPlanetHighlight.SetActive(false);
-
-                        SendShip(sourcePlanet, targetPlanet);
-                    }
-
-                    LineRenderer moveMarker = sourcePlanet.GetComponentInChildren<LineRenderer>();
-                    moveMarker.SetPosition(1, Vector3.zero);
-
-                    sourcePlanet = null;
-                    lastTargetPlanet = targetPlanet;
-                    targetPlanet = null;
-                }
+                sourcePlanet = null;
             }
         }
+
+        if (sourcePlanet && targetPlanet)
+        {
+            if (sourcePlanet.Owner == Owner.PLAYER && sourcePlanet.Units > 1)
+            {
+                if (targetPlanet.Owner == Owner.AI)
+                {
+                    AttackEnemy();
+                }
+                else
+                {
+                    SendTroops();
+                }
+
+                selectedPlanetHighlight.SetActive(false);
+
+                SendShip(sourcePlanet, targetPlanet);
+            }
+
+            LineRenderer moveMarker = sourcePlanet.GetComponentInChildren<LineRenderer>();
+            moveMarker.SetPosition(1, Vector3.zero);
+
+            sourcePlanet = null;
+            lastTargetPlanet = targetPlanet;
+            targetPlanet = null;
+        }
+    }
+
+    private bool CanSelectAsSourcePlanet(Planet highlightedPlanet)
+    {
+        return sourcePlanet == null && highlightedPlanet && highlightedPlanet.Owner == Owner.PLAYER;
+    }
+
+    private bool CanSelectAsTargetPlanet(Planet highlightedPlanet)
+    {
+        return sourcePlanet != null && highlightedPlanet && highlightedPlanet.GetInstanceID() != sourcePlanet.GetInstanceID();
     }
 
     void XLateUpdate() {
