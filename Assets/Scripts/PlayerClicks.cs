@@ -40,19 +40,19 @@ public class PlayerClicks : MonoBehaviour
             hoverPlanetHighlight.SetActive(false);
         }
 
-        
-        if (sourcePlanet && !targetPlanet)
-        {
-            LineRenderer moveMarker = sourcePlanet.GetComponentInChildren<LineRenderer>();
-            moveMarker.SetPosition(1, -(sourcePlanet.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)));
-        }
-
         if (Input.GetMouseButtonDown(0) && CanSelectAsSourcePlanet(highlightedPlanet))
         {
             sourcePlanet = highlightedPlanet;
             selectedPlanetHighlight.transform.position = sourcePlanet.transform.position;
             selectedPlanetHighlight.SetActive(true);
         }
+
+        if (sourcePlanet && !targetPlanet)
+        {
+            LineRenderer moveMarker = sourcePlanet.GetComponentInChildren<LineRenderer>();
+            moveMarker.SetPosition(1, -(sourcePlanet.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)));
+        }
+
         if (Input.GetMouseButtonUp(0))
         {
             if (CanSelectAsTargetPlanet(highlightedPlanet))
@@ -70,7 +70,7 @@ public class PlayerClicks : MonoBehaviour
 
         if (sourcePlanet && targetPlanet)
         {
-            if (sourcePlanet.Owner == Owner.PLAYER && sourcePlanet.Units > 1)
+            if (sourcePlanet.Units > 1)
             {
                 if (targetPlanet.Owner == Owner.AI)
                 {
@@ -81,13 +81,13 @@ public class PlayerClicks : MonoBehaviour
                     SendTroops();
                 }
 
-                selectedPlanetHighlight.SetActive(false);
-
-                SendShip(sourcePlanet, targetPlanet);
+                VisualiseArmyMovement(sourcePlanet, targetPlanet);
             }
 
             LineRenderer moveMarker = sourcePlanet.GetComponentInChildren<LineRenderer>();
             moveMarker.SetPosition(1, Vector3.zero);
+
+            selectedPlanetHighlight.SetActive(false);
 
             sourcePlanet = null;
             lastTargetPlanet = targetPlanet;
@@ -171,16 +171,8 @@ public class PlayerClicks : MonoBehaviour
         targetPlanet.ChangeOwnership(Owner.PLAYER);
     }
 
-    private void SendShip(Planet sourcePlanet, Planet targetPlanet)
+    private void VisualiseArmyMovement(Planet sourcePlanet, Planet targetPlanet)
     {
-        if (sourcePlanet.Units > 1)
-        {
-            int unitsToSend = Mathf.FloorToInt(sourcePlanet.Units / 2);
-
-            sourcePlanet.RemoveUnits(unitsToSend);
-            targetPlanet.AddUnits(unitsToSend);
-
-            sourcePlanet.SendFleet(targetPlanet);
-        }
+        sourcePlanet.SendFleet(targetPlanet);
     }
 }
