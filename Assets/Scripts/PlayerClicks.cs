@@ -40,6 +40,13 @@ public class PlayerClicks : MonoBehaviour
             hoverPlanetHighlight.SetActive(false);
         }
 
+        
+        if (sourcePlanet && !targetPlanet)
+        {
+            LineRenderer moveMarker = sourcePlanet.GetComponentInChildren<LineRenderer>();
+            moveMarker.SetPosition(1, -(sourcePlanet.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)));
+        }
+
         if (Input.GetMouseButtonDown(0)) {
             if (highlightedPlanet) {
                 if (!sourcePlanet && highlightedPlanet.Owner == Owner.PLAYER) {
@@ -67,6 +74,9 @@ public class PlayerClicks : MonoBehaviour
 
                         SendShip(sourcePlanet, targetPlanet);
                     }
+
+                    LineRenderer moveMarker = sourcePlanet.GetComponentInChildren<LineRenderer>();
+                    moveMarker.SetPosition(1, Vector3.zero);
 
                     sourcePlanet = null;
                     lastTargetPlanet = targetPlanet;
