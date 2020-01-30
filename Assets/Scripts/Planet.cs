@@ -15,10 +15,15 @@ public class Planet : MonoBehaviour
     [SerializeField]
     private Material enemyMaterial;
 
+    [SerializeField]
+    private PlanetStats stats;
+
     public int Units { get => units; set => units = value; }
     public Owner Owner { get => owner; set => owner = value; }
 
     void Start() {
+        transform.localScale = new Vector3(stats.size, stats.size, stats.size);
+
         StartCoroutine(AddTroopsCoroutine());
     }
 
@@ -26,7 +31,7 @@ public class Planet : MonoBehaviour
         yield return new WaitForSeconds(3);
 
         if (Owner != Owner.None) {
-            Units += 1;
+            Units += stats.regeneration;
         }
 
         StartCoroutine(AddTroopsCoroutine());

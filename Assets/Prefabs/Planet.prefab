@@ -367,6 +367,7 @@ MonoBehaviour:
   owner: 0
   playerMaterial: {fileID: 2100000, guid: fb93779e21aa25e45900911a644a6c03, type: 2}
   enemyMaterial: {fileID: 2100000, guid: a4bd5e3f452c51e43bd0909b8ed28177, type: 2}
+  stats: {fileID: 11400000, guid: c0486d495e7704bbdb84dc8e57953591, type: 2}
 --- !u!114 &1251884853
 MonoBehaviour:
   m_ObjectHideFlags: 0
