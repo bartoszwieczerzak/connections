@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -53,12 +52,5 @@ public class AudioManager : MonoBehaviour
 
         Debug.Log("Playing " + type.ToString() + " sound");
         s.source.Play();
-    }
-
-
-    public void PlaySendingArmyClip()
-    {
-        //AudioSource source = GetComponent<AudioSource>();
-        //source.PlayOneShot(sendingArmyClips[Random.Range(0, sendingArmyClips.Length)]);
     }
 }

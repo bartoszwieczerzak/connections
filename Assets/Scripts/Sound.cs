@@ -31,10 +31,12 @@ public enum SoundType
     SENDING_ARMY_PLAYER,
     SENDING_ARMY_ENEMY,
 
+    BATTLE_LOST,
+
     PLANET_LOST,
     PLANET_TAKENOVER,
     PLANET_SELECTED,
 
-    GAME_WIN,
+    GAME_WON,
     GAME_LOST,
 }

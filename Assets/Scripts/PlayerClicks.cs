@@ -146,7 +146,7 @@ public class PlayerClicks : MonoBehaviour
             targetPlanet.RemoveUnits(unitsToSend);
             Debug.Log("REMOVED from TARGET: " + unitsToSend);
 
-            AudioManager.instance.Play(SoundType.PLANET_LOST);
+            AudioManager.instance.Play(SoundType.BATTLE_LOST);
         } else if (targetPlanet.Units < unitsToSend) {
             int toBeAdded = unitsToSend - targetPlanet.Units;
             targetPlanet.Units = 0;
