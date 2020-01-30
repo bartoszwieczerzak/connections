@@ -19,7 +19,7 @@ public class Planet : MonoBehaviour
     public Owner Owner { get => owner; set => owner = value; }
 
     void Start() {
-        //StartCoroutine(AddTroopsCoroutine());
+        StartCoroutine(AddTroopsCoroutine());
     }
 
     IEnumerator AddTroopsCoroutine() {

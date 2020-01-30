@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Game : MonoBehaviour {
@@ -20,6 +21,8 @@ public class Game : MonoBehaviour {
     #endregion
 
     private readonly List<Planet> planets = new List<Planet>();
+    [SerializeField] private GameObject winPanel;
+    [SerializeField] private GameObject losePanel;
 
     void Start() {
         GameObject[] planetGameObjects = GameObject.FindGameObjectsWithTag(Tag.PLANET);
@@ -30,16 +33,33 @@ public class Game : MonoBehaviour {
     }
 
     void Update() {
-        foreach (Planet planet in planets) {
-            if (planet.Owner == Owner.Player && planet.Units > 0) {
-                return;
-            }
+        var playerPlanetsCount = planets.Count(p => p.Owner == Owner.Player);
+        var enemyPlanetsCount = planets.Count(p => p.Owner == Owner.Ai);
+        var noonePlanetsCount = planets.Count(p => p.Owner == Owner.None);
 
+        if (playerPlanetsCount == 0 && enemyPlanetsCount == 0) {
+            GameDraw();
+        }
+        else if (enemyPlanetsCount == 0) {
+            GameWin();
+        }
+        else if (playerPlanetsCount == 0) {
             GameOver();
         }
     }
 
+    private void GameDraw() {
+        Debug.Log("That's a draw!");
+        ;
+    }
+
     private void GameOver() {
         Debug.Log("Game Over man!");
+        losePanel.SetActive(true);
+    }
+
+    private void GameWin() {
+        Debug.Log("You win!");
+        winPanel.SetActive(true);
     }
 }
