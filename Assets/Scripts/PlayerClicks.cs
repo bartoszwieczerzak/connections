@@ -44,6 +44,8 @@ public class PlayerClicks : MonoBehaviour
             sourcePlanet = highlightedPlanet;
             selectedPlanetHighlight.transform.position = sourcePlanet.transform.position;
             selectedPlanetHighlight.SetActive(true);
+
+            AudioManager.instance.Play(SoundType.PLANET_SELECTED);
         }
 
         if (sourcePlanet && !targetPlanet) {
@@ -164,6 +166,6 @@ public class PlayerClicks : MonoBehaviour
     private void VisualiseArmyMovement() {
         sourcePlanet.SendFleet(targetPlanet);
 
-        AudioManager.instance.PlaySendingArmyClip();
+        AudioManager.instance.Play(SoundType.SENDING_ARMY_PLAYER);
     }
 }
