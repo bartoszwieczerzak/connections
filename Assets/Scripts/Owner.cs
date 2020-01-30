@@ -1,5 +1,3 @@
-﻿using UnityEngine;
-
-public enum Owner {
-    PLAYER, AI, NONE
+﻿public enum Owner {
+    Player, Ai, None
 }

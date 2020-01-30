@@ -7,7 +7,7 @@ public class Planet : MonoBehaviour
     private int units = 0;
 
     [SerializeField]
-    private Owner owner = Owner.NONE;
+    private Owner owner = Owner.None;
 
     [SerializeField]
     private Material playerMaterial;
@@ -25,7 +25,7 @@ public class Planet : MonoBehaviour
     IEnumerator AddTroopsCoroutine() {
         yield return new WaitForSeconds(3);
 
-        if (Owner != Owner.NONE) {
+        if (Owner != Owner.None) {
             Units += 1;
         }
 
@@ -33,31 +33,24 @@ public class Planet : MonoBehaviour
     }
 
     public void AddUnits(int amount) {
-        Units += amount;
+        units += amount;
     }
 
     public void RemoveUnits(int amount) {
-        Units -= amount;
+        units -= amount;
 
-        if (Units < 0) {
-            Units = 0;
+        if (units < 0) {
+            units = 0;
         }
     }
 
     public void ChangeOwnership(Owner newOwner) {
-        Owner = newOwner;
+        owner = newOwner;
 
-        if (Owner.Equals(Owner.PLAYER)) {
-            gameObject.GetComponent<MeshRenderer>().material = playerMaterial;
-        } else {
-            gameObject.GetComponent<MeshRenderer>().material = enemyMaterial;
-        }
+        gameObject.GetComponent<MeshRenderer>().material = Owner.Equals(Owner.Player) ? playerMaterial : enemyMaterial;
     }
 
-    public void SendFleet(Planet targetPlanet)
-    {
-        Debug.Log("Sending fleet");
-
+    public void SendFleet(Planet targetPlanet) {
         Vector3 sourcePlanetPosition = transform.position;
         Vector3 heading = sourcePlanetPosition - targetPlanet.transform.position;
 

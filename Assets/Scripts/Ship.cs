@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 
-public class Ship : MonoBehaviour
-{
-    public int crew = 0;
-    public float speed = 2f;
+public class Ship : MonoBehaviour {
+    [SerializeField]
+    private int crew = 0;
+    [SerializeField]
+    private float speed = 2f;
+    [SerializeField]
+    private Planet source;
+    [SerializeField]
+    private Planet target;
 
-    public Planet source;
-    public Planet target;
-
-    public Rigidbody rb;
-
+    private Rigidbody rb;
     private bool isAttacking = false;
 
     private void Start() {
@@ -17,18 +18,15 @@ public class Ship : MonoBehaviour
     }
 
     private void Update() {
-        if (isAttacking) {
-            Vector3 heading = target.transform.position - source.transform.position;
-
-            rb.velocity = heading * speed;
-
-            isAttacking = false;
-        }
+        if (!isAttacking) return;
+        
+        Vector3 heading = target.transform.position - source.transform.position;
+        rb.velocity = heading * speed;
+        isAttacking = false;
     }
 
     public void Attack() {
-        if (source && target && crew > 0)
-        {
+        if (source && target && crew > 0) {
             isAttacking = true;
         }
     }

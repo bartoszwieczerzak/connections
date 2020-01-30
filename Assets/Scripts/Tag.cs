@@ -1,3 +1,3 @@
 ﻿public class Tag {
-    public static string PLANET = "PLANET";
+    public static readonly string PLANET = "PLANET";
 }
