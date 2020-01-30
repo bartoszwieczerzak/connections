@@ -174,5 +174,7 @@ public class PlayerClicks : MonoBehaviour
     private void VisualiseArmyMovement(Planet sourcePlanet, Planet targetPlanet)
     {
         sourcePlanet.SendFleet(targetPlanet);
+
+        AudioManager.instance.PlaySendingArmyClip();
     }
 }

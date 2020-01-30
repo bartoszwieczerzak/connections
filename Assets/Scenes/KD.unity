@@ -1550,6 +1550,7 @@ GameObject:
   - component: {fileID: 696009383}
   - component: {fileID: 696009382}
   - component: {fileID: 696009384}
+  - component: {fileID: 696009385}
   m_Layer: 0
   m_Name: Audio Source
   m_TagString: Untagged
@@ -1676,6 +1677,20 @@ AudioDistortionFilter:
   m_GameObject: {fileID: 696009381}
   m_Enabled: 1
   m_DistortionLevel: 0.5
+--- !u!114 &696009385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 696009381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d244c4c0586cc4ba8b9f00a01d3ae586, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sendingArmyClips:
+  - {fileID: 8300000, guid: 652035a095600433581b8622ee7a4a43, type: 3}
 --- !u!108 &705507994 stripped
 Light:
   m_CorrespondingSourceObject: {fileID: 1754338632316965037, guid: 3d0de22ae8f22eb48a0f7d839b910588,
