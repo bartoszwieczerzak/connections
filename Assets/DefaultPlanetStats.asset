@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: DefaultPlanetStats
   m_EditorClassIdentifier: 
   size: 1
-  regeneration: 1
-  defenseBoost: 0
+  populationGrowth: 1
+  populationCycleTime: 3
+  defenseBonus: 0

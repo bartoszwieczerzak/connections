@@ -28,10 +28,10 @@ public class Planet : MonoBehaviour
     }
 
     IEnumerator AddTroopsCoroutine() {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(stats.populationCycleTime);
 
         if (Owner != Owner.None) {
-            Units += stats.regeneration;
+            Units += stats.populationGrowth;
         }
 
         StartCoroutine(AddTroopsCoroutine());
