@@ -73,6 +73,7 @@ public class PlayerClicks : MonoBehaviour
                 } else {
                     SendTroops();
                 }
+
                 VisualiseArmyMovement();
             }
 
@@ -144,12 +145,16 @@ public class PlayerClicks : MonoBehaviour
         if (targetPlanet.Units > unitsToSend) {
             targetPlanet.RemoveUnits(unitsToSend);
             Debug.Log("REMOVED from TARGET: " + unitsToSend);
+
+            AudioManager.instance.Play(SoundType.PLANET_LOST);
         } else if (targetPlanet.Units < unitsToSend) {
             int toBeAdded = unitsToSend - targetPlanet.Units;
             targetPlanet.Units = 0;
             targetPlanet.AddUnits(toBeAdded);
             Debug.Log("ADDED to TARGET: " + toBeAdded);
             targetPlanet.ChangeOwnership(Owner.Player);
+
+            AudioManager.instance.Play(SoundType.PLANET_TAKENOVER);
         } else {
             targetPlanet.Units = 0;
             targetPlanet.ChangeOwnership(Owner.None);
