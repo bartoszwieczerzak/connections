@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.21493858, g: 0.10861971, b: 0.15898761, a: 1}
+  m_IndirectSpecularColor: {r: 0.21479034, g: 0.10860557, b: 0.15877637, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -369,8 +369,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverPlanetHighlight: {fileID: 311830642}
   selectedPlanetHighlight: {fileID: 1177806107}
-  shipPrefab: {fileID: 6093379720503287658, guid: 64055de5629ee49be9dc0a82214b39e4,
-    type: 3}
   particleSystemPrefab: {fileID: 1069378325}
 --- !u!4 &465519223
 Transform:
