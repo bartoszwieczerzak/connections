@@ -1,17 +1,13 @@
 ﻿using System;
 using UnityEngine;
 
-public class AudioManager : MonoBehaviour
-{
-
+public class AudioManager : MonoBehaviour {
     #region Singleton
 
     public static AudioManager instance;
 
-    private void Awake()
-    {
-        if (instance)
-        {
+    private void Awake() {
+        if (instance) {
             Debug.LogWarning("Trying to create another instance of AudioManager!");
             return;
         }

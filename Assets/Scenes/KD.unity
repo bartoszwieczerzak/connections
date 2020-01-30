@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.21479034, g: 0.10860557, b: 0.15877637, a: 1}
+  m_IndirectSpecularColor: {r: 0.21493858, g: 0.10861971, b: 0.15898761, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -347,6 +347,7 @@ GameObject:
   m_Component:
   - component: {fileID: 465519223}
   - component: {fileID: 465519222}
+  - component: {fileID: 465519224}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -385,6 +386,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &465519224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 465519221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 616f48449ad3a42438bcbc8df505540b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winPanel: {fileID: 1931473951}
+  losePanel: {fileID: 1578694252}
 --- !u!4 &465902591 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1754338631515339208, guid: 3d0de22ae8f22eb48a0f7d839b910588,
@@ -5391,6 +5406,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 300202010}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1578694252 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1144802083131042769, guid: f75144e615a2c42d49c2ee6478453e7a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1144802083347992061}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1678390869
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5607,6 +5628,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aec944a5a5f15ff40b4209d3cccf9cdc, type: 3}
+--- !u!1 &1931473951 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6107965634050444194, guid: 8eee3231528194e9aa7e210e531d5d00,
+    type: 3}
+  m_PrefabInstance: {fileID: 6107965634000037703}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2098057954
 GameObject:
   m_ObjectHideFlags: 0
@@ -5773,6 +5800,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1061367485579934965, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
+        type: 3}
+      propertyPath: units
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aec944a5a5f15ff40b4209d3cccf9cdc, type: 3}
