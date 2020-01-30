@@ -14,8 +14,6 @@ public class PlayerClicks : MonoBehaviour
     private GameObject selectedPlanetHighlight;
 
     [SerializeField]
-    private GameObject shipPrefab;
-    [SerializeField]
     private ParticleSystem particleSystemPrefab;
 
     private ParticleSystem.Particle[] particles;
