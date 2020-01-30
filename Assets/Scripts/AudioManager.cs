@@ -1,19 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Audio;
+﻿using UnityEngine;
 
-public class AudioManager : MonoBehaviour
-{
-
+public class AudioManager : MonoBehaviour {
     #region Singleton
 
     public static AudioManager instance;
 
-    private void Awake()
-    {
-        if (instance)
-        {
+    private void Awake() {
+        if (instance) {
             Debug.LogWarning("Trying to create another instance of AudioManager!");
             return;
         }
@@ -28,8 +21,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip[] sendingArmyClips;
 
 
-    public void PlaySendingArmyClip()
-    {
+    public void PlaySendingArmyClip() {
         AudioSource source = GetComponent<AudioSource>();
         source.PlayOneShot(sendingArmyClips[Random.Range(0, sendingArmyClips.Length)]);
     }

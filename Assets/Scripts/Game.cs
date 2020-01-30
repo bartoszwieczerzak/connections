@@ -1,8 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Game : MonoBehaviour {
+    #region Singleton
+
+    public static Game instance;
+
+    private void Awake() {
+        if (instance) {
+            Debug.LogWarning("Trying to create another instance of Game object!");
+            return;
+        }
+
+        instance = this;
+
+        DontDestroyOnLoad(this);
+    }
+
+    #endregion
+
     private readonly List<Planet> planets = new List<Planet>();
 
     void Start() {
@@ -15,7 +31,7 @@ public class Game : MonoBehaviour {
 
     void Update() {
         foreach (Planet planet in planets) {
-            if (planet.Owner == Owner.Player && planet.Units > 0) { 
+            if (planet.Owner == Owner.Player && planet.Units > 0) {
                 return;
             }
 
