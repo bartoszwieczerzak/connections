@@ -56,10 +56,14 @@ public class Game : MonoBehaviour {
     private void GameOver() {
         Debug.Log("Game Over man!");
         losePanel.SetActive(true);
+
+        //AudioManager.instance.Play(SoundType.GAME_LOST);
     }
 
     private void GameWin() {
         Debug.Log("You win!");
         winPanel.SetActive(true);
+
+        //AudioManager.instance.Play(SoundType.GAME_WON);
     }
 }
