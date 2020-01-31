@@ -5,16 +5,28 @@ using System.Linq;
 
 public class EnemyAI : MonoBehaviour
 {
+    [SerializeField]
+    private float initialDelay = 4.0f;
+
+    [SerializeField, Range(1.0f, 10.0f)]
+    private float maxTurnDelay = 4.0f;
+
     private List<Planet> planets;
 
     private List<Planet> aiPlanets = new List<Planet>();
     private List<Planet> playerPlanets = new List<Planet>();
     private List<Planet> freePlanets = new List<Planet>();
 
-    // Start is called before the first frame update
     void Start()
     {
         planets = GameObject.FindObjectsOfType<Planet>().ToList<Planet>();
+
+        StartCoroutine(DelayedStart());
+    }
+
+    IEnumerator DelayedStart()
+    {
+        yield return new WaitForSeconds(initialDelay);
 
         StartCoroutine(EnemyTurn());
     }
@@ -57,7 +69,7 @@ public class EnemyAI : MonoBehaviour
 
         Debug.Log("Current state [AI: " + aiPlanets.Count.ToString() + " | Player: " + playerPlanets.Count.ToString() + " | Free: " + freePlanets.Count.ToString() + "]");
 
-        yield return new WaitForSeconds(Random.Range(1.0f, 4.0f));
+        yield return new WaitForSeconds(Random.Range(1.0f, maxTurnDelay));
         StartCoroutine(EnemyTurn());
     }
 
