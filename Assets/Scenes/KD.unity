@@ -5759,6 +5759,23 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 292484301}
     m_Modifications:
+    - target: {fileID: 429560389, guid: aec944a5a5f15ff40b4209d3cccf9cdc, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee,
+        type: 2}
+    - target: {fileID: 429560389, guid: aec944a5a5f15ff40b4209d3cccf9cdc, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+    - target: {fileID: 465112409, guid: aec944a5a5f15ff40b4209d3cccf9cdc, type: 3}
+      propertyPath: m_SortingOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 465112409, guid: aec944a5a5f15ff40b4209d3cccf9cdc, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1061367485579934958, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
         type: 3}
       propertyPath: m_Name
@@ -5823,6 +5840,11 @@ PrefabInstance:
         type: 3}
       propertyPath: units
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1061367485579934965, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
+        type: 3}
+      propertyPath: owner
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aec944a5a5f15ff40b4209d3cccf9cdc, type: 3}

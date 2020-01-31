@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class Planet : MonoBehaviour
 {
@@ -51,8 +52,7 @@ public class Planet : MonoBehaviour
 
     public void ChangeOwnership(Owner newOwner) {
         owner = newOwner;
-// here we need to somehow mark player and non-player planet
-        //gameObject.GetComponent<MeshRenderer>().material = Owner.Equals(Owner.Player) ? playerMaterial : enemyMaterial;
+        gameObject.GetComponentInChildren<TextMeshProUGUI>().color =  owner.Equals(Owner.Player) ? Game.instance.PlayerColor : Game.instance.EnemyColor;
     }
 
     public void SendFleet(Planet targetPlanet) {

@@ -20,6 +20,13 @@ public class Game : MonoBehaviour {
 
     #endregion
 
+    [SerializeField] private Color playerColor;
+
+    public Color PlayerColor => playerColor;
+    public Color EnemyColor => enemyColor;
+
+    [SerializeField] private Color enemyColor;
+    
     private readonly List<Planet> planets = new List<Planet>();
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject losePanel;
