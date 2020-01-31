@@ -4,15 +4,15 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour {
     #region Singleton
 
-    public static AudioManager instance;
+    public static AudioManager Instance;
 
     private void Awake() {
-        if (instance) {
+        if (Instance) {
             Debug.LogWarning("Trying to create another instance of AudioManager!");
             return;
         }
 
-        instance = this;
+        Instance = this;
 
         DontDestroyOnLoad(this);
     }
@@ -26,12 +26,12 @@ public class AudioManager : MonoBehaviour {
     {
         foreach(Sound s in sounds)
         {
-            s.source = gameObject.AddComponent<AudioSource>();
-            s.source.clip = s.clip;
+            s.Source = gameObject.AddComponent<AudioSource>();
+            s.Source.clip = s.Clip;
 
-            s.source.volume = s.volume;
-            s.source.pitch = s.pitch;
-            s.source.loop = s.loop;
+            s.Source.volume = s.Volume;
+            s.Source.pitch = s.Pitch;
+            s.Source.loop = s.Loop;
         }
 
         Play(SoundType.THEME);
@@ -39,7 +39,7 @@ public class AudioManager : MonoBehaviour {
 
     public void Play(SoundType type)
     {
-        Sound s = Array.Find<Sound>(sounds, sound => sound.type == type);
+        Sound s = Array.Find<Sound>(sounds, sound => sound.Type == type);
         if (s == null)
         {
             Debug.LogWarning("Sound " + type.ToString() + " not found!");
@@ -47,6 +47,6 @@ public class AudioManager : MonoBehaviour {
         }
 
         Debug.Log("Playing " + type.ToString() + " sound");
-        s.source.Play();
+        s.Source.Play();
     }
 }

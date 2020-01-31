@@ -43,7 +43,7 @@ public class PlayerClicks : MonoBehaviour
             selectedPlanetHighlight.transform.position = sourcePlanet.transform.position;
             selectedPlanetHighlight.SetActive(true);
 
-            AudioManager.instance.Play(SoundType.PLANET_SELECTED);
+            AudioManager.Instance.Play(SoundType.PLANET_SELECTED);
         }
 
         if (sourcePlanet && !targetPlanet) {
@@ -143,7 +143,7 @@ public class PlayerClicks : MonoBehaviour
             targetPlanet.RemoveUnits(unitsToSend);
             Debug.Log("REMOVED from TARGET: " + unitsToSend);
 
-            AudioManager.instance.Play(SoundType.BATTLE_LOST);
+            AudioManager.Instance.Play(SoundType.BATTLE_LOST);
         } else if (targetPlanet.Units < unitsToSend) {
             int toBeAdded = unitsToSend - targetPlanet.Units;
             targetPlanet.Units = 0;
@@ -151,7 +151,7 @@ public class PlayerClicks : MonoBehaviour
             Debug.Log("ADDED to TARGET: " + toBeAdded);
             targetPlanet.ChangeOwnership(Owner.Player);
 
-            AudioManager.instance.Play(SoundType.PLANET_TAKENOVER);
+            AudioManager.Instance.Play(SoundType.PLANET_TAKENOVER);
         } else {
             targetPlanet.Units = 0;
             targetPlanet.ChangeOwnership(Owner.None);
@@ -169,6 +169,6 @@ public class PlayerClicks : MonoBehaviour
     private void VisualiseArmyMovement(Planet sourcePlanet, Planet targetPlanet) {
         sourcePlanet.SendFleet(targetPlanet);
 
-        AudioManager.instance.Play(SoundType.SENDING_ARMY_PLAYER);
+        AudioManager.Instance.Play(SoundType.SENDING_ARMY_PLAYER);
     }
 }

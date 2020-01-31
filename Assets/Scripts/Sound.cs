@@ -2,22 +2,31 @@
 using UnityEngine.Audio;
 
 [System.Serializable]
-public class Sound 
+public class Sound
 {
-    public AudioClip clip;
+    [SerializeField]
+    private AudioClip clip;
 
-    public SoundType type;
+    [SerializeField]
+    private SoundType type;
 
-    [Range(0.0f, 1.0f)]
-    public float volume = 1.0f;
+    [SerializeField, Range(0.0f, 1.0f)]
+    private float volume = 1.0f;
 
-    [Range(0.1f, 3.0f)]
-    public float pitch = 1.0f;
+    [SerializeField, Range(0.1f, 3.0f)]
+    private float pitch = 1.0f;
 
-    public bool loop = false;
+    [SerializeField]
+    private bool loop = false;
 
-    [HideInInspector]
-    public AudioSource source;
+    private AudioSource source;
+
+    public AudioClip Clip { get => clip; set => clip = value; }
+    public SoundType Type { get => type; set => type = value; }
+    public float Volume { get => volume; set => volume = value; }
+    public float Pitch { get => pitch; set => pitch = value; }
+    public bool Loop { get => loop; set => loop = value; }
+    public AudioSource Source { get => source; set => source = value; }
 }
 
 [System.Serializable]
