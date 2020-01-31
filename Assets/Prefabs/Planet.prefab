@@ -303,8 +303,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ab74686c07785245b8c35c02168a44c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  units: 100
-  owner: 0
+  units: 0
+  owner: 2
   playerMaterial: {fileID: 2100000, guid: fb93779e21aa25e45900911a644a6c03, type: 2}
   enemyMaterial: {fileID: 2100000, guid: a4bd5e3f452c51e43bd0909b8ed28177, type: 2}
   stats: {fileID: 11400000, guid: c0486d495e7704bbdb84dc8e57953591, type: 2}
@@ -358,7 +358,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1d3d17a4e366867418994b4905ad2675, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a71e9f4c023e5af4f8b24defb775d080, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -392,6 +392,76 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1061367485579934962}
     m_Modifications:
+    - target: {fileID: 5950617830461839091, guid: 2b654dc621a0248318712fb71241d9d2,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5950617830461839091, guid: 2b654dc621a0248318712fb71241d9d2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+    - target: {fileID: 5950617830461839091, guid: 2b654dc621a0248318712fb71241d9d2,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].time
+      value: 0.9864865
+      objectReference: {fileID: 0}
+    - target: {fileID: 5950617830461839091, guid: 2b654dc621a0248318712fb71241d9d2,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].value
+      value: 0.0546875
+      objectReference: {fileID: 0}
+    - target: {fileID: 5950617830461839091, guid: 2b654dc621a0248318712fb71241d9d2,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].inSlope
+      value: 0.9736642
+      objectReference: {fileID: 0}
+    - target: {fileID: 5950617830461839091, guid: 2b654dc621a0248318712fb71241d9d2,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5950617830461839091, guid: 2b654dc621a0248318712fb71241d9d2,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].tangentMode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5950617830461839091, guid: 2b654dc621a0248318712fb71241d9d2,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].inWeight
+      value: 0.15916933
+      objectReference: {fileID: 0}
+    - target: {fileID: 5950617830461839091, guid: 2b654dc621a0248318712fb71241d9d2,
+        type: 3}
+      propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5950617830461839091, guid: 2b654dc621a0248318712fb71241d9d2,
+        type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5950617830461839091, guid: 2b654dc621a0248318712fb71241d9d2,
+        type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.g
+      value: 0.7172308
+      objectReference: {fileID: 0}
+    - target: {fileID: 5950617830461839091, guid: 2b654dc621a0248318712fb71241d9d2,
+        type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5950617830461839091, guid: 2b654dc621a0248318712fb71241d9d2,
+        type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.b
+      value: 0.87593794
+      objectReference: {fileID: 0}
+    - target: {fileID: 5950617830461839091, guid: 2b654dc621a0248318712fb71241d9d2,
+        type: 3}
+      propertyPath: m_Parameters.textureMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7279873663845063644, guid: 2b654dc621a0248318712fb71241d9d2,
         type: 3}
       propertyPath: m_LocalPosition.x
