@@ -51,8 +51,8 @@ public class Planet : MonoBehaviour
 
     public void ChangeOwnership(Owner newOwner) {
         owner = newOwner;
-
-        gameObject.GetComponent<MeshRenderer>().material = Owner.Equals(Owner.Player) ? playerMaterial : enemyMaterial;
+// here we need to somehow mark player and non-player planet
+        //gameObject.GetComponent<MeshRenderer>().material = Owner.Equals(Owner.Player) ? playerMaterial : enemyMaterial;
     }
 
     public void SendFleet(Planet targetPlanet) {

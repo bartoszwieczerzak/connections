@@ -22,11 +22,11 @@ public class PlayerClicks : MonoBehaviour
         particles = new ParticleSystem.Particle[particleSystemPrefab.main.maxParticles];
     }
     void Update() {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Vector2 ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-        RaycastHit hit;
+        RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero);
 
-        if (Physics.Raycast(ray, out hit)) {
+        if (hit.collider != null) {
             if(hit.transform.CompareTag(Tag.PLANET)) {
                 highlightedPlanet = hit.transform.GetComponent<Planet>();
                 hoverPlanetHighlight.transform.position = highlightedPlanet.transform.position;
