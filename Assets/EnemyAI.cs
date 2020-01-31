@@ -5,7 +5,7 @@ using System.Linq;
 
 public class EnemyAI : MonoBehaviour
 {
-    private Planet[] planets;
+    private List<Planet> planets;
 
     private List<Planet> aiPlanets = new List<Planet>();
     private List<Planet> playerPlanets = new List<Planet>();
@@ -14,14 +14,14 @@ public class EnemyAI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        planets = GameObject.FindObjectsOfType<Planet>().ToList<Planet>();
+
         StartCoroutine(EnemyTurn());
     }
 
     IEnumerator EnemyTurn()
     {
         Debug.Log("Enemy takes turn");
-
-        Planet[] planets = GameObject.FindObjectsOfType<Planet>();
 
         aiPlanets.Clear();
         playerPlanets.Clear();
@@ -57,13 +57,8 @@ public class EnemyAI : MonoBehaviour
 
         Debug.Log("Current state [AI: " + aiPlanets.Count.ToString() + " | Player: " + playerPlanets.Count.ToString() + " | Free: " + freePlanets.Count.ToString() + "]");
 
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(Random.Range(1.0f, 4.0f));
         StartCoroutine(EnemyTurn());
-    }
-
-    private static float CompareListByName(Planet i1, Planet i2)
-    {
-        return Vector3.Dot(i1.transform.position, i2.transform.position);
     }
 
     Planet FindClosestPlanet(Planet source, List<Planet> planets)
