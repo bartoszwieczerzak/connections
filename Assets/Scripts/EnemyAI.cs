@@ -8,14 +8,14 @@ public class EnemyAI : MonoBehaviour
     [SerializeField]
     private float initialDelay = 4.0f;
 
-    [SerializeField, Range(1.0f, 10.0f)]
+    [SerializeField, Range(3.0f, 10.0f)]
     private float maxTurnDelay = 4.0f;
 
     private List<Planet> planets;
 
     private List<Planet> aiPlanets = new List<Planet>();
     private List<Planet> playerPlanets = new List<Planet>();
-    private List<Planet> freePlanets = new List<Planet>();
+    private List<Planet> uninhabitedPlanets = new List<Planet>();
 
     void Start()
     {
@@ -37,7 +37,7 @@ public class EnemyAI : MonoBehaviour
 
         aiPlanets.Clear();
         playerPlanets.Clear();
-        freePlanets.Clear();
+        uninhabitedPlanets.Clear();
 
         foreach (Planet planet in planets)
         {
@@ -50,7 +50,7 @@ public class EnemyAI : MonoBehaviour
                     playerPlanets.Add(planet);
                     break;
                 case Owner.None:
-                    freePlanets.Add(planet);
+                    uninhabitedPlanets.Add(planet);
                     break;
                 default:
                     Debug.LogWarning("Found planet " + planet.name + " with unknown Owner: " + planet.Owner.ToString());
@@ -58,19 +58,34 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
-        foreach(Planet aiPlanet in aiPlanets)
+        Planet aiPlanet = SelectRandomPlanet(aiPlanets);
+        Planet closestUninhabitedPlanet = FindClosestPlanet(aiPlanet, uninhabitedPlanets);
+        if (closestUninhabitedPlanet)
         {
-            Planet closest = FindClosestPlanet(aiPlanet, freePlanets);
-            if (closest)
+            Debug.Log("Sending army from " + aiPlanet.name + " to " + closestUninhabitedPlanet.name);
+
+            Game.instance.SendArmy(Owner.Ai, aiPlanet, closestUninhabitedPlanet);
+        } else
+        {
+            Planet closestPlayerPlanet = FindClosestPlanet(aiPlanet, playerPlanets);
+            if (closestPlayerPlanet)
             {
-                Debug.Log("Sending army from " + aiPlanet.name + " to " + closest.name);
+                Debug.Log("Sending army from " + aiPlanet.name + " to " + closestPlayerPlanet.name);
+
+                Game.instance.SendArmy(Owner.Ai, aiPlanet, closestPlayerPlanet);
             }
         }
 
-        Debug.Log("Current state [AI: " + aiPlanets.Count.ToString() + " | Player: " + playerPlanets.Count.ToString() + " | Free: " + freePlanets.Count.ToString() + "]");
+        Debug.Log("Current state [AI: " + aiPlanets.Count.ToString() + " | Player: " + playerPlanets.Count.ToString() + " | Free: " + uninhabitedPlanets.Count.ToString() + "]");
 
-        yield return new WaitForSeconds(Random.Range(1.0f, maxTurnDelay));
+        yield return new WaitForSeconds(Random.Range(3.0f, maxTurnDelay));
         StartCoroutine(EnemyTurn());
+    }
+
+    Planet SelectRandomPlanet(List<Planet> planets)
+    {
+        int idx = Random.Range(0, planets.Count);
+        return planets[idx];
     }
 
     Planet FindClosestPlanet(Planet source, List<Planet> planets)

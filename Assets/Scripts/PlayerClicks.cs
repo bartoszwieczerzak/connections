@@ -65,15 +65,7 @@ public class PlayerClicks : MonoBehaviour
         }
 
         if (sourcePlanet && targetPlanet) {
-            if (sourcePlanet.Units > 1) {
-                if (targetPlanet.Owner == Owner.Ai) {
-                    AttackEnemy(sourcePlanet, targetPlanet);
-                } else {
-                    SendTroops(sourcePlanet, targetPlanet);
-                }
-
-                VisualiseArmyMovement(sourcePlanet, targetPlanet);
-            }
+            Game.instance.SendArmy(Owner.Player, sourcePlanet, targetPlanet);
 
             LineRenderer moveMarker = sourcePlanet.GetComponentInChildren<LineRenderer>();
             moveMarker.SetPosition(1, Vector3.zero);
@@ -129,46 +121,5 @@ public class PlayerClicks : MonoBehaviour
         }
 
         particleSystemPrefab.SetParticles(particles, length);
-    }
-
-    private void AttackEnemy(Planet sourcePlanet, Planet targetPlanet)
-    {
-        int unitsToSend = Mathf.FloorToInt(sourcePlanet.Units / 2);
-        Debug.Log("HAS: " + sourcePlanet.Units + " AND WILL REMOVE: " + unitsToSend);
-        sourcePlanet.RemoveUnits(unitsToSend);
-
-        Debug.Log("LEFT: " + sourcePlanet.Units);
-
-        if (targetPlanet.Units > unitsToSend) {
-            targetPlanet.RemoveUnits(unitsToSend);
-            Debug.Log("REMOVED from TARGET: " + unitsToSend);
-
-            AudioManager.Instance.Play(SoundType.BATTLE_LOST);
-        } else if (targetPlanet.Units < unitsToSend) {
-            int toBeAdded = unitsToSend - targetPlanet.Units;
-            targetPlanet.Units = 0;
-            targetPlanet.AddUnits(toBeAdded);
-            Debug.Log("ADDED to TARGET: " + toBeAdded);
-            targetPlanet.ChangeOwnership(Owner.Player);
-
-            AudioManager.Instance.Play(SoundType.PLANET_TAKENOVER);
-        } else {
-            targetPlanet.Units = 0;
-            targetPlanet.ChangeOwnership(Owner.None);
-        }
-    }
-
-    private void SendTroops(Planet sourcePlanet, Planet targetPlanet)
-    {
-        int unitsToSend = Mathf.FloorToInt(sourcePlanet.Units / 2);
-        sourcePlanet.RemoveUnits(unitsToSend);
-        targetPlanet.AddUnits(unitsToSend);
-        targetPlanet.ChangeOwnership(Owner.Player);
-    }
-
-    private void VisualiseArmyMovement(Planet sourcePlanet, Planet targetPlanet) {
-        sourcePlanet.SendFleet(targetPlanet);
-
-        AudioManager.Instance.Play(SoundType.SENDING_ARMY_PLAYER);
     }
 }
