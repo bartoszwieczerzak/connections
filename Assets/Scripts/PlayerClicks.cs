@@ -67,12 +67,12 @@ public class PlayerClicks : MonoBehaviour
         if (sourcePlanet && targetPlanet) {
             if (sourcePlanet.Units > 1) {
                 if (targetPlanet.Owner == Owner.Ai) {
-                    AttackEnemy();
+                    AttackEnemy(sourcePlanet, targetPlanet);
                 } else {
-                    SendTroops();
+                    SendTroops(sourcePlanet, targetPlanet);
                 }
 
-                VisualiseArmyMovement();
+                VisualiseArmyMovement(sourcePlanet, targetPlanet);
             }
 
             LineRenderer moveMarker = sourcePlanet.GetComponentInChildren<LineRenderer>();
@@ -131,9 +131,8 @@ public class PlayerClicks : MonoBehaviour
         particleSystemPrefab.SetParticles(particles, length);
     }
 
-    private void AttackEnemy() {
-        // SendShip(sourcePlanet, targetPlanet);
-
+    private void AttackEnemy(Planet sourcePlanet, Planet targetPlanet)
+    {
         int unitsToSend = Mathf.FloorToInt(sourcePlanet.Units / 2);
         Debug.Log("HAS: " + sourcePlanet.Units + " AND WILL REMOVE: " + unitsToSend);
         sourcePlanet.RemoveUnits(unitsToSend);
@@ -159,14 +158,15 @@ public class PlayerClicks : MonoBehaviour
         }
     }
 
-    private void SendTroops() {
+    private void SendTroops(Planet sourcePlanet, Planet targetPlanet)
+    {
         int unitsToSend = Mathf.FloorToInt(sourcePlanet.Units / 2);
         sourcePlanet.RemoveUnits(unitsToSend);
         targetPlanet.AddUnits(unitsToSend);
         targetPlanet.ChangeOwnership(Owner.Player);
     }
 
-    private void VisualiseArmyMovement() {
+    private void VisualiseArmyMovement(Planet sourcePlanet, Planet targetPlanet) {
         sourcePlanet.SendFleet(targetPlanet);
 
         AudioManager.instance.Play(SoundType.SENDING_ARMY_PLAYER);
