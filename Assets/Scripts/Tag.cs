@@ -1,4 +1,4 @@
 ﻿public class Tag
 {
-    public static readonly string PLANET = "PLANET";
+    public static readonly string Planet = "PLANET";
 }

@@ -3,19 +3,19 @@ using UnityEngine;
 
 public class UpdateUnitsGui : MonoBehaviour
 {
-    private Planet planet;
-    private TMP_Text label;
+    private Planet _planet;
+    private TMP_Text _label;
 
     void Start()
     {
-        planet = gameObject.GetComponent<Planet>();
-        label = gameObject.GetComponentInChildren<TMP_Text>();
+        _planet = gameObject.GetComponent<Planet>();
+        _label = gameObject.GetComponentInChildren<TMP_Text>();
 
-        label.text = planet.Units.ToString();
+        _label.text = _planet.Units.ToString();
     }
 
     void Update()
     {
-        label.text = planet.Units.ToString();
+        _label.text = _planet.Units.ToString();
     }
 }
