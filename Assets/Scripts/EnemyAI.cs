@@ -6,10 +6,13 @@ using System.Linq;
 public class EnemyAI : MonoBehaviour
 {
     [SerializeField]
-    private float initialDelay = 4.0f;
+    private float initialDelay = 3.0f;
 
     [SerializeField, Range(3.0f, 10.0f)]
-    private float maxTurnDelay = 4.0f;
+    private float minTurnDelay = 5.0f;
+
+    [SerializeField, Range(3.0f, 25.0f)]
+    private float maxTurnDelay = 8.0f;
 
     private List<Planet> planets;
 
@@ -81,7 +84,7 @@ public class EnemyAI : MonoBehaviour
 
             Debug.Log("Current state [AI: " + aiPlanets.Count.ToString() + " | Player: " + playerPlanets.Count.ToString() + " | Free: " + uninhabitedPlanets.Count.ToString() + "]");
 
-            yield return new WaitForSeconds(Random.Range(3.0f, maxTurnDelay));
+            yield return new WaitForSeconds(Random.Range(minTurnDelay, maxTurnDelay));
             StartCoroutine(EnemyTurn());
         } else
         {
