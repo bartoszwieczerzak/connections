@@ -22,11 +22,11 @@ public class AudioManager : MonoBehaviour
 
     #endregion
 
-    [SerializeField] private Sound[] sounds;
+    [SerializeField] private Sound[] _sounds;
 
     private void Start()
     {
-        foreach (Sound s in sounds)
+        foreach (Sound s in _sounds)
         {
             s.Source = gameObject.AddComponent<AudioSource>();
             s.Source.clip = s.Clip;
@@ -41,7 +41,7 @@ public class AudioManager : MonoBehaviour
 
     public void Play(SoundType type)
     {
-        Sound s = Array.Find<Sound>(sounds, sound => sound.Type == type);
+        Sound s = Array.Find<Sound>(_sounds, sound => sound.Type == type);
         if (s == null)
         {
             Debug.LogWarning("Sound " + type.ToString() + " not found!");

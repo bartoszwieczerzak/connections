@@ -1,53 +1,54 @@
 ﻿using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Planet : MonoBehaviour
 {
-    [SerializeField] private int units = 0;
-    [SerializeField] private Owner owner = Owner.None;
-    [SerializeField] private PlanetStats planetStats;
+    [SerializeField] private int _units = 0;
+    [SerializeField] private Owner _owner = Owner.None;
+    [SerializeField] private PlanetStats _planetStats;
 
     public int Units
     {
-        get => units;
-        set => units = value;
+        get => _units;
+        set => _units = value;
     }
 
-    public Owner Owner => owner;
+    public Owner Owner => _owner;
 
     void Start()
     {
-        transform.localScale = new Vector2(planetStats.size, planetStats.size);
+        transform.localScale = new Vector2(_planetStats.size, _planetStats.size);
 
         StartCoroutine(AddTroopsCoroutine());
     }
 
     private IEnumerator AddTroopsCoroutine()
     {
-        yield return new WaitForSeconds(planetStats.populationCycleTime);
+        yield return new WaitForSeconds(_planetStats.populationCycleTime);
 
         if (Owner == Owner.None) yield break;
-        units += planetStats.populationGrowth;
+        _units += _planetStats.populationGrowth;
         StartCoroutine(AddTroopsCoroutine());
     }
 
     public void AddUnits(int amount)
     {
-        units += amount;
+        _units += amount;
     }
 
     public void RemoveUnits(int amount)
     {
-        units -= amount;
-        units = Mathf.Clamp(units, 0, int.MaxValue);
+        _units -= amount;
+        _units = Mathf.Clamp(_units, 0, int.MaxValue);
     }
 
     public void ChangeOwnership(Owner newOwner)
     {
-        owner = newOwner;
+        _owner = newOwner;
         gameObject.GetComponentInChildren<TextMeshProUGUI>().color =
-            owner.Equals(Owner.Player) ? Game.instance.PlayerColor : Game.instance.EnemyColor;
+            _owner.Equals(Owner.Player) ? Game.Instance.PlayerColor : Game.Instance.EnemyColor;
     }
 
     public void SendFleet(Planet targetPlanet)

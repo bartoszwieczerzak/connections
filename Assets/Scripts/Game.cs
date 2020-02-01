@@ -6,32 +6,32 @@ public class Game : MonoBehaviour
 {
     #region Singleton
 
-    public static Game instance;
+    public static Game Instance;
 
     private void Awake()
     {
-        if (instance)
+        if (Instance)
         {
             Debug.LogWarning("Trying to create another instance of Game object!");
             return;
         }
 
-        instance = this;
+        Instance = this;
 
         DontDestroyOnLoad(this);
     }
 
     #endregion
 
-    [SerializeField] private Color playerColor;
-    [SerializeField] private Color enemyColor;
-    [SerializeField] private GameObject winPanel;
-    [SerializeField] private GameObject losePanel;
+    [SerializeField] private Color _playerColor;
+    [SerializeField] private Color _enemyColor;
+    [SerializeField] private GameObject _winPanel;
+    [SerializeField] private GameObject _losePanel;
     
     private readonly List<Planet> _planets = new List<Planet>();
     
-    public Color PlayerColor => playerColor;
-    public Color EnemyColor => enemyColor;
+    public Color PlayerColor => _playerColor;
+    public Color EnemyColor => _enemyColor;
     void Start()
     {
         GameObject[] planetGameObjects = GameObject.FindGameObjectsWithTag(Tag.Planet);
@@ -71,7 +71,7 @@ public class Game : MonoBehaviour
     private void GameOver()
     {
         Debug.Log("Game Over man!");
-        losePanel.SetActive(true);
+        _losePanel.SetActive(true);
 
         //AudioManager.instance.Play(SoundType.GAME_LOST);
     }
@@ -79,7 +79,7 @@ public class Game : MonoBehaviour
     private void GameWin()
     {
         Debug.Log("You win!");
-        winPanel.SetActive(true);
+        _winPanel.SetActive(true);
 
         //AudioManager.instance.Play(SoundType.GAME_WON);
     }

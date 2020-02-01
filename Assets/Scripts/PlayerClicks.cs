@@ -9,14 +9,14 @@ public class PlayerClicks : MonoBehaviour
     private ParticleSystem.Particle[] _particles;
     private int _unitsGathered = 0;
     
-    [SerializeField] private GameObject hoverPlanetHighlight;
-    [SerializeField] private GameObject selectedPlanetHighlight;
-    [SerializeField] private ParticleSystem particleSystemPrefab;
-    [SerializeField] private float unitsGatherSpeed = 2.0f;
+    [SerializeField] private GameObject _hoverPlanetHighlight;
+    [SerializeField] private GameObject _selectedPlanetHighlight;
+    [SerializeField] private ParticleSystem _particleSystemPrefab;
+    [SerializeField] private float _unitsGatherSpeed = 2.0f;
 
     private void Start()
     {
-        _particles = new ParticleSystem.Particle[particleSystemPrefab.main.maxParticles];
+        _particles = new ParticleSystem.Particle[_particleSystemPrefab.main.maxParticles];
     }
 
     void Update()
@@ -30,28 +30,28 @@ public class PlayerClicks : MonoBehaviour
             if (hit.transform.CompareTag(Tag.Planet))
             {
                 _highlightedPlanet = hit.transform.GetComponent<Planet>();
-                hoverPlanetHighlight.transform.position = _highlightedPlanet.transform.position;
-                hoverPlanetHighlight.SetActive(true);
+                _hoverPlanetHighlight.transform.position = _highlightedPlanet.transform.position;
+                _hoverPlanetHighlight.SetActive(true);
             }
         }
         else
         {
             _highlightedPlanet = null;
-            hoverPlanetHighlight.SetActive(false);
+            _hoverPlanetHighlight.SetActive(false);
         }
 
         if (Input.GetMouseButtonDown(0) && CanSelectAsSourcePlanet())
         {
             _sourcePlanet = _highlightedPlanet;
-            selectedPlanetHighlight.transform.position = _sourcePlanet.transform.position;
-            selectedPlanetHighlight.SetActive(true);
+            _selectedPlanetHighlight.transform.position = _sourcePlanet.transform.position;
+            _selectedPlanetHighlight.SetActive(true);
 
             AudioManager.Instance.Play(SoundType.PlanetSelected);
         }
 
         if (Input.GetMouseButton(0) && _sourcePlanet != null)
         {
-            _unitsGathered += Mathf.FloorToInt(unitsGatherSpeed * Time.deltaTime);
+            _unitsGathered += Mathf.FloorToInt(_unitsGatherSpeed * Time.deltaTime);
 
             if (_unitsGathered >= _sourcePlanet.Units)
             {
@@ -79,7 +79,7 @@ public class PlayerClicks : MonoBehaviour
                 LineRenderer moveMarker = _sourcePlanet.GetComponentInChildren<LineRenderer>();
                 moveMarker.SetPosition(1, Vector3.zero);
 
-                selectedPlanetHighlight.SetActive(false);
+                _selectedPlanetHighlight.SetActive(false);
 
                 _sourcePlanet = null;
             }
@@ -87,12 +87,12 @@ public class PlayerClicks : MonoBehaviour
 
         if (_sourcePlanet && _targetPlanet)
         {
-            Game.instance.SendArmy(Owner.Player, _sourcePlanet, _targetPlanet);
+            Game.Instance.SendArmy(Owner.Player, _sourcePlanet, _targetPlanet);
 
             LineRenderer moveMarker = _sourcePlanet.GetComponentInChildren<LineRenderer>();
             moveMarker.SetPosition(1, Vector3.zero);
 
-            selectedPlanetHighlight.SetActive(false);
+            _selectedPlanetHighlight.SetActive(false);
 
             _sourcePlanet = null;
             _lastTargetPlanet = _targetPlanet;
@@ -115,16 +115,16 @@ public class PlayerClicks : MonoBehaviour
     {
         if (_sourcePlanet == null || _lastTargetPlanet == null)
         {
-            particleSystemPrefab.gameObject.SetActive(false);
+            _particleSystemPrefab.gameObject.SetActive(false);
             return;
         }
 
         Debug.Log("SOURCE: " + _sourcePlanet.name + " TARGET: " + _lastTargetPlanet.name);
-        particleSystemPrefab.gameObject.SetActive(true);
+        _particleSystemPrefab.gameObject.SetActive(true);
 
-        particleSystemPrefab.transform.position = _sourcePlanet.transform.position;
+        _particleSystemPrefab.transform.position = _sourcePlanet.transform.position;
 
-        int length = particleSystemPrefab.GetParticles(_particles);
+        int length = _particleSystemPrefab.GetParticles(_particles);
         int i = 0;
 
         transform.LookAt(_lastTargetPlanet.transform);
@@ -135,7 +135,7 @@ public class PlayerClicks : MonoBehaviour
             Vector3 direction = _lastTargetPlanet.transform.position - _particles[i].position;
             direction.Normalize();
 
-            float variableSpeed = (particleSystemPrefab.startSpeed / (_particles[i].remainingLifetime + 0.1f)) +
+            float variableSpeed = (_particleSystemPrefab.startSpeed / (_particles[i].remainingLifetime + 0.1f)) +
                                   _particles[i].startLifetime;
             _particles[i].position += direction * (variableSpeed * Time.deltaTime);
 
@@ -147,6 +147,6 @@ public class PlayerClicks : MonoBehaviour
             i++;
         }
 
-        particleSystemPrefab.SetParticles(_particles, length);
+        _particleSystemPrefab.SetParticles(_particles, length);
     }
 }

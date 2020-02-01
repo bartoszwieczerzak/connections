@@ -5,27 +5,25 @@ using UnityEngine;
 
 public class EnemyAi : MonoBehaviour
 {
-    [SerializeField] private float initialDelay = 3.0f;
-
-    [SerializeField, Range(3.0f, 10.0f)] private float minTurnDelay = 5.0f;
-
-    [SerializeField, Range(3.0f, 25.0f)] private float maxTurnDelay = 8.0f;
+    [SerializeField] private float _initialDelay = 3.0f;
+    [SerializeField, Range(3.0f, 10.0f)] private float _minTurnDelay = 5.0f;
+    [SerializeField, Range(3.0f, 25.0f)] private float _maxTurnDelay = 8.0f;
 
     private List<Planet> _planets;
-    private List<Planet> _aiPlanets = new List<Planet>();
-    private List<Planet> _playerPlanets = new List<Planet>();
-    private List<Planet> _uninhabitedPlanets = new List<Planet>();
+    private readonly List<Planet> _aiPlanets = new List<Planet>();
+    private readonly List<Planet> _playerPlanets = new List<Planet>();
+    private readonly List<Planet> _uninhabitedPlanets = new List<Planet>();
 
     void Start()
     {
-        _planets = FindObjectsOfType<Planet>().ToList<Planet>();
+        _planets = FindObjectsOfType<Planet>().ToList();
 
         StartCoroutine(DelayedStart());
     }
 
     IEnumerator DelayedStart()
     {
-        yield return new WaitForSeconds(initialDelay);
+        yield return new WaitForSeconds(_initialDelay);
 
         StartCoroutine(EnemyTurn());
     }
@@ -65,7 +63,7 @@ public class EnemyAi : MonoBehaviour
             {
                 Debug.Log("Sending army from " + aiPlanet.name + " to " + closestUninhabitedPlanet.name);
 
-                Game.instance.SendArmy(Owner.Ai, aiPlanet, closestUninhabitedPlanet);
+                Game.Instance.SendArmy(Owner.Ai, aiPlanet, closestUninhabitedPlanet);
             }
             else
             {
@@ -74,14 +72,14 @@ public class EnemyAi : MonoBehaviour
                 {
                     Debug.Log("Sending army from " + aiPlanet.name + " to " + closestPlayerPlanet.name);
 
-                    Game.instance.SendArmy(Owner.Ai, aiPlanet, closestPlayerPlanet);
+                    Game.Instance.SendArmy(Owner.Ai, aiPlanet, closestPlayerPlanet);
                 }
             }
 
             Debug.Log("Current state [AI: " + _aiPlanets.Count.ToString() + " | Player: " +
                       _playerPlanets.Count.ToString() + " | Free: " + _uninhabitedPlanets.Count.ToString() + "]");
 
-            yield return new WaitForSeconds(Random.Range(minTurnDelay, maxTurnDelay));
+            yield return new WaitForSeconds(Random.Range(_minTurnDelay, _maxTurnDelay));
             StartCoroutine(EnemyTurn());
         }
         else

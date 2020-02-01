@@ -4,42 +4,42 @@ using UnityEngine;
 [Serializable]
 public class Sound
 {
-    [SerializeField] private AudioClip clip;
-    [SerializeField] private SoundType type;
-    [SerializeField, Range(0.0f, 1.0f)] private float volume = 1.0f;
-    [SerializeField, Range(0.1f, 3.0f)] private float pitch = 1.0f;
-    [SerializeField] private bool loop = false;
+    [SerializeField] private AudioClip _clip;
+    [SerializeField] private SoundType _type;
+    [SerializeField, Range(0.0f, 1.0f)] private float _volume = 1.0f;
+    [SerializeField, Range(0.1f, 3.0f)] private float _pitch = 1.0f;
+    [SerializeField] private bool _loop = false;
 
     private AudioSource _source;
 
     public AudioClip Clip
     {
-        get => clip;
-        set => clip = value;
+        get => _clip;
+        set => _clip = value;
     }
 
     public SoundType Type
     {
-        get => type;
-        set => type = value;
+        get => _type;
+        set => _type = value;
     }
 
     public float Volume
     {
-        get => volume;
-        set => volume = value;
+        get => _volume;
+        set => _volume = value;
     }
 
     public float Pitch
     {
-        get => pitch;
-        set => pitch = value;
+        get => _pitch;
+        set => _pitch = value;
     }
 
     public bool Loop
     {
-        get => loop;
-        set => loop = value;
+        get => _loop;
+        set => _loop = value;
     }
 
     public AudioSource Source
