@@ -1,3 +1,6 @@
-﻿public enum Owner {
-    Player, Ai, None
+﻿public enum Owner
+{
+    Player,
+    Ai,
+    None
 }

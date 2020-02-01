@@ -1,18 +1,21 @@
-﻿using UnityEngine;
-using TMPro;
+﻿using TMPro;
+using UnityEngine;
 
-public class UpdateUnitsGui : MonoBehaviour {
+public class UpdateUnitsGui : MonoBehaviour
+{
     private Planet planet;
     private TMP_Text label;
 
-    void Start() {
+    void Start()
+    {
         planet = gameObject.GetComponent<Planet>();
         label = gameObject.GetComponentInChildren<TMP_Text>();
 
         label.text = planet.Units.ToString();
     }
 
-    void Update() {
+    void Update()
+    {
         label.text = planet.Units.ToString();
     }
 }

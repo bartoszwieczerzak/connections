@@ -1,18 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 
 public class EnemyAI : MonoBehaviour
 {
-    [SerializeField]
-    private float initialDelay = 3.0f;
+    [SerializeField] private float initialDelay = 3.0f;
 
-    [SerializeField, Range(3.0f, 10.0f)]
-    private float minTurnDelay = 5.0f;
+    [SerializeField, Range(3.0f, 10.0f)] private float minTurnDelay = 5.0f;
 
-    [SerializeField, Range(3.0f, 25.0f)]
-    private float maxTurnDelay = 8.0f;
+    [SerializeField, Range(3.0f, 25.0f)] private float maxTurnDelay = 8.0f;
 
     private List<Planet> planets;
 
@@ -22,7 +19,7 @@ public class EnemyAI : MonoBehaviour
 
     void Start()
     {
-        planets = GameObject.FindObjectsOfType<Planet>().ToList<Planet>();
+        planets = FindObjectsOfType<Planet>().ToList<Planet>();
 
         StartCoroutine(DelayedStart());
     }
@@ -82,11 +79,13 @@ public class EnemyAI : MonoBehaviour
                 }
             }
 
-            Debug.Log("Current state [AI: " + aiPlanets.Count.ToString() + " | Player: " + playerPlanets.Count.ToString() + " | Free: " + uninhabitedPlanets.Count.ToString() + "]");
+            Debug.Log("Current state [AI: " + aiPlanets.Count.ToString() + " | Player: " +
+                      playerPlanets.Count.ToString() + " | Free: " + uninhabitedPlanets.Count.ToString() + "]");
 
             yield return new WaitForSeconds(Random.Range(minTurnDelay, maxTurnDelay));
             StartCoroutine(EnemyTurn());
-        } else
+        }
+        else
         {
             Debug.Log("AI lost it's last planet! Ending AI fighting coroutine!");
         }
@@ -94,7 +93,8 @@ public class EnemyAI : MonoBehaviour
 
     Planet SelectRandomPlanet(List<Planet> planets)
     {
-        if (planets.Count > 0) {
+        if (planets.Count > 0)
+        {
             int idx = Random.Range(0, planets.Count);
             return planets[idx];
         }
