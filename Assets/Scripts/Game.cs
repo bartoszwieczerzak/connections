@@ -103,7 +103,8 @@ public class Game : MonoBehaviour
                 AttackEnemy(who, source, target);
             }
 
-            VisualiseArmyMovement(source, target);
+            source.SendFleet(target);
+            AudioManager.Instance.Play(SoundType.SendingArmyPlayer);
         }
     }
 
@@ -145,12 +146,5 @@ public class Game : MonoBehaviour
         sourcePlanet.RemoveUnits(unitsToSend);
         targetPlanet.AddUnits(unitsToSend);
         targetPlanet.ChangeOwnership(who);
-    }
-
-    private void VisualiseArmyMovement(Planet sourcePlanet, Planet targetPlanet)
-    {
-        sourcePlanet.SendFleet(targetPlanet);
-
-        AudioManager.Instance.Play(SoundType.SendingArmyPlayer);
     }
 }
