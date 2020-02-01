@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class EnemyAI : MonoBehaviour
+public class EnemyAi : MonoBehaviour
 {
     [SerializeField] private float initialDelay = 3.0f;
 
@@ -11,15 +11,14 @@ public class EnemyAI : MonoBehaviour
 
     [SerializeField, Range(3.0f, 25.0f)] private float maxTurnDelay = 8.0f;
 
-    private List<Planet> planets;
-
-    private List<Planet> aiPlanets = new List<Planet>();
-    private List<Planet> playerPlanets = new List<Planet>();
-    private List<Planet> uninhabitedPlanets = new List<Planet>();
+    private List<Planet> _planets;
+    private List<Planet> _aiPlanets = new List<Planet>();
+    private List<Planet> _playerPlanets = new List<Planet>();
+    private List<Planet> _uninhabitedPlanets = new List<Planet>();
 
     void Start()
     {
-        planets = FindObjectsOfType<Planet>().ToList<Planet>();
+        _planets = FindObjectsOfType<Planet>().ToList<Planet>();
 
         StartCoroutine(DelayedStart());
     }
@@ -35,22 +34,22 @@ public class EnemyAI : MonoBehaviour
     {
         Debug.Log("Enemy takes turn");
 
-        aiPlanets.Clear();
-        playerPlanets.Clear();
-        uninhabitedPlanets.Clear();
+        _aiPlanets.Clear();
+        _playerPlanets.Clear();
+        _uninhabitedPlanets.Clear();
 
-        foreach (Planet planet in planets)
+        foreach (Planet planet in _planets)
         {
             switch (planet.Owner)
             {
                 case Owner.Ai:
-                    aiPlanets.Add(planet);
+                    _aiPlanets.Add(planet);
                     break;
                 case Owner.Player:
-                    playerPlanets.Add(planet);
+                    _playerPlanets.Add(planet);
                     break;
                 case Owner.None:
-                    uninhabitedPlanets.Add(planet);
+                    _uninhabitedPlanets.Add(planet);
                     break;
                 default:
                     Debug.LogWarning("Found planet " + planet.name + " with unknown Owner: " + planet.Owner.ToString());
@@ -58,10 +57,10 @@ public class EnemyAI : MonoBehaviour
             }
         }
 
-        Planet aiPlanet = SelectRandomPlanet(aiPlanets);
+        Planet aiPlanet = SelectRandomPlanet(_aiPlanets);
         if (aiPlanet)
         {
-            Planet closestUninhabitedPlanet = FindClosestPlanet(aiPlanet, uninhabitedPlanets);
+            Planet closestUninhabitedPlanet = FindClosestPlanet(aiPlanet, _uninhabitedPlanets);
             if (closestUninhabitedPlanet)
             {
                 Debug.Log("Sending army from " + aiPlanet.name + " to " + closestUninhabitedPlanet.name);
@@ -70,7 +69,7 @@ public class EnemyAI : MonoBehaviour
             }
             else
             {
-                Planet closestPlayerPlanet = FindClosestPlanet(aiPlanet, playerPlanets);
+                Planet closestPlayerPlanet = FindClosestPlanet(aiPlanet, _playerPlanets);
                 if (closestPlayerPlanet)
                 {
                     Debug.Log("Sending army from " + aiPlanet.name + " to " + closestPlayerPlanet.name);
@@ -79,8 +78,8 @@ public class EnemyAI : MonoBehaviour
                 }
             }
 
-            Debug.Log("Current state [AI: " + aiPlanets.Count.ToString() + " | Player: " +
-                      playerPlanets.Count.ToString() + " | Free: " + uninhabitedPlanets.Count.ToString() + "]");
+            Debug.Log("Current state [AI: " + _aiPlanets.Count.ToString() + " | Player: " +
+                      _playerPlanets.Count.ToString() + " | Free: " + _uninhabitedPlanets.Count.ToString() + "]");
 
             yield return new WaitForSeconds(Random.Range(minTurnDelay, maxTurnDelay));
             StartCoroutine(EnemyTurn());

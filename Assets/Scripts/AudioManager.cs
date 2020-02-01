@@ -36,7 +36,7 @@ public class AudioManager : MonoBehaviour
             s.Source.loop = s.Loop;
         }
 
-        Play(SoundType.THEME);
+        Play(SoundType.Theme);
     }
 
     public void Play(SoundType type)

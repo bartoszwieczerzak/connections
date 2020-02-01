@@ -5,16 +5,12 @@ using UnityEngine;
 public class Sound
 {
     [SerializeField] private AudioClip clip;
-
     [SerializeField] private SoundType type;
-
     [SerializeField, Range(0.0f, 1.0f)] private float volume = 1.0f;
-
     [SerializeField, Range(0.1f, 3.0f)] private float pitch = 1.0f;
-
     [SerializeField] private bool loop = false;
 
-    private AudioSource source;
+    private AudioSource _source;
 
     public AudioClip Clip
     {
@@ -48,28 +44,28 @@ public class Sound
 
     public AudioSource Source
     {
-        get => source;
-        set => source = value;
+        get => _source;
+        set => _source = value;
     }
 }
 
 [Serializable]
 public enum SoundType
 {
-    THEME,
+    Theme,
 
-    CLICK_CONFIRMED,
-    CLICK_REJECTED,
+    ClickConfirmed,
+    ClickRejected,
 
-    SENDING_ARMY_PLAYER,
-    SENDING_ARMY_ENEMY,
+    SendingArmyPlayer,
+    SendingArmyEnemy,
 
-    BATTLE_LOST,
+    BattleLost,
 
-    PLANET_LOST,
-    PLANET_TAKENOVER,
-    PLANET_SELECTED,
+    PlanetLost,
+    PlanetTakenOver,
+    PlanetSelected,
 
-    GAME_WON,
-    GAME_LOST,
+    GameWon,
+    GameLost,
 }

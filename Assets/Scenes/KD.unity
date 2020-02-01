@@ -393,6 +393,12 @@ PrefabInstance:
       propertyPath: units
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 3819676786709117681, guid: c9e5f37dfeaa22c4fae9133669e95ac3,
+        type: 3}
+      propertyPath: planetStats
+      value: 
+      objectReference: {fileID: 11400000, guid: c0486d495e7704bbdb84dc8e57953591,
+        type: 2}
     - target: {fileID: 3819676786709117685, guid: c9e5f37dfeaa22c4fae9133669e95ac3,
         type: 3}
       propertyPath: m_Name
@@ -596,6 +602,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Planet_Noone Variant (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6775160542445559732, guid: 89adf247ba812fd47ba69114bdf74118,
+        type: 3}
+      propertyPath: planetStats
+      value: 
+      objectReference: {fileID: 11400000, guid: c0486d495e7704bbdb84dc8e57953591,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89adf247ba812fd47ba69114bdf74118, type: 3}
 --- !u!4 &1002630214 stripped
@@ -5610,6 +5622,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Planet_Noone Variant (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6775160542445559732, guid: 89adf247ba812fd47ba69114bdf74118,
+        type: 3}
+      propertyPath: planetStats
+      value: 
+      objectReference: {fileID: 11400000, guid: c0486d495e7704bbdb84dc8e57953591,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89adf247ba812fd47ba69114bdf74118, type: 3}
 --- !u!4 &1644152637 stripped
@@ -5705,6 +5723,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Planet_Noone Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 6775160542445559732, guid: 89adf247ba812fd47ba69114bdf74118,
+        type: 3}
+      propertyPath: planetStats
+      value: 
+      objectReference: {fileID: 11400000, guid: c0486d495e7704bbdb84dc8e57953591,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89adf247ba812fd47ba69114bdf74118, type: 3}
 --- !u!4 &1844186128 stripped
@@ -5848,6 +5872,12 @@ PrefabInstance:
       propertyPath: units
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 465911974354413921, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
+        type: 3}
+      propertyPath: planetStats
+      value: 
+      objectReference: {fileID: 11400000, guid: c0486d495e7704bbdb84dc8e57953591,
+        type: 2}
     - target: {fileID: 1061367485579934958, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
         type: 3}
       propertyPath: m_Name

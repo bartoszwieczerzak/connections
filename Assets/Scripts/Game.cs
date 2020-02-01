@@ -24,31 +24,29 @@ public class Game : MonoBehaviour
     #endregion
 
     [SerializeField] private Color playerColor;
-
-    public Color PlayerColor => playerColor;
-    public Color EnemyColor => enemyColor;
-
     [SerializeField] private Color enemyColor;
-
-    private readonly List<Planet> planets = new List<Planet>();
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject losePanel;
-
+    
+    private readonly List<Planet> _planets = new List<Planet>();
+    
+    public Color PlayerColor => playerColor;
+    public Color EnemyColor => enemyColor;
     void Start()
     {
-        GameObject[] planetGameObjects = GameObject.FindGameObjectsWithTag(Tag.PLANET);
+        GameObject[] planetGameObjects = GameObject.FindGameObjectsWithTag(Tag.Planet);
 
         foreach (GameObject go in planetGameObjects)
         {
-            planets.Add(go.GetComponent<Planet>());
+            _planets.Add(go.GetComponent<Planet>());
         }
     }
 
     void Update()
     {
-        var playerPlanetsCount = planets.Count(p => p.Owner == Owner.Player);
-        var enemyPlanetsCount = planets.Count(p => p.Owner == Owner.Ai);
-        var noonePlanetsCount = planets.Count(p => p.Owner == Owner.None);
+        var playerPlanetsCount = _planets.Count(p => p.Owner == Owner.Player);
+        var enemyPlanetsCount = _planets.Count(p => p.Owner == Owner.Ai);
+        var noonePlanetsCount = _planets.Count(p => p.Owner == Owner.None);
 
         if (playerPlanetsCount == 0 && enemyPlanetsCount == 0)
         {
@@ -122,7 +120,7 @@ public class Game : MonoBehaviour
             targetPlanet.RemoveUnits(unitsToSend);
             Debug.Log("REMOVED from TARGET: " + unitsToSend);
 
-            AudioManager.Instance.Play(SoundType.BATTLE_LOST);
+            AudioManager.Instance.Play(SoundType.BattleLost);
         }
         else if (targetPlanet.Units < unitsToSend)
         {
@@ -132,7 +130,7 @@ public class Game : MonoBehaviour
             Debug.Log("ADDED to TARGET: " + toBeAdded);
             targetPlanet.ChangeOwnership(who);
 
-            AudioManager.Instance.Play(SoundType.PLANET_TAKENOVER);
+            AudioManager.Instance.Play(SoundType.PlanetTakenOver);
         }
         else
         {
@@ -153,6 +151,6 @@ public class Game : MonoBehaviour
     {
         sourcePlanet.SendFleet(targetPlanet);
 
-        AudioManager.Instance.Play(SoundType.SENDING_ARMY_PLAYER);
+        AudioManager.Instance.Play(SoundType.SendingArmyPlayer);
     }
 }

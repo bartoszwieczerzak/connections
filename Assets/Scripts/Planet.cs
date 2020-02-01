@@ -5,9 +5,7 @@ using UnityEngine;
 public class Planet : MonoBehaviour
 {
     [SerializeField] private int units = 0;
-
     [SerializeField] private Owner owner = Owner.None;
-
     [SerializeField] private PlanetStats planetStats;
 
     public int Units
