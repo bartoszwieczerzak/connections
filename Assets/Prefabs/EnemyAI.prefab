@@ -43,5 +43,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b1cac481e3cb4b819a5a54fbfa204d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialDelay: 4
-  maxTurnDelay: 4
+  initialDelay: 3
+  minTurnDelay: 5
+  maxTurnDelay: 8
