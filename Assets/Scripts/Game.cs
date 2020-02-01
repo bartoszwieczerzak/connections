@@ -26,7 +26,7 @@ public class Game : MonoBehaviour {
     public Color EnemyColor => enemyColor;
 
     [SerializeField] private Color enemyColor;
-    
+
     private readonly List<Planet> planets = new List<Planet>();
     [SerializeField] private GameObject winPanel;
     [SerializeField] private GameObject losePanel;
@@ -74,23 +74,17 @@ public class Game : MonoBehaviour {
         //AudioManager.instance.Play(SoundType.GAME_WON);
     }
 
-
-    public void SendArmy(Owner who, Planet source, Planet target)
-    {
-        if (source.Units > 1)
-        {
-            if (who != source.Owner)
-            {
+    public void SendArmy(Owner who, Planet source, Planet target) {
+        if (source.Units > 1) {
+            if (who != source.Owner) {
                 Debug.LogWarning(source.Owner + " cannot send army from " + source.name + "!");
                 return;
             }
 
-            if (target.Owner == who || target.Owner == Owner.None)
-            {
+            if (target.Owner == who || target.Owner == Owner.None) {
                 SendTroops(who, source, target);
             }
-            else
-            {
+            else {
                 AttackEnemy(who, source, target);
             }
 
@@ -98,23 +92,20 @@ public class Game : MonoBehaviour {
         }
     }
 
-    private void AttackEnemy(Owner who, Planet sourcePlanet, Planet targetPlanet)
-    {
+    private void AttackEnemy(Owner who, Planet sourcePlanet, Planet targetPlanet) {
         int unitsToSend = Mathf.FloorToInt(sourcePlanet.Units / 2);
         Debug.Log("HAS: " + sourcePlanet.Units + " AND WILL REMOVE: " + unitsToSend);
         sourcePlanet.RemoveUnits(unitsToSend);
 
         Debug.Log("LEFT: " + sourcePlanet.Units);
 
-        if (targetPlanet.Units > unitsToSend)
-        {
+        if (targetPlanet.Units > unitsToSend) {
             targetPlanet.RemoveUnits(unitsToSend);
             Debug.Log("REMOVED from TARGET: " + unitsToSend);
 
             AudioManager.Instance.Play(SoundType.BATTLE_LOST);
         }
-        else if (targetPlanet.Units < unitsToSend)
-        {
+        else if (targetPlanet.Units < unitsToSend) {
             int toBeAdded = unitsToSend - targetPlanet.Units;
             targetPlanet.Units = 0;
             targetPlanet.AddUnits(toBeAdded);
@@ -123,23 +114,20 @@ public class Game : MonoBehaviour {
 
             AudioManager.Instance.Play(SoundType.PLANET_TAKENOVER);
         }
-        else
-        {
+        else {
             targetPlanet.Units = 0;
             targetPlanet.ChangeOwnership(Owner.None);
         }
     }
 
-    private void SendTroops(Owner who, Planet sourcePlanet, Planet targetPlanet)
-    {
+    private void SendTroops(Owner who, Planet sourcePlanet, Planet targetPlanet) {
         int unitsToSend = Mathf.FloorToInt(sourcePlanet.Units / 2);
         sourcePlanet.RemoveUnits(unitsToSend);
         targetPlanet.AddUnits(unitsToSend);
         targetPlanet.ChangeOwnership(who);
     }
 
-    private void VisualiseArmyMovement(Planet sourcePlanet, Planet targetPlanet)
-    {
+    private void VisualiseArmyMovement(Planet sourcePlanet, Planet targetPlanet) {
         sourcePlanet.SendFleet(targetPlanet);
 
         AudioManager.Instance.Play(SoundType.SENDING_ARMY_PLAYER);

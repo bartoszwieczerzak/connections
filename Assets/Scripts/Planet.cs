@@ -1,40 +1,33 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
 using TMPro;
+using UnityEngine;
+using UnityEngine.Serialization;
 
-public class Planet : MonoBehaviour
-{
-    [SerializeField]
-    private int units = 0;
+public class Planet : MonoBehaviour {
+    [SerializeField] private int units = 0;
 
-    [SerializeField]
-    private Owner owner = Owner.None;
+    [SerializeField] private Owner owner = Owner.None;
 
-    [SerializeField]
-    private Material playerMaterial;
+    [SerializeField] private PlanetStats planetStats;
 
-    [SerializeField]
-    private Material enemyMaterial;
+    public int Units {
+        get => units;
+        set => units = value;
+    }
 
-    [SerializeField]
-    private PlanetStats stats;
-
-    public int Units { get => units; set => units = value; }
-    public Owner Owner { get => owner; set => owner = value; }
+    public Owner Owner => owner;
 
     void Start() {
-        transform.localScale = new Vector3(stats.size, stats.size, stats.size);
+        transform.localScale = new Vector2(planetStats.size, planetStats.size);
 
         StartCoroutine(AddTroopsCoroutine());
     }
 
-    IEnumerator AddTroopsCoroutine() {
-        yield return new WaitForSeconds(stats.populationCycleTime);
+    private IEnumerator AddTroopsCoroutine() {
+        yield return new WaitForSeconds(planetStats.populationCycleTime);
 
-        if (Owner != Owner.None) {
-            Units += stats.populationGrowth;
-        }
-
+        if (Owner == Owner.None) yield break;
+        units += planetStats.populationGrowth;
         StartCoroutine(AddTroopsCoroutine());
     }
 
@@ -44,15 +37,13 @@ public class Planet : MonoBehaviour
 
     public void RemoveUnits(int amount) {
         units -= amount;
-
-        if (units < 0) {
-            units = 0;
-        }
+        units = Mathf.Clamp(units, 0, int.MaxValue);
     }
 
     public void ChangeOwnership(Owner newOwner) {
         owner = newOwner;
-        gameObject.GetComponentInChildren<TextMeshProUGUI>().color =  owner.Equals(Owner.Player) ? Game.instance.PlayerColor : Game.instance.EnemyColor;
+        gameObject.GetComponentInChildren<TextMeshProUGUI>().color =
+            owner.Equals(Owner.Player) ? Game.instance.PlayerColor : Game.instance.EnemyColor;
     }
 
     public void SendFleet(Planet targetPlanet) {
