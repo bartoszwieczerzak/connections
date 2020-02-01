@@ -41,7 +41,7 @@ public class AudioManager : MonoBehaviour
 
     public void Play(SoundType type)
     {
-        Sound s = Array.Find<Sound>(_sounds, sound => sound.Type == type);
+        Sound s = Array.Find(_sounds, sound => sound.Type == type);
         if (s == null)
         {
             Debug.LogWarning("Sound " + type.ToString() + " not found!");

@@ -399,6 +399,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: c0486d495e7704bbdb84dc8e57953591,
         type: 2}
+    - target: {fileID: 3819676786709117681, guid: c9e5f37dfeaa22c4fae9133669e95ac3,
+        type: 3}
+      propertyPath: _planetStats
+      value: 
+      objectReference: {fileID: 11400000, guid: c0486d495e7704bbdb84dc8e57953591,
+        type: 2}
+    - target: {fileID: 3819676786709117681, guid: c9e5f37dfeaa22c4fae9133669e95ac3,
+        type: 3}
+      propertyPath: _units
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 3819676786709117685, guid: c9e5f37dfeaa22c4fae9133669e95ac3,
         type: 3}
       propertyPath: m_Name
@@ -605,6 +616,12 @@ PrefabInstance:
     - target: {fileID: 6775160542445559732, guid: 89adf247ba812fd47ba69114bdf74118,
         type: 3}
       propertyPath: planetStats
+      value: 
+      objectReference: {fileID: 11400000, guid: c0486d495e7704bbdb84dc8e57953591,
+        type: 2}
+    - target: {fileID: 6775160542445559732, guid: 89adf247ba812fd47ba69114bdf74118,
+        type: 3}
+      propertyPath: _planetStats
       value: 
       objectReference: {fileID: 11400000, guid: c0486d495e7704bbdb84dc8e57953591,
         type: 2}
@@ -5628,6 +5645,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: c0486d495e7704bbdb84dc8e57953591,
         type: 2}
+    - target: {fileID: 6775160542445559732, guid: 89adf247ba812fd47ba69114bdf74118,
+        type: 3}
+      propertyPath: _planetStats
+      value: 
+      objectReference: {fileID: 11400000, guid: c0486d495e7704bbdb84dc8e57953591,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 89adf247ba812fd47ba69114bdf74118, type: 3}
 --- !u!4 &1644152637 stripped
@@ -5726,6 +5749,12 @@ PrefabInstance:
     - target: {fileID: 6775160542445559732, guid: 89adf247ba812fd47ba69114bdf74118,
         type: 3}
       propertyPath: planetStats
+      value: 
+      objectReference: {fileID: 11400000, guid: c0486d495e7704bbdb84dc8e57953591,
+        type: 2}
+    - target: {fileID: 6775160542445559732, guid: 89adf247ba812fd47ba69114bdf74118,
+        type: 3}
+      propertyPath: _planetStats
       value: 
       objectReference: {fileID: 11400000, guid: c0486d495e7704bbdb84dc8e57953591,
         type: 2}
@@ -5878,6 +5907,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: c0486d495e7704bbdb84dc8e57953591,
         type: 2}
+    - target: {fileID: 465911974354413921, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
+        type: 3}
+      propertyPath: _planetStats
+      value: 
+      objectReference: {fileID: 11400000, guid: c0486d495e7704bbdb84dc8e57953591,
+        type: 2}
+    - target: {fileID: 465911974354413921, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
+        type: 3}
+      propertyPath: _units
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1061367485579934958, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
         type: 3}
       propertyPath: m_Name
@@ -6110,7 +6150,12 @@ PrefabInstance:
     - target: {fileID: 1144802083131042769, guid: f75144e615a2c42d49c2ee6478453e7a,
         type: 3}
       propertyPath: m_Name
-      value: DefeatedPanel
+      value: LosePanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 1144802083131042769, guid: f75144e615a2c42d49c2ee6478453e7a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1144802083360676669, guid: f75144e615a2c42d49c2ee6478453e7a,
         type: 3}
@@ -6310,6 +6355,21 @@ PrefabInstance:
       propertyPath: particleSystemPrefab
       value: 
       objectReference: {fileID: 1069378325}
+    - target: {fileID: 2642226432382641905, guid: 7d77403255be26743b168fda65741c53,
+        type: 3}
+      propertyPath: _particleSystemPrefab
+      value: 
+      objectReference: {fileID: 1069378325}
+    - target: {fileID: 2642226432382641905, guid: 7d77403255be26743b168fda65741c53,
+        type: 3}
+      propertyPath: _hoverPlanetHighlight
+      value: 
+      objectReference: {fileID: 311830642}
+    - target: {fileID: 2642226432382641905, guid: 7d77403255be26743b168fda65741c53,
+        type: 3}
+      propertyPath: _selectedPlanetHighlight
+      value: 
+      objectReference: {fileID: 1177806107}
     - target: {fileID: 2642226432382641906, guid: 7d77403255be26743b168fda65741c53,
         type: 3}
       propertyPath: m_Name
@@ -6323,6 +6383,56 @@ PrefabInstance:
     - target: {fileID: 2642226432382641919, guid: 7d77403255be26743b168fda65741c53,
         type: 3}
       propertyPath: losePanel
+      value: 
+      objectReference: {fileID: 1578694252}
+    - target: {fileID: 2642226432382641919, guid: 7d77403255be26743b168fda65741c53,
+        type: 3}
+      propertyPath: _playerColor.r
+      value: 0.12967247
+      objectReference: {fileID: 0}
+    - target: {fileID: 2642226432382641919, guid: 7d77403255be26743b168fda65741c53,
+        type: 3}
+      propertyPath: _playerColor.g
+      value: 0.39522073
+      objectReference: {fileID: 0}
+    - target: {fileID: 2642226432382641919, guid: 7d77403255be26743b168fda65741c53,
+        type: 3}
+      propertyPath: _playerColor.b
+      value: 0.8867924
+      objectReference: {fileID: 0}
+    - target: {fileID: 2642226432382641919, guid: 7d77403255be26743b168fda65741c53,
+        type: 3}
+      propertyPath: _playerColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2642226432382641919, guid: 7d77403255be26743b168fda65741c53,
+        type: 3}
+      propertyPath: _enemyColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2642226432382641919, guid: 7d77403255be26743b168fda65741c53,
+        type: 3}
+      propertyPath: _enemyColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2642226432382641919, guid: 7d77403255be26743b168fda65741c53,
+        type: 3}
+      propertyPath: _enemyColor.b
+      value: 0.020421028
+      objectReference: {fileID: 0}
+    - target: {fileID: 2642226432382641919, guid: 7d77403255be26743b168fda65741c53,
+        type: 3}
+      propertyPath: _enemyColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2642226432382641919, guid: 7d77403255be26743b168fda65741c53,
+        type: 3}
+      propertyPath: _winPanel
+      value: 
+      objectReference: {fileID: 1931473951}
+    - target: {fileID: 2642226432382641919, guid: 7d77403255be26743b168fda65741c53,
+        type: 3}
+      propertyPath: _losePanel
       value: 
       objectReference: {fileID: 1578694252}
     m_RemovedComponents: []
@@ -6534,6 +6644,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WinPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 6107965634050444194, guid: 8eee3231528194e9aa7e210e531d5d00,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8eee3231528194e9aa7e210e531d5d00, type: 3}
 --- !u!1001 &6663230221759891786
@@ -6548,6 +6663,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6663230222161237358, guid: 846a22a99d53c47089c7bf46819c7541,
+        type: 3}
+      propertyPath: _sounds.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6663230222161237358, guid: 846a22a99d53c47089c7bf46819c7541,
+        type: 3}
+      propertyPath: _sounds.Array.data[0]._clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 0238d3c4528a04847b0ff0f4670f53ad, type: 3}
     - target: {fileID: 6663230222161237359, guid: 846a22a99d53c47089c7bf46819c7541,
         type: 3}
       propertyPath: m_LocalPosition.x
