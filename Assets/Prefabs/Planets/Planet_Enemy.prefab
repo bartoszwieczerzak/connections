@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &3708001483512664976
+--- !u!1001 &6328538451123549214
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -25,17 +25,17 @@ PrefabInstance:
     - target: {fileID: 465911974354413918, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 465911974354413918, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 465911974354413918, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 465911974354413918, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
         type: 3}
@@ -64,7 +64,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 465911974354413921, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
         type: 3}
-      propertyPath: owner
+      propertyPath: _units
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 465911974354413921, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
+        type: 3}
+      propertyPath: _owner
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 465911974354413923, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
@@ -76,7 +81,7 @@ PrefabInstance:
     - target: {fileID: 465911974354413925, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
         type: 3}
       propertyPath: m_Name
-      value: Planet_Enemy_v
+      value: Planet_Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aec944a5a5f15ff40b4209d3cccf9cdc, type: 3}
