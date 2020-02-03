@@ -28,8 +28,11 @@ public class Planet : MonoBehaviour
     {
         yield return new WaitForSeconds(_planetStats.populationCycleTime);
 
-        if (Owner == Owner.None) yield break;
-        _units += _planetStats.populationGrowth;
+        if (Owner != Owner.None)
+        {
+            _units += _planetStats.populationGrowth;
+        }
+
         StartCoroutine(AddTroopsCoroutine());
     }
 
