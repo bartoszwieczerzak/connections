@@ -89,3 +89,8 @@ MonoBehaviour:
     _type: 8
     _mixerGroup: Master/SFX
     _loop: 0
+  - _clip: {fileID: 8300000, guid: 4a72ba17b50ee4206994aeb18421fab2, type: 3}
+    _type: 11
+    _volume: 1
+    _pitch: 1
+    _loop: 0

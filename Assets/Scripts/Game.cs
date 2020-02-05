@@ -32,6 +32,7 @@ public class Game : MonoBehaviour
     
     public Color PlayerColor => _playerColor;
     public Color EnemyColor => _enemyColor;
+
     void Start()
     {
         GameObject[] planetGameObjects = GameObject.FindGameObjectsWithTag(Tag.Planet);
@@ -65,7 +66,6 @@ public class Game : MonoBehaviour
     private void GameDraw()
     {
         Debug.Log("That's a draw!");
-        ;
     }
 
     private void GameOver()
@@ -104,7 +104,8 @@ public class Game : MonoBehaviour
             }
 
             source.SendFleet(target);
-            AudioManager.Instance.Play(SoundType.SendingArmyPlayer);
+
+            PlayForPlayerAction(who, SoundType.SendingArmyPlayer);
         }
     }
 
@@ -121,7 +122,7 @@ public class Game : MonoBehaviour
             targetPlanet.RemoveUnits(unitsToSend);
             Debug.Log("REMOVED from TARGET: " + unitsToSend);
 
-            AudioManager.Instance.Play(SoundType.BattleLost);
+            PlayForPlayerAction(who, SoundType.BattleLost);
         }
         else if (targetPlanet.Units < unitsToSend)
         {
@@ -131,20 +132,44 @@ public class Game : MonoBehaviour
             Debug.Log("ADDED to TARGET: " + toBeAdded);
             targetPlanet.ChangeOwnership(who);
 
-            AudioManager.Instance.Play(SoundType.PlanetTakenOver);
+            PlayForPlayerAction(who, SoundType.PlanetTakenOver);
+            PlayForEnemyAction(who, SoundType.PlanetLost);
         }
         else
         {
             targetPlanet.Units = 0;
             targetPlanet.ChangeOwnership(Owner.None);
+
+            PlayForPlayerAction(who, SoundType.BattleLost);
         }
     }
 
     private void SendTroops(Owner who, Planet sourcePlanet, Planet targetPlanet)
     {
+        if (targetPlanet.Owner == Owner.None)
+        {
+            PlayForPlayerAction(who, SoundType.PlanetAcquired);
+        }
+
         int unitsToSend = Mathf.FloorToInt(sourcePlanet.Units / 2);
         sourcePlanet.RemoveUnits(unitsToSend);
         targetPlanet.AddUnits(unitsToSend);
         targetPlanet.ChangeOwnership(who);
+    }
+
+    private void PlayForPlayerAction(Owner who, SoundType sound)
+    {
+        if (who == Owner.Player)
+        {
+            AudioManager.Instance.Play(sound);
+        }
+    }
+
+    private void PlayForEnemyAction(Owner who, SoundType sound)
+    {
+        if (who == Owner.Ai)
+        {
+            AudioManager.Instance.Play(sound);
+        }
     }
 }
