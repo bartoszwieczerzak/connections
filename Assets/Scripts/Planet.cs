@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.EventSystems;
 
-public class Planet : MonoBehaviour
+public class Planet : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler, IDragHandler
 {
     [SerializeField] private int _units = 0;
     [SerializeField] private Owner _owner = Owner.None;
@@ -40,18 +40,18 @@ public class Planet : MonoBehaviour
         StartCoroutine(AddTroopsCoroutine());
     }
 
-    private void OnMouseOver()
+    public void OnPointerEnter(PointerEventData eventData)
     {
         _hoverPlanetHighlight.transform.position = transform.position;
         _hoverPlanetHighlight.SetActive(true);
     }
 
-    private void OnMouseExit()
+    public void OnPointerExit(PointerEventData eventData)
     {
         _hoverPlanetHighlight.SetActive(false);
     }
 
-    private void OnMouseDown()
+    public void OnPointerDown(PointerEventData eventData)
     {
         if (Owner == Owner.Player)
         {
@@ -61,22 +61,21 @@ public class Planet : MonoBehaviour
         }
     }
 
-    private void OnMouseUp()
+    public void OnDrag(PointerEventData eventData)
     {
+        if (Owner == Owner.Player)
+        {
+            _moveMarker.SetPosition(1, -(transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)));
+        }
+    }
 
+    public void OnPointerUp(PointerEventData eventData)
+    {
         if (Owner == Owner.Player)
         {
             _selectedPlanetHighlight.SetActive(false);
 
             _moveMarker.SetPosition(1, Vector3.zero);
-        }
-    }
-
-    private void OnMouseDrag()
-    {
-        if (Owner == Owner.Player)
-        {
-            _moveMarker.SetPosition(1, -(transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)));
         }
     }
 
