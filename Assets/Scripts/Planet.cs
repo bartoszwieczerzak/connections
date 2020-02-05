@@ -9,6 +9,9 @@ public class Planet : MonoBehaviour
     [SerializeField] private Owner _owner = Owner.None;
     [SerializeField] private PlanetStats _planetStats;
 
+    [SerializeField] private GameObject _hoverPlanetHighlight;
+    [SerializeField] private GameObject _selectedPlanetHighlight;
+
     public int Units
     {
         get => _units;
@@ -34,6 +37,27 @@ public class Planet : MonoBehaviour
         }
 
         StartCoroutine(AddTroopsCoroutine());
+    }
+
+    private void OnMouseOver()
+    {
+        _hoverPlanetHighlight.transform.position = transform.position;
+        _hoverPlanetHighlight.SetActive(true);
+    }
+
+    private void OnMouseExit()
+    {
+        _hoverPlanetHighlight.SetActive(false);
+    }
+
+    private void OnMouseDown()
+    {
+        _selectedPlanetHighlight.SetActive(true);
+    }
+
+    private void OnMouseUp()
+    {
+        _selectedPlanetHighlight.SetActive(false);
     }
 
     public void AddUnits(int amount)

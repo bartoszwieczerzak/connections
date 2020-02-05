@@ -9,8 +9,6 @@ public class PlayerClicks : MonoBehaviour
     private ParticleSystem.Particle[] _particles;
     private int _unitsGathered = 0;
     
-    [SerializeField] private GameObject _hoverPlanetHighlight;
-    [SerializeField] private GameObject _selectedPlanetHighlight;
     [SerializeField] private ParticleSystem _particleSystemPrefab;
     [SerializeField] private float _unitsGatherSpeed = 2.0f;
 
@@ -30,21 +28,16 @@ public class PlayerClicks : MonoBehaviour
             if (hit.transform.CompareTag(Tag.Planet))
             {
                 _highlightedPlanet = hit.transform.GetComponent<Planet>();
-                _hoverPlanetHighlight.transform.position = _highlightedPlanet.transform.position;
-                _hoverPlanetHighlight.SetActive(true);
             }
         }
         else
         {
             _highlightedPlanet = null;
-            _hoverPlanetHighlight.SetActive(false);
         }
 
         if (Input.GetMouseButtonDown(0) && CanSelectAsSourcePlanet())
         {
             _sourcePlanet = _highlightedPlanet;
-            _selectedPlanetHighlight.transform.position = _sourcePlanet.transform.position;
-            _selectedPlanetHighlight.SetActive(true);
 
             AudioManager.Instance.Play(SoundType.PlanetSelected);
         }
@@ -79,8 +72,6 @@ public class PlayerClicks : MonoBehaviour
                 LineRenderer moveMarker = _sourcePlanet.GetComponentInChildren<LineRenderer>();
                 moveMarker.SetPosition(1, Vector3.zero);
 
-                _selectedPlanetHighlight.SetActive(false);
-
                 _sourcePlanet = null;
             }
         }
@@ -91,8 +82,6 @@ public class PlayerClicks : MonoBehaviour
 
             LineRenderer moveMarker = _sourcePlanet.GetComponentInChildren<LineRenderer>();
             moveMarker.SetPosition(1, Vector3.zero);
-
-            _selectedPlanetHighlight.SetActive(false);
 
             _sourcePlanet = null;
             _lastTargetPlanet = _targetPlanet;
