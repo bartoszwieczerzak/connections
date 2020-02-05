@@ -282,6 +282,7 @@ MonoBehaviour:
   _planetStats: {fileID: 11400000, guid: c0486d495e7704bbdb84dc8e57953591, type: 2}
   _hoverPlanetHighlight: {fileID: 869361388131909604}
   _selectedPlanetHighlight: {fileID: 1684642213771440585}
+  _moveMarker: {fileID: 465911972806193994}
 --- !u!114 &465911974354413920
 MonoBehaviour:
   m_ObjectHideFlags: 0

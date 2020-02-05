@@ -11,6 +11,7 @@ public class Planet : MonoBehaviour
 
     [SerializeField] private GameObject _hoverPlanetHighlight;
     [SerializeField] private GameObject _selectedPlanetHighlight;
+    [SerializeField] private LineRenderer _moveMarker;
 
     public int Units
     {
@@ -52,12 +53,31 @@ public class Planet : MonoBehaviour
 
     private void OnMouseDown()
     {
-        _selectedPlanetHighlight.SetActive(true);
+        if (Owner == Owner.Player)
+        {
+            _selectedPlanetHighlight.SetActive(true);
+
+            _moveMarker.SetPosition(1, Vector3.zero);
+        }
     }
 
     private void OnMouseUp()
     {
-        _selectedPlanetHighlight.SetActive(false);
+
+        if (Owner == Owner.Player)
+        {
+            _selectedPlanetHighlight.SetActive(false);
+
+            _moveMarker.SetPosition(1, Vector3.zero);
+        }
+    }
+
+    private void OnMouseDrag()
+    {
+        if (Owner == Owner.Player)
+        {
+            _moveMarker.SetPosition(1, -(transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)));
+        }
     }
 
     public void AddUnits(int amount)

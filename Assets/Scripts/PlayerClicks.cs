@@ -2,47 +2,24 @@
 
 public class PlayerClicks : MonoBehaviour
 {
-    private Planet _highlightedPlanet;
     private Planet _sourcePlanet;
     private Planet _targetPlanet;
-    private Planet _lastTargetPlanet;
-    private ParticleSystem.Particle[] _particles;
     private int _unitsGathered = 0;
-    
-    [SerializeField] private ParticleSystem _particleSystemPrefab;
+
     [SerializeField] private float _unitsGatherSpeed = 2.0f;
 
-    private void Start()
+    private void OnMouseDown()
     {
-        _particles = new ParticleSystem.Particle[_particleSystemPrefab.main.maxParticles];
-    }
+        Planet planet = GetPlanetUnderCursor();
 
-    void Update()
-    {
-        Vector2 ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero);
-
-        if (hit.collider != null)
+        if (CanSelectAsSourcePlanet(planet))
         {
-            if (hit.transform.CompareTag(Tag.Planet))
-            {
-                _highlightedPlanet = hit.transform.GetComponent<Planet>();
-            }
-        }
-        else
-        {
-            _highlightedPlanet = null;
-        }
-
-        if (Input.GetMouseButtonDown(0) && CanSelectAsSourcePlanet())
-        {
-            _sourcePlanet = _highlightedPlanet;
+            _sourcePlanet = planet;
 
             AudioManager.Instance.Play(SoundType.PlanetSelected);
         }
 
-        if (Input.GetMouseButton(0) && _sourcePlanet != null)
+        if (_sourcePlanet != null)
         {
             _unitsGathered += Mathf.FloorToInt(_unitsGatherSpeed * Time.deltaTime);
 
@@ -53,89 +30,46 @@ public class PlayerClicks : MonoBehaviour
 
             Debug.Log("GETTING MORE UNITS!: " + _unitsGathered);
         }
+    }
 
-        if (_sourcePlanet && !_targetPlanet)
+    private void OnMouseUp()
+    {
+        Planet planet = GetPlanetUnderCursor();
+
+        if (CanSelectAsTargetPlanet(_sourcePlanet, planet))
         {
-            LineRenderer moveMarker = _sourcePlanet.GetComponentInChildren<LineRenderer>();
-            moveMarker.SetPosition(1,
-                -(_sourcePlanet.transform.position - Camera.main.ScreenToWorldPoint(Input.mousePosition)));
-        }
-
-        if (Input.GetMouseButtonUp(0))
-        {
-            if (CanSelectAsTargetPlanet())
-            {
-                _targetPlanet = _highlightedPlanet;
-            }
-            else if (_sourcePlanet)
-            {
-                LineRenderer moveMarker = _sourcePlanet.GetComponentInChildren<LineRenderer>();
-                moveMarker.SetPosition(1, Vector3.zero);
-
-                _sourcePlanet = null;
-            }
+            _targetPlanet = planet;
         }
 
         if (_sourcePlanet && _targetPlanet)
         {
             Game.Instance.SendArmy(Owner.Player, _sourcePlanet, _targetPlanet);
-
-            LineRenderer moveMarker = _sourcePlanet.GetComponentInChildren<LineRenderer>();
-            moveMarker.SetPosition(1, Vector3.zero);
-
-            _sourcePlanet = null;
-            _lastTargetPlanet = _targetPlanet;
-            _targetPlanet = null;
         }
+
+        _sourcePlanet = null;
+        _targetPlanet = null;
     }
 
-    private bool CanSelectAsSourcePlanet()
+    Planet GetPlanetUnderCursor()
     {
-        return _sourcePlanet == null && _highlightedPlanet && _highlightedPlanet.Owner == Owner.Player;
-    }
+        Vector2 ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero);
 
-    private bool CanSelectAsTargetPlanet()
-    {
-        return _sourcePlanet != null && _highlightedPlanet &&
-               _highlightedPlanet.GetInstanceID() != _sourcePlanet.GetInstanceID();
-    }
-
-    void XLateUpdate()
-    {
-        if (_sourcePlanet == null || _lastTargetPlanet == null)
+        if (hit.transform)
         {
-            _particleSystemPrefab.gameObject.SetActive(false);
-            return;
+            return hit.transform.GetComponent<Planet>();
         }
 
-        Debug.Log("SOURCE: " + _sourcePlanet.name + " TARGET: " + _lastTargetPlanet.name);
-        _particleSystemPrefab.gameObject.SetActive(true);
+        return null;
+    }
 
-        _particleSystemPrefab.transform.position = _sourcePlanet.transform.position;
+    bool CanSelectAsSourcePlanet(Planet planet)
+    {
+        return planet != null && planet.Owner == Owner.Player;
+    }
 
-        int length = _particleSystemPrefab.GetParticles(_particles);
-        int i = 0;
-
-        transform.LookAt(_lastTargetPlanet.transform);
-
-        while (i < length)
-        {
-            //Target is a Transform object
-            Vector3 direction = _lastTargetPlanet.transform.position - _particles[i].position;
-            direction.Normalize();
-
-            float variableSpeed = (_particleSystemPrefab.startSpeed / (_particles[i].remainingLifetime + 0.1f)) +
-                                  _particles[i].startLifetime;
-            _particles[i].position += direction * (variableSpeed * Time.deltaTime);
-
-            if (Vector3.Distance(_lastTargetPlanet.transform.position, _particles[i].position) < 1.0f)
-            {
-                _particles[i].remainingLifetime = -0.1f; //Kill the particle
-            }
-
-            i++;
-        }
-
-        _particleSystemPrefab.SetParticles(_particles, length);
+    bool CanSelectAsTargetPlanet(Planet sourcePlanet, Planet targetPlanet)
+    {
+        return sourcePlanet != null && targetPlanet != null && targetPlanet.GetInstanceID() != _sourcePlanet.GetInstanceID();
     }
 }

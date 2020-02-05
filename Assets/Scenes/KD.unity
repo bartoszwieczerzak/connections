@@ -213,6 +213,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Planet_Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 5882893293882203519, guid: 5e5ce651a6df64a72907f5fd9acb6cdb,
+        type: 3}
+      propertyPath: _units
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e5ce651a6df64a72907f5fd9acb6cdb, type: 3}
 --- !u!4 &289125436 stripped
@@ -230,6 +235,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 292484301}
+  - component: {fileID: 292484302}
+  - component: {fileID: 292484303}
   m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
@@ -259,6 +266,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &292484302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292484300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 215c0c5e3c2956d419181730fc994a06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unitsGatherSpeed: 2
+--- !u!65 &292484303
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292484300}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 40, y: 40, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &311830642 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5415895628179750893, guid: 52b15c368eea640bfa4d2a9cb73c0115,
@@ -6525,7 +6558,8 @@ PrefabInstance:
       propertyPath: _losePanel
       value: 
       objectReference: {fileID: 1578694252}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2642226432382641905, guid: 7d77403255be26743b168fda65741c53, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 7d77403255be26743b168fda65741c53, type: 3}
 --- !u!1001 &5415895627884697503
 PrefabInstance:
