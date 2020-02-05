@@ -1,11 +1,15 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
     #region Singleton
 
     public static AudioManager Instance;
+
+    [SerializeField]
+    private AudioMixer audioMixer;
 
     private void Awake()
     {
@@ -30,10 +34,13 @@ public class AudioManager : MonoBehaviour
         {
             s.Source = gameObject.AddComponent<AudioSource>();
             s.Source.clip = s.Clip;
-
-            s.Source.volume = s.Volume;
-            s.Source.pitch = s.Pitch;
             s.Source.loop = s.Loop;
+
+            AudioMixerGroup[] groups = audioMixer.FindMatchingGroups(s.MixerGroup);
+            if (groups.Length > 0)
+            {
+                s.Source.outputAudioMixerGroup = groups[0];
+            }
         }
 
         Play(SoundType.Theme);
