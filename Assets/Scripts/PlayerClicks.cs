@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class PlayerClicks : MonoBehaviour
+public class PlayerClicks : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
     private Planet _sourcePlanet;
     private Planet _targetPlanet;
@@ -8,9 +9,9 @@ public class PlayerClicks : MonoBehaviour
 
     [SerializeField] private float _unitsGatherSpeed = 2.0f;
 
-    private void OnMouseDown()
+    public void OnPointerDown(PointerEventData eventData)
     {
-        Planet planet = GetPlanetUnderCursor();
+        Planet planet = gameObject.GetComponent<Planet>();
 
         if (CanSelectAsSourcePlanet(planet))
         {
@@ -32,9 +33,9 @@ public class PlayerClicks : MonoBehaviour
         }
     }
 
-    private void OnMouseUp()
+    public void OnPointerUp(PointerEventData eventData)
     {
-        Planet planet = GetPlanetUnderCursor();
+        Planet planet = GetPlanetFromEventData(eventData);
 
         if (CanSelectAsTargetPlanet(_sourcePlanet, planet))
         {
@@ -50,17 +51,12 @@ public class PlayerClicks : MonoBehaviour
         _targetPlanet = null;
     }
 
-    Planet GetPlanetUnderCursor()
+    Planet GetPlanetFromEventData(PointerEventData eventData)
     {
-        Vector2 ray = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        RaycastHit2D hit = Physics2D.Raycast(ray, Vector2.zero);
+        GameObject gameObject = eventData.pointerCurrentRaycast.gameObject;
+        Planet planet = gameObject.GetComponentInParent<Planet>();
 
-        if (hit.transform)
-        {
-            return hit.transform.GetComponent<Planet>();
-        }
-
-        return null;
+        return planet;
     }
 
     bool CanSelectAsSourcePlanet(Planet planet)
