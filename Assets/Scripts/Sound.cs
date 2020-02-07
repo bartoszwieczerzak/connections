@@ -4,8 +4,8 @@ using UnityEngine;
 [Serializable]
 public class Sound
 {
-    [SerializeField] private AudioClip _clip;
-    [SerializeField] private SoundType _type;
+    [SerializeField] private AudioClip _clip = default;
+    [SerializeField] private SoundType _type = default;
     [SerializeField] private String _mixerGroup = "Master";
     [SerializeField] private bool _loop = false;
 

@@ -23,10 +23,10 @@ public class Game : MonoBehaviour
 
     #endregion
 
-    [SerializeField] private Color _playerColor;
-    [SerializeField] private Color _enemyColor;
-    [SerializeField] private GameObject _winPanel;
-    [SerializeField] private GameObject _losePanel;
+    [SerializeField] private Color _playerColor = default;
+    [SerializeField] private Color _enemyColor = default;
+    [SerializeField] private GameObject _winPanel = default;
+    [SerializeField] private GameObject _losePanel = default;
     
     private readonly List<Planet> _planets = new List<Planet>();
     

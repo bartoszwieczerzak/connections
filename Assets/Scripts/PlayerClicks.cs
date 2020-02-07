@@ -9,9 +9,9 @@ public class PlayerClicks : MonoBehaviour
     private ParticleSystem.Particle[] _particles;
     private int _unitsGathered = 0;
     
-    [SerializeField] private GameObject _hoverPlanetHighlight;
-    [SerializeField] private GameObject _selectedPlanetHighlight;
-    [SerializeField] private ParticleSystem _particleSystemPrefab;
+    [SerializeField] private GameObject _hoverPlanetHighlight = default;
+    [SerializeField] private GameObject _selectedPlanetHighlight = default;
+    [SerializeField] private ParticleSystem _particleSystemPrefab = default;
     [SerializeField] private float _unitsGatherSpeed = 2.0f;
 
     private void Start()
