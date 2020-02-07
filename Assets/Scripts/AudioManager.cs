@@ -23,7 +23,6 @@ public class AudioManager : MonoBehaviour
 
     #endregion
 
-
     [SerializeField] private AudioMixer audioMixer = null;
     [SerializeField] private Sound[] _sounds = null;
 
@@ -40,6 +39,10 @@ public class AudioManager : MonoBehaviour
             {
                 s.Source.outputAudioMixerGroup = groups[0];
             }
+            else
+            {
+                Debug.LogWarningFormat("No matching Mixer Group found for name: {0}", s.MixerGroup);
+            }
         }
 
         Play(SoundType.Theme);
@@ -50,11 +53,11 @@ public class AudioManager : MonoBehaviour
         Sound s = Array.Find(_sounds, sound => sound.Type == type);
         if (s == null)
         {
-            Debug.LogWarning("Sound " + type.ToString() + " not found!");
+            Debug.LogWarningFormat("Sound {0} not found!", type.ToString());
             return;
         }
 
-        Debug.Log("Playing " + type.ToString() + " sound");
+        Debug.LogFormat("Playing {0} sound", type.ToString());
         s.Source.Play();
     }
 }
