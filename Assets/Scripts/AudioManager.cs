@@ -8,17 +8,21 @@ public class AudioManager : MonoBehaviour
 
     public static AudioManager Instance;
 
-    private void Awake()
+    void Awake()
     {
-        if (Instance)
+        //Check if there is already an instance of SoundManager
+        if (Instance == null) //if not, set it to this.
         {
-            Debug.LogWarning("Trying to create another instance of AudioManager!");
-            return;
+            Instance = this;
+        }
+        else if (Instance != this) //If instance already exists:
+        {
+            //Destroy this, this enforces our singleton pattern so there can only be one instance of SoundManager.
+            Destroy(gameObject);
         }
 
-        Instance = this;
-
-        DontDestroyOnLoad(this);
+        //Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
+        DontDestroyOnLoad(gameObject);
     }
 
     #endregion
