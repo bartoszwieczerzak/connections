@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6663230222161237353}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.7583632, y: 1.8799385, z: -10.696745}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -43,59 +43,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d244c4c0586cc4ba8b9f00a01d3ae586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: 531c74ba67e8f4d738b52d6e63374765, type: 2}
   _sounds:
   - _clip: {fileID: 8300000, guid: cfb31e5d790b64a389f042383c6b4f20, type: 3}
     _type: 0
-    _volume: 0.15
-    _pitch: 1
+    _mixerGroup: Master/Soundtrack
     _loop: 1
   - _clip: {fileID: 8300000, guid: 6188f0192751746c18d5a5089f8f9dd4, type: 3}
     _type: 1
-    _volume: 1
-    _pitch: 1
+    _mixerGroup: Master/SFX
     _loop: 0
   - _clip: {fileID: 8300000, guid: dab23f8a029194c01ae439dc7f345714, type: 3}
     _type: 2
-    _volume: 1
-    _pitch: 1
+    _mixerGroup: Master/SFX
     _loop: 0
   - _clip: {fileID: 8300000, guid: def3631c9a8fe4069ae9ce399faf35a9, type: 3}
     _type: 4
-    _volume: 1
-    _pitch: 1
+    _mixerGroup: Master/SFX
     _loop: 0
   - _clip: {fileID: 8300000, guid: 8808e61513f2a4e2eaddf76b52066447, type: 3}
     _type: 3
-    _volume: 1
-    _pitch: 1
+    _mixerGroup: Master/SFX
     _loop: 0
   - _clip: {fileID: 8300000, guid: 6b2ffaf5d0b12403c98e0987243b9365, type: 3}
     _type: 5
-    _volume: 1
-    _pitch: 1
+    _mixerGroup: Master/SFX
     _loop: 0
   - _clip: {fileID: 8300000, guid: 13cc0c869026a432689e4fe83e39c90b, type: 3}
     _type: 7
-    _volume: 1
-    _pitch: 1
+    _mixerGroup: Master/SFX
     _loop: 0
   - _clip: {fileID: 8300000, guid: ca1d2c8df67724a2b87d720d04a80b32, type: 3}
     _type: 6
-    _volume: 1
-    _pitch: 1
+    _mixerGroup: Master/SFX
     _loop: 0
   - _clip: {fileID: 8300000, guid: 90c8bb5490471418ebb95d873ea47885, type: 3}
     _type: 9
-    _volume: 1
-    _pitch: 1
+    _mixerGroup: Master/SFX
     _loop: 0
   - _clip: {fileID: 8300000, guid: 3deef4126ac054f68913541308d66833, type: 3}
     _type: 10
-    _volume: 1
-    _pitch: 1
+    _mixerGroup: Master/SFX
     _loop: 0
   - _clip: {fileID: 8300000, guid: 179f5d3a050f849a09b48e85afa89996, type: 3}
     _type: 8
-    _volume: 1
-    _pitch: 1
+    _mixerGroup: Master/SFX
+    _loop: 0
+  - _clip: {fileID: 8300000, guid: 4a72ba17b50ee4206994aeb18421fab2, type: 3}
+    _type: 11
+    _mixerGroup: Master
     _loop: 0

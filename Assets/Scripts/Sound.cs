@@ -6,8 +6,7 @@ public class Sound
 {
     [SerializeField] private AudioClip _clip;
     [SerializeField] private SoundType _type;
-    [SerializeField, Range(0.0f, 1.0f)] private float _volume = 1.0f;
-    [SerializeField, Range(0.1f, 3.0f)] private float _pitch = 1.0f;
+    [SerializeField] private String _mixerGroup = "Master";
     [SerializeField] private bool _loop = false;
 
     private AudioSource _source;
@@ -24,16 +23,10 @@ public class Sound
         set => _type = value;
     }
 
-    public float Volume
+    public String MixerGroup
     {
-        get => _volume;
-        set => _volume = value;
-    }
-
-    public float Pitch
-    {
-        get => _pitch;
-        set => _pitch = value;
+        get => _mixerGroup;
+        set => _mixerGroup = value;
     }
 
     public bool Loop
@@ -68,4 +61,6 @@ public enum SoundType
 
     GameWon,
     GameLost,
+
+    PlanetAcquired,
 }

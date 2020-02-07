@@ -7,7 +7,7 @@ public class Planet : MonoBehaviour
 {
     [SerializeField] private int _units = 0;
     [SerializeField] private Owner _owner = Owner.None;
-    [SerializeField] private PlanetStats _planetStats;
+    [SerializeField] private PlanetStats _planetStats = null;
 
     public int Units
     {
