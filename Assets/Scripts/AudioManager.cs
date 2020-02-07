@@ -8,9 +8,6 @@ public class AudioManager : MonoBehaviour
 
     public static AudioManager Instance;
 
-    [SerializeField]
-    private AudioMixer audioMixer;
-
     private void Awake()
     {
         if (Instance)
@@ -26,7 +23,9 @@ public class AudioManager : MonoBehaviour
 
     #endregion
 
-    [SerializeField] private Sound[] _sounds;
+
+    [SerializeField] private AudioMixer audioMixer = null;
+    [SerializeField] private Sound[] _sounds = null;
 
     private void Start()
     {
