@@ -281,6 +281,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Planet_Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 5882893293882203519, guid: 5e5ce651a6df64a72907f5fd9acb6cdb,
+        type: 3}
+      propertyPath: _units
+      value: 45
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e5ce651a6df64a72907f5fd9acb6cdb, type: 3}
 --- !u!4 &289125436 stripped
@@ -920,7 +925,7 @@ PrefabInstance:
     - target: {fileID: 5156149183129699723, guid: b18db7c7e97db4c8eb54340cb505a821,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5156149183129699725, guid: b18db7c7e97db4c8eb54340cb505a821,
         type: 3}
