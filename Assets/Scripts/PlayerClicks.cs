@@ -2,17 +2,39 @@
 
 public class PlayerClicks : MonoBehaviour
 {
+    
+    #region Singleton
+
+    public static PlayerClicks Instance;
+
+    private void Awake()
+    {
+        if (Instance)
+        {
+            Debug.LogWarning("Trying to create another instance of PlayerClicks object!");
+            return;
+        }
+
+        Instance = this;
+
+        DontDestroyOnLoad(this);
+    }
+
+    #endregion
+    
     private Planet _highlightedPlanet;
     private Planet _sourcePlanet;
     private Planet _targetPlanet;
     private Planet _lastTargetPlanet;
     private ParticleSystem.Particle[] _particles;
-    private int _unitsGathered = 0;
-    
+    private float _unitsGathered;
+
     [SerializeField] private GameObject _hoverPlanetHighlight = default;
     [SerializeField] private GameObject _selectedPlanetHighlight = default;
     [SerializeField] private ParticleSystem _particleSystemPrefab = default;
-    [SerializeField] private float _unitsGatherSpeed = 2.0f;
+    [SerializeField] private float _unitsGatherSpeed = 100.0f;
+
+    public int UnitsGathered => Mathf.FloorToInt(_unitsGathered);
 
     private void Start()
     {
@@ -51,14 +73,16 @@ public class PlayerClicks : MonoBehaviour
 
         if (Input.GetMouseButton(0) && _sourcePlanet != null)
         {
-            _unitsGathered += Mathf.FloorToInt(_unitsGatherSpeed * Time.deltaTime);
+            if (_unitsGathered >= _sourcePlanet.Units - 1) return;
 
-            if (_unitsGathered >= _sourcePlanet.Units)
-            {
-                _unitsGathered = _sourcePlanet.Units - 1;
-            }
+            _unitsGathered += _unitsGatherSpeed * Time.deltaTime;
 
-            Debug.Log("GETTING MORE UNITS!: " + _unitsGathered);
+            int i = Mathf.FloorToInt(_unitsGathered);
+            Debug.Log("GETTING MORE UNITS!: " + i + " : " + _sourcePlanet.name);
+        }
+        else
+        {
+            _unitsGathered = 0f;
         }
 
         if (_sourcePlanet && !_targetPlanet)

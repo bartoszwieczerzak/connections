@@ -30,7 +30,7 @@ public class Planet : MonoBehaviour
 
         if (Owner != Owner.None)
         {
-            _units += _planetStats.populationGrowth;
+            //_units += _planetStats.populationGrowth;
         }
 
         StartCoroutine(AddTroopsCoroutine());

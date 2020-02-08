@@ -29,7 +29,7 @@ public class Game : MonoBehaviour
     [SerializeField] private GameObject _losePanel = default;
     
     private readonly List<Planet> _planets = new List<Planet>();
-    
+
     public Color PlayerColor => _playerColor;
     public Color EnemyColor => _enemyColor;
 
@@ -96,78 +96,68 @@ public class Game : MonoBehaviour
 
             if (target.Owner == who || target.Owner == Owner.None)
             {
-                SendTroops(who, source, target);
+                // SendTroops method
+                if (target.Owner == Owner.None)
+                {
+                    PlaySound(who, SoundType.PlanetAcquired);
+                }
+
+                int unitsToSend = PlayerClicks.Instance.UnitsGathered;
+                Debug.Log("SENDING " + unitsToSend + " units!");
+                source.RemoveUnits(unitsToSend);
+                target.AddUnits(unitsToSend);
+                target.ChangeOwnership(who);
             }
             else
             {
-                AttackEnemy(who, source, target);
+                // AttackEnemy method
+                int unitsToSend = Mathf.FloorToInt(source.Units / 2);
+                Debug.Log("HAS: " + source.Units + " AND WILL REMOVE: " + unitsToSend);
+                source.RemoveUnits(unitsToSend);
+
+                Debug.Log("LEFT: " + source.Units);
+
+                if (target.Units > unitsToSend)
+                {
+                    target.RemoveUnits(unitsToSend);
+                    Debug.Log("REMOVED from TARGET: " + unitsToSend);
+
+                    PlaySound(who, SoundType.BattleLost);
+                }
+                else if (target.Units < unitsToSend)
+                {
+                    int toBeAdded = unitsToSend - target.Units;
+                    target.Units = 0;
+                    target.AddUnits(toBeAdded);
+                    Debug.Log("ADDED to TARGET: " + toBeAdded);
+                    target.ChangeOwnership(who);
+
+                    PlaySound(who, SoundType.PlanetTakenOver);
+                    PlaySound(who, SoundType.PlanetLost);
+                }
+                else
+                {
+                    target.Units = 0;
+                    target.ChangeOwnership(Owner.None);
+
+                    PlaySound(who, SoundType.BattleLost);
+                }
             }
 
             source.SendFleet(target);
 
-            PlayForPlayerAction(who, SoundType.SendingArmyPlayer);
+            PlaySound(who, SoundType.SendingArmyPlayer);
         }
     }
 
-    private void AttackEnemy(Owner who, Planet sourcePlanet, Planet targetPlanet)
+    private void PlaySound(Owner who, SoundType sound)
     {
-        int unitsToSend = Mathf.FloorToInt(sourcePlanet.Units / 2);
-        Debug.Log("HAS: " + sourcePlanet.Units + " AND WILL REMOVE: " + unitsToSend);
-        sourcePlanet.RemoveUnits(unitsToSend);
-
-        Debug.Log("LEFT: " + sourcePlanet.Units);
-
-        if (targetPlanet.Units > unitsToSend)
-        {
-            targetPlanet.RemoveUnits(unitsToSend);
-            Debug.Log("REMOVED from TARGET: " + unitsToSend);
-
-            PlayForPlayerAction(who, SoundType.BattleLost);
-        }
-        else if (targetPlanet.Units < unitsToSend)
-        {
-            int toBeAdded = unitsToSend - targetPlanet.Units;
-            targetPlanet.Units = 0;
-            targetPlanet.AddUnits(toBeAdded);
-            Debug.Log("ADDED to TARGET: " + toBeAdded);
-            targetPlanet.ChangeOwnership(who);
-
-            PlayForPlayerAction(who, SoundType.PlanetTakenOver);
-            PlayForEnemyAction(who, SoundType.PlanetLost);
-        }
-        else
-        {
-            targetPlanet.Units = 0;
-            targetPlanet.ChangeOwnership(Owner.None);
-
-            PlayForPlayerAction(who, SoundType.BattleLost);
-        }
-    }
-
-    private void SendTroops(Owner who, Planet sourcePlanet, Planet targetPlanet)
-    {
-        if (targetPlanet.Owner == Owner.None)
-        {
-            PlayForPlayerAction(who, SoundType.PlanetAcquired);
-        }
-
-        int unitsToSend = Mathf.FloorToInt(sourcePlanet.Units / 2);
-        sourcePlanet.RemoveUnits(unitsToSend);
-        targetPlanet.AddUnits(unitsToSend);
-        targetPlanet.ChangeOwnership(who);
-    }
-
-    private void PlayForPlayerAction(Owner who, SoundType sound)
-    {
-        if (who == Owner.Player)
+        if (who == Owner.Ai)
         {
             AudioManager.Instance.Play(sound);
         }
-    }
-
-    private void PlayForEnemyAction(Owner who, SoundType sound)
-    {
-        if (who == Owner.Ai)
+        
+        if (who == Owner.Player)
         {
             AudioManager.Instance.Play(sound);
         }
