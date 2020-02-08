@@ -322,6 +322,7 @@ GameObject:
   - component: {fileID: 6107965634050444207}
   - component: {fileID: 6107965634050444192}
   - component: {fileID: 687953277570874049}
+  - component: {fileID: 2059454108507909257}
   m_Layer: 5
   m_Name: WinPanel
   m_TagString: Untagged
@@ -400,6 +401,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50fa3d39b29b04350b161eae4bf8e353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &2059454108507909257
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6107965634050444194}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a4cc8ba26b8c6495282c1dcc7f132c35, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &675248300126568531
 PrefabInstance:
   m_ObjectHideFlags: 0
