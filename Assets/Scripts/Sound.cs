@@ -63,4 +63,5 @@ public enum SoundType
     GameLost,
 
     PlanetAcquired,
+    ButtonHighlighted,
 }
