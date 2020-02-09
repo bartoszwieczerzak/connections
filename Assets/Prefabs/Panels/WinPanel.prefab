@@ -322,15 +322,15 @@ GameObject:
   - component: {fileID: 6107965634050444207}
   - component: {fileID: 6107965634050444192}
   - component: {fileID: 687953277570874049}
-  - component: {fileID: 5031462806651754516}
-  - component: {fileID: 4316706877027634028}
+  - component: {fileID: 5640440862981966206}
+  - component: {fileID: 7343482742211356441}
   m_Layer: 5
   m_Name: WinPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6107965634050444193
 RectTransform:
   m_ObjectHideFlags: 0
@@ -402,7 +402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50fa3d39b29b04350b161eae4bf8e353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!225 &5031462806651754516
+--- !u!225 &5640440862981966206
 CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -414,7 +414,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!95 &4316706877027634028
+--- !u!95 &7343482742211356441
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -424,7 +424,7 @@ Animator:
   m_GameObject: {fileID: 6107965634050444194}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a4cc8ba26b8c6495282c1dcc7f132c35, type: 2}
+  m_Controller: {fileID: 9100000, guid: e6c69474aeb974fce86105274f7b7570, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

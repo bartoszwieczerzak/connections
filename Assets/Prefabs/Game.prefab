@@ -44,9 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215c0c5e3c2956d419181730fc994a06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hoverPlanetHighlight: {fileID: 0}
-  selectedPlanetHighlight: {fileID: 0}
-  particleSystemPrefab: {fileID: 0}
+  _hoverPlanetHighlight: {fileID: 0}
+  _selectedPlanetHighlight: {fileID: 0}
+  _particleSystemPrefab: {fileID: 0}
+  _unitsGatherSpeed: 2
 --- !u!114 &2642226432382641919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,7 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 616f48449ad3a42438bcbc8df505540b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerColor: {r: 0, g: 0.6436324, b: 1, a: 1}
-  enemyColor: {r: 1, g: 0, b: 0, a: 1}
-  winPanel: {fileID: 0}
-  losePanel: {fileID: 0}
+  _playerColor: {r: 0, g: 0, b: 0, a: 0}
+  _enemyColor: {r: 0, g: 0, b: 0, a: 0}
+  _winPanel: {fileID: 0}
+  _losePanel: {fileID: 0}

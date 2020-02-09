@@ -167,15 +167,15 @@ GameObject:
   - component: {fileID: 1144802083131042770}
   - component: {fileID: 1144802083131042771}
   - component: {fileID: 6697199382356741044}
-  - component: {fileID: 5479256714774142685}
-  - component: {fileID: 971548841498842516}
+  - component: {fileID: 4148265351178831953}
+  - component: {fileID: 6566164687731086057}
   m_Layer: 5
   m_Name: LosePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1144802083131042768
 RectTransform:
   m_ObjectHideFlags: 0
@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50fa3d39b29b04350b161eae4bf8e353, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!225 &5479256714774142685
+--- !u!225 &4148265351178831953
 CanvasGroup:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -259,7 +259,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!95 &971548841498842516
+--- !u!95 &6566164687731086057
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -269,7 +269,7 @@ Animator:
   m_GameObject: {fileID: 1144802083131042769}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 48077a4d237d34428a8aebe6b22d8262, type: 2}
+  m_Controller: {fileID: 9100000, guid: e6c69474aeb974fce86105274f7b7570, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
