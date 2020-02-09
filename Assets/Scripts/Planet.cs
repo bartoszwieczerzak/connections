@@ -17,6 +17,10 @@ public class Planet : MonoBehaviour
 
     public Owner Owner => _owner;
 
+    public bool OwnByPlayer => _owner == Owner.Player;
+    public bool OwnByAi => _owner == Owner.Ai;
+    public bool OwnByNoone => _owner == Owner.None;
+
     void Start()
     {
         transform.localScale = new Vector2(_planetStats.size, _planetStats.size);
@@ -30,7 +34,7 @@ public class Planet : MonoBehaviour
 
         if (Owner != Owner.None)
         {
-            _units += _planetStats.populationGrowth;
+            //_units += _planetStats.populationGrowth;
         }
 
         StartCoroutine(AddTroopsCoroutine());

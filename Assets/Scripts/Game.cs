@@ -23,13 +23,13 @@ public class Game : MonoBehaviour
 
     #endregion
 
-    [SerializeField] private Color _playerColor = default;
-    [SerializeField] private Color _enemyColor = default;
-    [SerializeField] private GameObject _winPanel = default;
-    [SerializeField] private GameObject _losePanel = default;
+    [SerializeField] private Color _playerColor;
+    [SerializeField] private Color _enemyColor;
+    [SerializeField] private GameObject _winPanel;
+    [SerializeField] private GameObject _losePanel;
     
     private readonly List<Planet> _planets = new List<Planet>();
-    
+
     public Color PlayerColor => _playerColor;
     public Color EnemyColor => _enemyColor;
 
@@ -44,6 +44,11 @@ public class Game : MonoBehaviour
     }
 
     void Update()
+    {
+        CheckWinLoseCondition();
+    }
+
+    private void CheckWinLoseCondition()
     {
         var playerPlanetsCount = _planets.Count(p => p.Owner == Owner.Player);
         var enemyPlanetsCount = _planets.Count(p => p.Owner == Owner.Ai);
@@ -62,15 +67,14 @@ public class Game : MonoBehaviour
             GameOver();
         }
     }
-
     private void GameDraw()
     {
-        Debug.Log("That's a draw!");
+        // Debug.Log("That's a draw!");
     }
 
     private void GameOver()
     {
-        Debug.Log("Game Over man!");
+        // Debug.Log("Game Over man!");
         _losePanel.SetActive(true);
 
         //AudioManager.instance.Play(SoundType.GAME_LOST);
@@ -78,98 +82,9 @@ public class Game : MonoBehaviour
 
     private void GameWin()
     {
-        Debug.Log("You win!");
+        // Debug.Log("You win!");
         _winPanel.SetActive(true);
 
         //AudioManager.instance.Play(SoundType.GAME_WON);
-    }
-
-    public void SendArmy(Owner who, Planet source, Planet target)
-    {
-        if (source.Units > 1)
-        {
-            if (who != source.Owner)
-            {
-                Debug.LogWarning(source.Owner + " cannot send army from " + source.name + "!");
-                return;
-            }
-
-            if (target.Owner == who || target.Owner == Owner.None)
-            {
-                SendTroops(who, source, target);
-            }
-            else
-            {
-                AttackEnemy(who, source, target);
-            }
-
-            source.SendFleet(target);
-
-            PlayForPlayerAction(who, SoundType.SendingArmyPlayer);
-        }
-    }
-
-    private void AttackEnemy(Owner who, Planet sourcePlanet, Planet targetPlanet)
-    {
-        int unitsToSend = Mathf.FloorToInt(sourcePlanet.Units / 2);
-        Debug.Log("HAS: " + sourcePlanet.Units + " AND WILL REMOVE: " + unitsToSend);
-        sourcePlanet.RemoveUnits(unitsToSend);
-
-        Debug.Log("LEFT: " + sourcePlanet.Units);
-
-        if (targetPlanet.Units > unitsToSend)
-        {
-            targetPlanet.RemoveUnits(unitsToSend);
-            Debug.Log("REMOVED from TARGET: " + unitsToSend);
-
-            PlayForPlayerAction(who, SoundType.BattleLost);
-        }
-        else if (targetPlanet.Units < unitsToSend)
-        {
-            int toBeAdded = unitsToSend - targetPlanet.Units;
-            targetPlanet.Units = 0;
-            targetPlanet.AddUnits(toBeAdded);
-            Debug.Log("ADDED to TARGET: " + toBeAdded);
-            targetPlanet.ChangeOwnership(who);
-
-            PlayForPlayerAction(who, SoundType.PlanetTakenOver);
-            PlayForEnemyAction(who, SoundType.PlanetLost);
-        }
-        else
-        {
-            targetPlanet.Units = 0;
-            targetPlanet.ChangeOwnership(Owner.None);
-
-            PlayForPlayerAction(who, SoundType.BattleLost);
-        }
-    }
-
-    private void SendTroops(Owner who, Planet sourcePlanet, Planet targetPlanet)
-    {
-        if (targetPlanet.Owner == Owner.None)
-        {
-            PlayForPlayerAction(who, SoundType.PlanetAcquired);
-        }
-
-        int unitsToSend = Mathf.FloorToInt(sourcePlanet.Units / 2);
-        sourcePlanet.RemoveUnits(unitsToSend);
-        targetPlanet.AddUnits(unitsToSend);
-        targetPlanet.ChangeOwnership(who);
-    }
-
-    private void PlayForPlayerAction(Owner who, SoundType sound)
-    {
-        if (who == Owner.Player)
-        {
-            AudioManager.Instance.Play(sound);
-        }
-    }
-
-    private void PlayForEnemyAction(Owner who, SoundType sound)
-    {
-        if (who == Owner.Ai)
-        {
-            AudioManager.Instance.Play(sound);
-        }
     }
 }
