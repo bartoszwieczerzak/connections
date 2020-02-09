@@ -45,7 +45,7 @@ public class AudioManager : MonoBehaviour
             }
             else
             {
-                Debug.LogWarningFormat("No matching Mixer Group found for name: {0}", s.MixerGroup);
+                // Debug.LogWarningFormat("No matching Mixer Group found for name: {0}", s.MixerGroup);
             }
         }
 
@@ -57,11 +57,11 @@ public class AudioManager : MonoBehaviour
         Sound s = Array.Find(_sounds, sound => sound.Type == type);
         if (s == null)
         {
-            Debug.LogWarningFormat("Sound {0} not found!", type.ToString());
+            // Debug.LogWarningFormat("Sound {0} not found!", type.ToString());
             return;
         }
 
-        Debug.LogFormat("Playing {0} sound", type.ToString());
+        // Debug.LogFormat("Playing {0} sound", type.ToString());
         s.Source.Play();
     }
 }

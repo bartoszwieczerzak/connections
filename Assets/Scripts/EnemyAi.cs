@@ -30,7 +30,7 @@ public class EnemyAi : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
-        Debug.Log("Enemy takes turn");
+        // Debug.Log("Enemy takes turn");
 
         _aiPlanets.Clear();
         _playerPlanets.Clear();
@@ -50,7 +50,7 @@ public class EnemyAi : MonoBehaviour
                     _uninhabitedPlanets.Add(planet);
                     break;
                 default:
-                    Debug.LogWarning("Found planet " + planet.name + " with unknown Owner: " + planet.Owner.ToString());
+                    // Debug.LogWarning("Found planet " + planet.name + " with unknown Owner: " + planet.Owner.ToString());
                     break;
             }
         }
@@ -61,30 +61,29 @@ public class EnemyAi : MonoBehaviour
             Planet closestUninhabitedPlanet = FindClosestPlanet(aiPlanet, _uninhabitedPlanets);
             if (closestUninhabitedPlanet)
             {
-                Debug.Log("Sending army from " + aiPlanet.name + " to " + closestUninhabitedPlanet.name);
+                // Debug.Log("Sending army from " + aiPlanet.name + " to " + closestUninhabitedPlanet.name);
 
-                Game.Instance.SendArmy(Owner.Ai, aiPlanet, closestUninhabitedPlanet);
+                // GameActions.Instance.SendUnits(Owner.Ai, aiPlanet, closestUninhabitedPlanet);
             }
             else
             {
                 Planet closestPlayerPlanet = FindClosestPlanet(aiPlanet, _playerPlanets);
                 if (closestPlayerPlanet)
                 {
-                    Debug.Log("Sending army from " + aiPlanet.name + " to " + closestPlayerPlanet.name);
+                    // Debug.Log("Sending army from " + aiPlanet.name + " to " + closestPlayerPlanet.name);
 
-                    Game.Instance.SendArmy(Owner.Ai, aiPlanet, closestPlayerPlanet);
+                    // GameActions.Instance.SendUnits(Owner.Ai, aiPlanet, closestPlayerPlanet);
                 }
             }
 
-            Debug.Log("Current state [AI: " + _aiPlanets.Count.ToString() + " | Player: " +
-                      _playerPlanets.Count.ToString() + " | Free: " + _uninhabitedPlanets.Count.ToString() + "]");
+            // Debug.Log("Current state [AI: " + _aiPlanets.Count.ToString() + " | Player: " + _playerPlanets.Count.ToString() + " | Free: " + _uninhabitedPlanets.Count.ToString() + "]");
 
             yield return new WaitForSeconds(Random.Range(_minTurnDelay, _maxTurnDelay));
             StartCoroutine(EnemyTurn());
         }
         else
         {
-            Debug.Log("AI lost it's last planet! Ending AI fighting coroutine!");
+            // Debug.Log("AI lost it's last planet! Ending AI fighting coroutine!");
         }
     }
 
