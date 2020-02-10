@@ -1,23 +1,23 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemyAi : MonoBehaviour
 {
     [SerializeField] private float _initialDelay = 3.0f;
     [SerializeField, Range(3.0f, 10.0f)] private float _minTurnDelay = 5.0f;
     [SerializeField, Range(3.0f, 25.0f)] private float _maxTurnDelay = 8.0f;
-
-    private List<Planet> _planets;
+    
     private readonly List<Planet> _aiPlanets = new List<Planet>();
     private readonly List<Planet> _playerPlanets = new List<Planet>();
     private readonly List<Planet> _uninhabitedPlanets = new List<Planet>();
 
     void Start()
     {
-        _planets = FindObjectsOfType<Planet>().ToList();
-
         StartCoroutine(DelayedStart());
     }
 
@@ -36,7 +36,7 @@ public class EnemyAi : MonoBehaviour
         _playerPlanets.Clear();
         _uninhabitedPlanets.Clear();
 
-        foreach (Planet planet in _planets)
+        foreach (Planet planet in Game.Instance.Planets)
         {
             switch (planet.Owner)
             {
@@ -50,7 +50,7 @@ public class EnemyAi : MonoBehaviour
                     _uninhabitedPlanets.Add(planet);
                     break;
                 default:
-                    // Debug.LogWarning("Found planet " + planet.name + " with unknown Owner: " + planet.Owner.ToString());
+                    Debug.LogWarning("Found planet " + planet.name + " with unknown Owner: " + planet.Owner);
                     break;
             }
         }
@@ -63,7 +63,7 @@ public class EnemyAi : MonoBehaviour
             {
                 // Debug.Log("Sending army from " + aiPlanet.name + " to " + closestUninhabitedPlanet.name);
 
-                // GameActions.Instance.SendUnits(Owner.Ai, aiPlanet, closestUninhabitedPlanet);
+                GameActions.Instance.SendUnits(Owner.Ai, aiPlanet, closestUninhabitedPlanet, aiPlanet.Units / 2);
             }
             else
             {
@@ -72,7 +72,7 @@ public class EnemyAi : MonoBehaviour
                 {
                     // Debug.Log("Sending army from " + aiPlanet.name + " to " + closestPlayerPlanet.name);
 
-                    // GameActions.Instance.SendUnits(Owner.Ai, aiPlanet, closestPlayerPlanet);
+                    GameActions.Instance.SendUnits(Owner.Ai, aiPlanet, closestPlayerPlanet, aiPlanet.Units / 2);
                 }
             }
 
@@ -89,22 +89,17 @@ public class EnemyAi : MonoBehaviour
 
     Planet SelectRandomPlanet(List<Planet> planets)
     {
-        if (planets.Count > 0)
-        {
-            int idx = Random.Range(0, planets.Count);
-            return planets[idx];
-        }
-
-        return null;
+        if (planets.Count <= 0) return null;
+        
+        int idx = Random.Range(0, planets.Count);
+        return planets[idx];
     }
 
     Planet FindClosestPlanet(Planet source, List<Planet> planets)
     {
-        if (planets.Count > 0)
-        {
-            return planets.OrderBy(x => Vector3.Distance(source.transform.position, x.transform.position)).ToArray()[0];
-        }
+        if (planets.Count <= 0) return null;
 
-        return null;
+        var distanceFunc = new Func<Planet, float>(p => Vector3.Distance(source.transform.position, p.transform.position));
+        return planets.OrderBy(distanceFunc).First();
     }
 }

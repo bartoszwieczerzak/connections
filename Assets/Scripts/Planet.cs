@@ -15,6 +15,7 @@ public class Planet : MonoBehaviour
         set => _units = value;
     }
 
+    private TextMeshProUGUI _unitsLabel;
     public Owner Owner => _owner;
 
     public bool OwnByPlayer => _owner == Owner.Player;
@@ -23,11 +24,16 @@ public class Planet : MonoBehaviour
 
     void Start()
     {
+        _unitsLabel = gameObject.GetComponentInChildren<TextMeshProUGUI>();
         transform.localScale = new Vector2(_planetStats.size, _planetStats.size);
 
         StartCoroutine(AddTroopsCoroutine());
     }
 
+    void Update()
+    {
+        _unitsLabel.color = OwnByPlayer ? Game.Instance.PlayerColor : OwnByAi? Game.Instance.EnemyColor : Game.Instance.NooneColor;
+    }
     private IEnumerator AddTroopsCoroutine()
     {
         yield return new WaitForSeconds(_planetStats.populationCycleTime);
@@ -54,8 +60,6 @@ public class Planet : MonoBehaviour
     public void ChangeOwnership(Owner newOwner)
     {
         _owner = newOwner;
-        gameObject.GetComponentInChildren<TextMeshProUGUI>().color =
-            _owner.Equals(Owner.Player) ? Game.Instance.PlayerColor : Game.Instance.EnemyColor;
     }
 
     public void SendFleet(Planet targetPlanet)
