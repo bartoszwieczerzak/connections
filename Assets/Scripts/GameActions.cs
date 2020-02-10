@@ -23,35 +23,40 @@ public class GameActions : MonoBehaviour
 
     #endregion
 
+    public Ship shipPrefab;
+
     public void SendUnits(Owner who, Planet source, Planet target, int amount)
     {
         if (source.Units <= amount) return;
 
-        if (target.Owner == who || target.Owner == Owner.None)
-        {
-            target.AddUnits(amount);
-            target.ChangeOwnership(who);
-        }
-        else
-        {
-            var unitsLeft = target.Units - amount;
-
-            if (unitsLeft < 0)
-            {
-                target.RemoveUnits(target.Units);
-                target.AddUnits(Mathf.Abs(unitsLeft));
-                target.ChangeOwnership(who);
-            }
-            else if (unitsLeft == 0)
-            {
-                target.RemoveUnits(target.Units);
-                target.ChangeOwnership(Owner.None);
-            }
-            else
-            {
-                target.RemoveUnits(amount);
-            }
-        }
+        Ship ship = Instantiate(shipPrefab, source.transform.position, Quaternion.identity);
+        ship.Fly(who, source, target, amount);
+        
+        // if (target.Owner == who || target.Owner == Owner.None)
+        // {
+        //     target.AddUnits(amount);
+        //     target.ChangeOwnership(who);
+        // }
+        // else
+        // {
+        //     var unitsLeft = target.Units - amount;
+        //
+        //     if (unitsLeft < 0)
+        //     {
+        //         target.RemoveUnits(target.Units);
+        //         target.AddUnits(Mathf.Abs(unitsLeft));
+        //         target.ChangeOwnership(who);
+        //     }
+        //     else if (unitsLeft == 0)
+        //     {
+        //         target.RemoveUnits(target.Units);
+        //         target.ChangeOwnership(Owner.None);
+        //     }
+        //     else
+        //     {
+        //         target.RemoveUnits(amount);
+        //     }
+        // }
 
         source.RemoveUnits(amount);
     }
