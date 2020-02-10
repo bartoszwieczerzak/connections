@@ -23,7 +23,12 @@ public class Planet : MonoBehaviour
     private GameObject _supplyChainMarkerPrefab;
     private GameObject _supplyChainMarkerGo;
     
+    [SerializeField]
     private TextMeshProUGUI _unitsLabel;
+    [SerializeField]
+    private TextMeshProUGUI _shieldLabel;
+    [SerializeField]
+    private TextMeshProUGUI _growthLabel;
     public Owner Owner => _owner;
 
     public bool OwnByPlayer => _owner == Owner.Player;
@@ -38,7 +43,9 @@ public class Planet : MonoBehaviour
 
     void Start()
     {
-        _unitsLabel = gameObject.GetComponentInChildren<TextMeshProUGUI>();
+        //_planetStats.populationCycleTime
+        _shieldLabel.text = _planetStats.defenseBonus.ToString();
+        _growthLabel.text = _planetStats.populationGrowth.ToString();
         transform.localScale = new Vector2(_planetStats.size, _planetStats.size);
 
         StartCoroutine(AddTroopsCoroutine());
@@ -72,7 +79,7 @@ public class Planet : MonoBehaviour
 
         if (Owner != Owner.None)
         {
-            //_units += _planetStats.populationGrowth;
+            _units += _planetStats.populationGrowth;
         }
 
         StartCoroutine(AddTroopsCoroutine());
