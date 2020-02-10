@@ -14,13 +14,27 @@ public class Planet : MonoBehaviour
         get => _units;
         set => _units = value;
     }
-
+    
+    private Planet _supplyingPlanet;
+    private Planet _previousSupplyingPlanet;
+    
+    private bool _supplyChainAlreadyStarted = false;
+    [SerializeField]
+    private GameObject _supplyChainMarkerPrefab;
+    private GameObject _supplyChainMarkerGo;
+    
     private TextMeshProUGUI _unitsLabel;
     public Owner Owner => _owner;
 
     public bool OwnByPlayer => _owner == Owner.Player;
     public bool OwnByAi => _owner == Owner.Ai;
     public bool OwnByNoone => _owner == Owner.None;
+
+    public Planet SupplyingPlanet
+    {
+        get => _supplyingPlanet;
+        set => _supplyingPlanet = value;
+    }
 
     void Start()
     {
@@ -33,6 +47,24 @@ public class Planet : MonoBehaviour
     void Update()
     {
         _unitsLabel.color = OwnByPlayer ? Game.Instance.PlayerColor : OwnByAi? Game.Instance.EnemyColor : Game.Instance.NooneColor;
+
+        Debug.Log("_supplyingPlanet: " + _supplyingPlanet + " _previousSupplyingPlanet: " + _previousSupplyingPlanet + " _supplyChainAlreadyStarted: " + _supplyChainAlreadyStarted);
+        if (_previousSupplyingPlanet && _previousSupplyingPlanet != _supplyingPlanet)
+        {
+            if (_supplyChainMarkerGo)  Destroy(_supplyChainMarkerGo);
+            _previousSupplyingPlanet = _supplyingPlanet;
+            _supplyChainAlreadyStarted = false;
+        }
+        
+        if (_supplyingPlanet && !_supplyChainAlreadyStarted)
+        {
+            _supplyChainMarkerGo = Instantiate(_supplyChainMarkerPrefab, Vector3.zero, Quaternion.identity, gameObject.transform);
+            var markerLineRenderer = _supplyChainMarkerGo.GetComponent<LineRenderer>();
+            markerLineRenderer.SetPositions(new[] {_supplyingPlanet.transform.position, transform.position});
+            _previousSupplyingPlanet = _supplyingPlanet;
+            StartCoroutine(SendSupplyCoroutine());
+            _supplyChainAlreadyStarted = true;
+        }
     }
     private IEnumerator AddTroopsCoroutine()
     {
@@ -46,6 +78,28 @@ public class Planet : MonoBehaviour
         StartCoroutine(AddTroopsCoroutine());
     }
 
+    private IEnumerator SendSupplyCoroutine()
+    {
+        yield return new WaitForSeconds(/*_planetStats.populationCycleTime*/2f);
+
+        if (_supplyingPlanet && _supplyingPlanet.Owner == _owner)
+        {
+            if (_units > 1)
+            {
+                RemoveUnits(1);
+                _supplyingPlanet.AddUnits(1);                
+            }
+        }
+        else
+        {
+            _supplyingPlanet = null;
+            _supplyChainAlreadyStarted = false;
+            Destroy(_supplyChainMarkerGo);
+        }
+        
+        StartCoroutine(SendSupplyCoroutine());
+    }
+    
     public void AddUnits(int amount)
     {
         _units += amount;
