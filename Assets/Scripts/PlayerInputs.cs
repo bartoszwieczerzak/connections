@@ -70,6 +70,18 @@ public class PlayerInputs : MonoBehaviour
             _unitsGatheredText.SetActive(false);
             _sourcePlanet = null;
         }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            PickSourcePlanet();
+        }
+
+        if (Input.GetMouseButtonUp(1))
+        {
+            PickTargetPlanet();
+            SetupSupplyChain();
+            _sourcePlanet = null;
+        }
     }
 
     private void ShowHighlight(Vector3 position)
@@ -153,7 +165,7 @@ public class PlayerInputs : MonoBehaviour
         if (!_sourcePlanet || !_targetPlanet) return;
 
         GameActions.Instance.SendUnits(Owner.Player, _sourcePlanet, _targetPlanet, UnitsGathered);
-        Debug.Log("SENDING FROM: " + _sourcePlanet + " TO: " + _targetPlanet);
+        // Debug.Log("SENDING FROM: " + _sourcePlanet + " TO: " + _targetPlanet);
 
         // remove this..
         // _markerLineRenderer.SetPositions(new Vector3[] { });
@@ -164,6 +176,13 @@ public class PlayerInputs : MonoBehaviour
         _targetPlanet = null;
     }
 
+    private void SetupSupplyChain()
+    {
+        if (!_sourcePlanet || !_targetPlanet) return;
+
+        _sourcePlanet.SupplyingPlanet = _targetPlanet;
+
+    }
     /*
     void LateUpdate()
     {

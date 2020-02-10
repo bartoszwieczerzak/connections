@@ -72,6 +72,12 @@ PrefabInstance:
       propertyPath: _owner
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 465911974354413921, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
+        type: 3}
+      propertyPath: _supplyChainMarkerPrefab
+      value: 
+      objectReference: {fileID: 1160342633780197495, guid: 9807d2031b5bd834cb6f422f2658651e,
+        type: 3}
     - target: {fileID: 465911974354413925, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
         type: 3}
       propertyPath: m_Name
