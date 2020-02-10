@@ -25,6 +25,7 @@ public class Game : MonoBehaviour
 
     [SerializeField] private Color _playerColor;
     [SerializeField] private Color _enemyColor;
+    [SerializeField] private Color _nooneColor;
     [SerializeField] private GameObject _winPanel;
     [SerializeField] private GameObject _losePanel;
     
@@ -32,6 +33,9 @@ public class Game : MonoBehaviour
 
     public Color PlayerColor => _playerColor;
     public Color EnemyColor => _enemyColor;
+    public Color NooneColor => _nooneColor;
+
+    public List<Planet> Planets => _planets;
 
     void Start()
     {

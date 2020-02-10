@@ -25,6 +25,39 @@ public class GameActions : MonoBehaviour
 
     public void SendUnits(Owner who, Planet source, Planet target, int amount)
     {
+        if (source.Units <= amount) return;
+
+        if (target.Owner == who || target.Owner == Owner.None)
+        {
+            target.AddUnits(amount);
+            target.ChangeOwnership(who);
+        }
+        else
+        {
+            var unitsLeft = target.Units - amount;
+
+            if (unitsLeft < 0)
+            {
+                target.RemoveUnits(target.Units);
+                target.AddUnits(Mathf.Abs(unitsLeft));
+                target.ChangeOwnership(who);
+            }
+            else if (unitsLeft == 0)
+            {
+                target.RemoveUnits(target.Units);
+                target.ChangeOwnership(Owner.None);
+            }
+            else
+            {
+                target.RemoveUnits(amount);
+            }
+        }
+
+        source.RemoveUnits(amount);
+    }
+
+    /*public void SendUnits2(Owner who, Planet source, Planet target, int amount)
+    {
         if (source.Units > amount)
         {
             if (who != source.Owner)
@@ -40,7 +73,7 @@ public class GameActions : MonoBehaviour
                 {
                     PlaySound(who, SoundType.PlanetAcquired);
                 }
-                
+
                 // Debug.Log("SENDING " + unitsToSend + " units!");
                 source.RemoveUnits(amount);
                 target.AddUnits(amount);
@@ -48,7 +81,6 @@ public class GameActions : MonoBehaviour
             }
             else
             {
-                
                 // Debug.Log("HAS: " + source.Units + " AND WILL REMOVE: " + unitsToSend);
                 source.RemoveUnits(amount);
 
@@ -85,7 +117,7 @@ public class GameActions : MonoBehaviour
 
             PlaySound(who, SoundType.SendingArmyPlayer);
         }
-    }
+    }*/
 
     private void PlaySound(Owner who, SoundType sound)
     {
@@ -93,7 +125,7 @@ public class GameActions : MonoBehaviour
         {
             AudioManager.Instance.Play(sound);
         }
-        
+
         if (who == Owner.Player)
         {
             AudioManager.Instance.Play(sound);

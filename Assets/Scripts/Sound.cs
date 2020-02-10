@@ -6,7 +6,7 @@ public class Sound
 {
     [SerializeField] private AudioClip _clip = default;
     [SerializeField] private SoundType _type = default;
-    [SerializeField] private String _mixerGroup = "Master";
+    [SerializeField] private string _mixerGroup = "Master";
     [SerializeField] private bool _loop = false;
 
     private AudioSource _source;
@@ -23,7 +23,7 @@ public class Sound
         set => _type = value;
     }
 
-    public String MixerGroup
+    public string MixerGroup
     {
         get => _mixerGroup;
         set => _mixerGroup = value;
