@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameActions : MonoBehaviour
 {
@@ -22,11 +20,25 @@ public class GameActions : MonoBehaviour
     }
 
     #endregion
-
+    
+    [SerializeField] private Ship shipPrefab = default;
+    
     public void SendUnits(Owner who, Planet source, Planet target, int amount)
     {
         if (source.Units <= amount) return;
 
+        Vector3 offset = target.transform.position - source.transform.position;
+        Quaternion rotation = Quaternion.LookRotation(Vector3.forward,offset) * Quaternion.Euler(0, 0, 90);
+
+        Ship ship = Instantiate(shipPrefab, source.transform.position, rotation);
+
+        ship.Fly(who, source, target, amount);
+
+        source.RemoveUnits(amount);
+    }
+    
+    public void Disembark(Owner who, Planet target, int amount)
+    {
         if (target.Owner == who || target.Owner == Owner.None)
         {
             target.AddUnits(amount);
@@ -35,7 +47,7 @@ public class GameActions : MonoBehaviour
         else
         {
             var unitsLeft = target.Units - amount;
-
+        
             if (unitsLeft < 0)
             {
                 target.RemoveUnits(target.Units);
@@ -52,8 +64,6 @@ public class GameActions : MonoBehaviour
                 target.RemoveUnits(amount);
             }
         }
-
-        source.RemoveUnits(amount);
     }
 
     /*public void SendUnits2(Owner who, Planet source, Planet target, int amount)

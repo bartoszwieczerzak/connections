@@ -7339,6 +7339,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 818627746, guid: 7d77403255be26743b168fda65741c53, type: 3}
+      propertyPath: shipPrefab
+      value: 
+      objectReference: {fileID: -2177292642024972831, guid: e120839ffaa404a9f90684b611cfc91b,
+        type: 3}
+    - target: {fileID: 818627746, guid: 7d77403255be26743b168fda65741c53, type: 3}
+      propertyPath: _shipPrefab
+      value: 
+      objectReference: {fileID: -2177292642024972831, guid: e120839ffaa404a9f90684b611cfc91b,
+        type: 3}
     - target: {fileID: 2642226432382641904, guid: 7d77403255be26743b168fda65741c53,
         type: 3}
       propertyPath: m_LocalPosition.x
