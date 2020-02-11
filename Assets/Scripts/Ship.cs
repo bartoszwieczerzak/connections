@@ -1,66 +1,42 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Ship : MonoBehaviour
 {
-    private Owner who;
-    private Planet source;
-    private Planet target;
-    private int amount;
-    private bool fly = false;
-    private bool arrived = false;
+    private Owner _who;
+    private Planet _source;
+    private Planet _target;
+    private int _amount;
+    private bool _fly = false;
+    private bool _arrived = false;
 
     public float speed = 1.0f;
 
     public void Fly(Owner who, Planet source, Planet target, int amount)
     {
-        transform.position = source.transform.position;
-
-        this.who = who;
-        this.source = source;
-        this.target = target;
-        this.amount = amount;
+        _who = who;
+        _source = source;
+        _target = target;
+        _amount = amount;
         
-        fly = true;
+        transform.position = _source.transform.position;
+        
+        _fly = true;
     }
 
     void LateUpdate()
     {
-        if (fly)
+        if (_fly)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+            Vector3 newPosition = Vector3.MoveTowards(transform.position, _target.transform.position, speed * Time.deltaTime);
 
-            arrived = (transform.position == target.transform.position);
+            transform.position = newPosition;
+
+            _arrived = Vector3.Distance(newPosition, _target.transform.position) <= 0.1f;
         }
 
-        if (arrived)
+        if (_arrived)
         {
-            if (target.Owner == who || target.Owner == Owner.None)
-            {
-                target.AddUnits(amount);
-                target.ChangeOwnership(who);
-            }
-            else
-            {
-                var unitsLeft = target.Units - amount;
-
-                if (unitsLeft < 0)
-                {
-                    target.RemoveUnits(target.Units);
-                    target.AddUnits(Mathf.Abs(unitsLeft));
-                    target.ChangeOwnership(who);
-                }
-                else if (unitsLeft == 0)
-                {
-                    target.RemoveUnits(target.Units);
-                    target.ChangeOwnership(Owner.None);
-                }
-                else
-                {
-                    target.RemoveUnits(amount);
-                }
-            }
+            GameActions.Instance.Disembark(_who, _target, _amount);
             
             Destroy(gameObject);
         }

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameActions : MonoBehaviour
 {
@@ -22,43 +20,45 @@ public class GameActions : MonoBehaviour
     }
 
     #endregion
-
-    public Ship shipPrefab;
-
+    [SerializeField] private Ship shipPrefab = default;
+    
     public void SendUnits(Owner who, Planet source, Planet target, int amount)
     {
         if (source.Units <= amount) return;
 
         Ship ship = Instantiate(shipPrefab, source.transform.position, Quaternion.identity);
         ship.Fly(who, source, target, amount);
-        
-        // if (target.Owner == who || target.Owner == Owner.None)
-        // {
-        //     target.AddUnits(amount);
-        //     target.ChangeOwnership(who);
-        // }
-        // else
-        // {
-        //     var unitsLeft = target.Units - amount;
-        //
-        //     if (unitsLeft < 0)
-        //     {
-        //         target.RemoveUnits(target.Units);
-        //         target.AddUnits(Mathf.Abs(unitsLeft));
-        //         target.ChangeOwnership(who);
-        //     }
-        //     else if (unitsLeft == 0)
-        //     {
-        //         target.RemoveUnits(target.Units);
-        //         target.ChangeOwnership(Owner.None);
-        //     }
-        //     else
-        //     {
-        //         target.RemoveUnits(amount);
-        //     }
-        // }
 
         source.RemoveUnits(amount);
+    }
+    
+    public void Disembark(Owner who, Planet target, int amount)
+    {
+        if (target.Owner == who || target.Owner == Owner.None)
+        {
+            target.AddUnits(amount);
+            target.ChangeOwnership(who);
+        }
+        else
+        {
+            var unitsLeft = target.Units - amount;
+        
+            if (unitsLeft < 0)
+            {
+                target.RemoveUnits(target.Units);
+                target.AddUnits(Mathf.Abs(unitsLeft));
+                target.ChangeOwnership(who);
+            }
+            else if (unitsLeft == 0)
+            {
+                target.RemoveUnits(target.Units);
+                target.ChangeOwnership(Owner.None);
+            }
+            else
+            {
+                target.RemoveUnits(amount);
+            }
+        }
     }
 
     /*public void SendUnits2(Owner who, Planet source, Planet target, int amount)
