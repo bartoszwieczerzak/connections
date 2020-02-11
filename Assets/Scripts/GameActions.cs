@@ -27,7 +27,11 @@ public class GameActions : MonoBehaviour
     {
         if (source.Units <= amount) return;
 
-        Ship ship = Instantiate(shipPrefab, source.transform.position, Quaternion.identity);
+        Vector3 offset = target.transform.position - source.transform.position;
+        Quaternion rotation = Quaternion.LookRotation(Vector3.forward,offset) * Quaternion.Euler(0, 0, 90);
+
+        Ship ship = Instantiate(shipPrefab, source.transform.position, rotation);
+
         ship.Fly(who, source, target, amount);
 
         source.RemoveUnits(amount);
