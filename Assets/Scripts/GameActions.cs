@@ -20,6 +20,7 @@ public class GameActions : MonoBehaviour
     }
 
     #endregion
+    
     [SerializeField] private Ship shipPrefab = default;
     
     public void SendUnits(Owner who, Planet source, Planet target, int amount)
