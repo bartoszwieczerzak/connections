@@ -122,7 +122,7 @@ public class PlayerInputs : MonoBehaviour
 
     private void UnitsChargeUp()
     {
-        if (!_sourcePlanet || _unitsGathered >= _sourcePlanet.Units - 1) return;
+        if (!_hoverPlanet || !_sourcePlanet || _hoverPlanet != _sourcePlanet || _unitsGathered >= _sourcePlanet.Units - 1) return;
 
         var currentSpeed = _unitsGatherSpeed + Mathf.FloorToInt(_unitsGathered / 5);
         currentSpeed = Mathf.Clamp(currentSpeed, 0, 10);
