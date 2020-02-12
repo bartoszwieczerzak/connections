@@ -26,7 +26,8 @@ public class PlayerInputs : MonoBehaviour
     private Planet _sourcePlanet;
     private Planet _targetPlanet;
     private float _unitsGathered = 1;
-
+    private float _time;
+    
     private LineRenderer _markerLineRenderer;
 
     private Camera _mainCamera;
@@ -35,6 +36,7 @@ public class PlayerInputs : MonoBehaviour
     [SerializeField] private GameObject _selectedPlanetHighlight;
     [SerializeField] private float _unitsGatherSpeed = 1.0f;
     [SerializeField] private GameObject _unitsGatheredText;
+    [SerializeField] private float _gatheringTime = 3f;
 
     public int UnitsGathered => Mathf.FloorToInt(_unitsGathered);
 
@@ -124,9 +126,9 @@ public class PlayerInputs : MonoBehaviour
     {
         if (!_hoverPlanet || !_sourcePlanet || _hoverPlanet != _sourcePlanet || _unitsGathered >= _sourcePlanet.Units - 1) return;
 
-        var currentSpeed = _unitsGatherSpeed + Mathf.FloorToInt(_unitsGathered / 5);
-        currentSpeed = Mathf.Clamp(currentSpeed, 0, 10);
-        _unitsGathered += currentSpeed * Time.deltaTime;
+        _time += Time.deltaTime / _gatheringTime;
+
+        _unitsGathered = Mathf.Lerp(0, _sourcePlanet.Units, _time);
         _unitsGatheredText.transform.position = _sourcePlanet.transform.position;
         _unitsGatheredText.SetActive(true);
     }
@@ -146,7 +148,7 @@ public class PlayerInputs : MonoBehaviour
         else if (_sourcePlanet)
         {
             HideHighlight();
-
+            _time = 0f;
             _sourcePlanet = null;
         }
     }
@@ -160,6 +162,7 @@ public class PlayerInputs : MonoBehaviour
 
         _sourcePlanet = null;
         _targetPlanet = null;
+        _time = 0f;
     }
 
     private void SetupSupplyChain()
