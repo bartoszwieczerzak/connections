@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2642226432382641906
+--- !u!1 &6858938029151064972
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,11 +8,10 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2642226432382641904}
-  - component: {fileID: 2642226432382641905}
-  - component: {fileID: 2642226432382641919}
-  - component: {fileID: 818627747}
-  - component: {fileID: 818627746}
+  - component: {fileID: 6858938029151064967}
+  - component: {fileID: 6858938029151064968}
+  - component: {fileID: 6858938029151064969}
+  - component: {fileID: 6858938029151064970}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -20,13 +19,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2642226432382641904
+--- !u!4 &6858938029151064967
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2642226432382641906}
+  m_GameObject: {fileID: 6858938029151064972}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -34,30 +33,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2642226432382641905
+--- !u!114 &6858938029151064968
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2642226432382641906}
+  m_GameObject: {fileID: 6858938029151064972}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 215c0c5e3c2956d419181730fc994a06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hoverPlanetHighlight: {fileID: 0}
-  _selectedPlanetHighlight: {fileID: 0}
-  _particleSystemPrefab: {fileID: 0}
+  _hoverPlanetHighlight: {fileID: 5401791316670688774, guid: c9ecdfbdc176a6246a221222ec2cfb1b,
+    type: 3}
+  _selectedPlanetHighlight: {fileID: 3270414945172075957, guid: 3fa4f2426ae71084da23091260442f13,
+    type: 3}
   _unitsGatherSpeed: 2
-  _unitsGatheredText: {fileID: 0}
---- !u!114 &2642226432382641919
+  _unitsGatheredText: {fileID: 7311547473076252343, guid: d24bbb919d96e944ab5a4551aad4eb37,
+    type: 3}
+--- !u!114 &6858938029151064969
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2642226432382641906}
+  m_GameObject: {fileID: 6858938029151064972}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 616f48449ad3a42438bcbc8df505540b, type: 3}
@@ -68,13 +69,13 @@ MonoBehaviour:
   _nooneColor: {r: 1, g: 1, b: 1, a: 1}
   _winPanel: {fileID: 0}
   _losePanel: {fileID: 0}
---- !u!120 &818627747
+--- !u!120 &6858938029151064970
 LineRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2642226432382641906}
+  m_GameObject: {fileID: 6858938029151064972}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -164,15 +165,3 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 0
   m_Loop: 0
---- !u!114 &818627746
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2642226432382641906}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a62d65a310d4c08933ca61f2aece3f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

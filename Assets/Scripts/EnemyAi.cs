@@ -11,7 +11,7 @@ public class EnemyAi : MonoBehaviour
     [SerializeField] private float _initialDelay = 3.0f;
     [SerializeField, Range(3.0f, 10.0f)] private float _minTurnDelay = 5.0f;
     [SerializeField, Range(3.0f, 25.0f)] private float _maxTurnDelay = 8.0f;
-    
+
     private readonly List<Planet> _aiPlanets = new List<Planet>();
     private readonly List<Planet> _playerPlanets = new List<Planet>();
     private readonly List<Planet> _uninhabitedPlanets = new List<Planet>();
@@ -59,38 +59,33 @@ public class EnemyAi : MonoBehaviour
         if (aiPlanet)
         {
             Planet closestUninhabitedPlanet = FindClosestPlanet(aiPlanet, _uninhabitedPlanets);
+            var unitsToSend = aiPlanet.Units / 2;
             if (closestUninhabitedPlanet)
             {
-                // Debug.Log("Sending army from " + aiPlanet.name + " to " + closestUninhabitedPlanet.name);
-
-                GameActions.Instance.SendUnits(Owner.Ai, aiPlanet, closestUninhabitedPlanet, aiPlanet.Units / 2);
+                aiPlanet.SendShip(closestUninhabitedPlanet, unitsToSend);
             }
             else
             {
                 Planet closestPlayerPlanet = FindClosestPlanet(aiPlanet, _playerPlanets);
                 if (closestPlayerPlanet)
                 {
-                    // Debug.Log("Sending army from " + aiPlanet.name + " to " + closestPlayerPlanet.name);
-
-                    GameActions.Instance.SendUnits(Owner.Ai, aiPlanet, closestPlayerPlanet, aiPlanet.Units / 2);
+                    aiPlanet.SendShip(closestPlayerPlanet, unitsToSend);
                 }
             }
-
-            // Debug.Log("Current state [AI: " + _aiPlanets.Count.ToString() + " | Player: " + _playerPlanets.Count.ToString() + " | Free: " + _uninhabitedPlanets.Count.ToString() + "]");
 
             yield return new WaitForSeconds(Random.Range(_minTurnDelay, _maxTurnDelay));
             StartCoroutine(EnemyTurn());
         }
         else
         {
-            // Debug.Log("AI lost it's last planet! Ending AI fighting coroutine!");
+            Debug.Log("AI lost it's last planet! Ending AI fighting coroutine!");
         }
     }
 
     Planet SelectRandomPlanet(List<Planet> planets)
     {
         if (planets.Count <= 0) return null;
-        
+
         int idx = Random.Range(0, planets.Count);
         return planets[idx];
     }

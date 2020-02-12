@@ -155,6 +155,11 @@ MonoBehaviour:
   _units: 0
   _owner: 2
   _planetStats: {fileID: 11400000, guid: c0486d495e7704bbdb84dc8e57953591, type: 2}
+  _resupplyAmount: 1
+  _playerShipPrefab: {fileID: 7848467820968779894, guid: c90333c29f37d854fb035357cc8b8e3b,
+    type: 3}
+  _enemyShipPrefab: {fileID: 8888222798515557953, guid: 06bdb613f09466d408bec2d2ad8f2688,
+    type: 3}
   _supplyChainMarkerPrefab: {fileID: 1160342633780197495, guid: 9807d2031b5bd834cb6f422f2658651e,
     type: 3}
   _unitsLabel: {fileID: 465911974460166253}

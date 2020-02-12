@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 758cf54121f44475e8de2f8d30390bf3, type: 3}
-  m_Name: MaxedOutPlanetStats
+  m_Name: RegenMaxPS
   m_EditorClassIdentifier: 
-  size: 1.2
-  populationGrowth: 10
-  populationCycleTime: 5
-  defenseBonus: 5
+  PopulationGrowth: 10
+  PopulationCycleTime: 3
+  DefenseMultiplier: 1

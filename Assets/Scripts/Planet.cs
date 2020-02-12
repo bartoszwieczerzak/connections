@@ -1,34 +1,40 @@
 ﻿using System.Collections;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class Planet : MonoBehaviour
 {
-    [SerializeField] private int _units = 0;
+    [SerializeField] private int _units;
     [SerializeField] private Owner _owner = Owner.None;
-    [SerializeField] private PlanetStats _planetStats = null;
+    [SerializeField] private PlanetStats _planetStats;
+    [SerializeField] private int _resupplyAmount = 1;
+    [SerializeField] private Ship _playerShipPrefab;
+    [SerializeField] private Ship _enemyShipPrefab;
 
     public int Units
     {
         get => _units;
-        set => _units = value;
+        set
+        {
+            if (value == 0)
+            {
+                _owner = Owner.None;
+            }
+
+            _units = value;
+        }
     }
-    
+
     private Planet _supplyingPlanet;
     private Planet _previousSupplyingPlanet;
-    
+
     private bool _supplyChainAlreadyStarted = false;
-    [SerializeField]
-    private GameObject _supplyChainMarkerPrefab;
+    [SerializeField] private GameObject _supplyChainMarkerPrefab;
     private GameObject _supplyChainMarkerGo;
-    
-    [SerializeField]
-    private TextMeshProUGUI _unitsLabel;
-    [SerializeField]
-    private TextMeshProUGUI _shieldLabel;
-    [SerializeField]
-    private TextMeshProUGUI _growthLabel;
+
+    [SerializeField] private TextMeshProUGUI _unitsLabel;
+    [SerializeField] private TextMeshProUGUI _shieldLabel;
+    [SerializeField] private TextMeshProUGUI _growthLabel;
     public Owner Owner => _owner;
 
     public bool OwnByPlayer => _owner == Owner.Player;
@@ -43,26 +49,25 @@ public class Planet : MonoBehaviour
 
     void Start()
     {
-        //_planetStats.populationCycleTime
-        _shieldLabel.text = _planetStats.defenseBonus.ToString();
-        _growthLabel.text = _planetStats.populationGrowth.ToString();
-        transform.localScale = new Vector2(_planetStats.size, _planetStats.size);
+        _shieldLabel.text = "x" + _planetStats.DefenseMultiplier;
+        _growthLabel.text = "+" + _planetStats.PopulationGrowth + "/" + _planetStats.PopulationCycleTime + "s";
 
         StartCoroutine(AddTroopsCoroutine());
     }
 
     void Update()
     {
-        _unitsLabel.color = OwnByPlayer ? Game.Instance.PlayerColor : OwnByAi? Game.Instance.EnemyColor : Game.Instance.NooneColor;
+        _shieldLabel.text = "x" + _planetStats.DefenseMultiplier;
+        _unitsLabel.color = OwnByPlayer ? Game.Instance.PlayerColor : OwnByAi ? Game.Instance.EnemyColor : Game.Instance.NooneColor;
 
         Debug.Log("_supplyingPlanet: " + _supplyingPlanet + " _previousSupplyingPlanet: " + _previousSupplyingPlanet + " _supplyChainAlreadyStarted: " + _supplyChainAlreadyStarted);
         if (_previousSupplyingPlanet && _previousSupplyingPlanet != _supplyingPlanet)
         {
-            if (_supplyChainMarkerGo)  Destroy(_supplyChainMarkerGo);
+            if (_supplyChainMarkerGo) Destroy(_supplyChainMarkerGo);
             _previousSupplyingPlanet = _supplyingPlanet;
             _supplyChainAlreadyStarted = false;
         }
-        
+
         if (_supplyingPlanet && !_supplyChainAlreadyStarted)
         {
             _supplyChainMarkerGo = Instantiate(_supplyChainMarkerPrefab, Vector3.zero, Quaternion.identity, gameObject.transform);
@@ -73,28 +78,35 @@ public class Planet : MonoBehaviour
             _supplyChainAlreadyStarted = true;
         }
     }
+
     private IEnumerator AddTroopsCoroutine()
     {
-        yield return new WaitForSeconds(_planetStats.populationCycleTime);
+        yield return new WaitForSeconds(_planetStats.PopulationCycleTime);
 
         if (Owner != Owner.None)
         {
-            _units += _planetStats.populationGrowth;
+            GrowPopulation();
         }
 
         StartCoroutine(AddTroopsCoroutine());
     }
 
+    private void GrowPopulation()
+    {
+        Units += _planetStats.PopulationGrowth;
+        Units = Mathf.Clamp(Units, 0, int.MaxValue);
+    }
+
     private IEnumerator SendSupplyCoroutine()
     {
-        yield return new WaitForSeconds(/*_planetStats.populationCycleTime*/2f);
+        yield return new WaitForSeconds( /*_planetStats.populationCycleTime*/2f);
 
         if (_supplyingPlanet && _supplyingPlanet.Owner == _owner)
         {
-            if (_units > 1)
+            if (Units > 1)
             {
-                RemoveUnits(1);
-                _supplyingPlanet.AddUnits(1);                
+                Units -= _resupplyAmount;
+                _supplyingPlanet.ResupplyUnits(_resupplyAmount);
             }
         }
         else
@@ -103,33 +115,44 @@ public class Planet : MonoBehaviour
             _supplyChainAlreadyStarted = false;
             Destroy(_supplyChainMarkerGo);
         }
-        
+
         StartCoroutine(SendSupplyCoroutine());
     }
-    
-    public void AddUnits(int amount)
+
+    public void ResupplyUnits(int amount)
     {
-        _units += amount;
+        Units += amount;
     }
 
-    public void RemoveUnits(int amount)
+    public void TakeDamage(Owner shipOwner, int unitsAmount)
     {
-        _units -= amount;
-        _units = Mathf.Clamp(_units, 0, int.MaxValue);
+        var unitsToRemove = unitsAmount / _planetStats.DefenseMultiplier;
+        var unitsLeft = Mathf.FloorToInt(Units - unitsToRemove);
+        if (unitsLeft < 0)
+        {
+            _owner = shipOwner;
+            Units = Mathf.Abs(unitsLeft);
+        }
+        else
+        {
+            Units = unitsLeft;
+        }
+
+        Units = Mathf.Clamp(Units, 0, int.MaxValue);
     }
 
-    public void ChangeOwnership(Owner newOwner)
+    public void SendShip(Planet targetPlanet, int unitsToSend)
     {
-        _owner = newOwner;
-    }
+        if (Units <= unitsToSend) return;
 
-    public void SendFleet(Planet targetPlanet)
-    {
-        Vector3 sourcePlanetPosition = transform.position;
-        Vector3 heading = sourcePlanetPosition - targetPlanet.transform.position;
+        Vector2 offset = targetPlanet.transform.position - transform.position;
+        Quaternion shipRotation = Quaternion.LookRotation(Vector3.forward, offset) * Quaternion.Euler(0, 0, 90);
 
-        ParticleSystem transfer = GetComponentInChildren<ParticleSystem>();
-        transfer.transform.rotation = Quaternion.LookRotation(-heading);
-        transfer.Play();
+        var shipPrefab = OwnByPlayer ? _playerShipPrefab : _enemyShipPrefab;
+        Ship ship = Instantiate(shipPrefab, transform.position, shipRotation, transform);
+
+        ship.Fly(_owner, this, targetPlanet, unitsToSend);
+
+        Units -= unitsToSend;
     }
 }

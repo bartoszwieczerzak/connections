@@ -1,43 +1,47 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 
 public class Ship : MonoBehaviour
 {
-    private Owner _who;
-    private Planet _source;
-    private Planet _target;
-    private int _amount;
-    private bool _fly = false;
-    private bool _arrived = false;
+    private Owner _shipOwner;
+    private Planet _sourcePlanet;
+    private Planet _targetPlanet;
+    private int _unitsAmount;
 
-    public float speed = 1.0f;
+    private TMP_Text _unitsLabel;
 
-    public void Fly(Owner who, Planet source, Planet target, int amount)
+    [SerializeField] private float _speed = 1.0f;
+
+    public void Fly(Owner shipOwner, Planet sourcePlanet, Planet targetPlanet, int unitsAmount)
     {
-        _who = who;
-        _source = source;
-        _target = target;
-        _amount = amount;
+        _unitsLabel = GetComponentInChildren<TMP_Text>();
+        _unitsLabel.text = unitsAmount.ToString();
         
-        transform.position = _source.transform.position;
-        
-        _fly = true;
+        _shipOwner = shipOwner;
+        _sourcePlanet = sourcePlanet;
+        _targetPlanet = targetPlanet;
+        _unitsAmount = unitsAmount;
+
+        transform.position = _sourcePlanet.transform.position;
     }
 
     void LateUpdate()
     {
-        if (_fly)
+        var newPosition = Vector2.MoveTowards(transform.position, _targetPlanet.transform.position, _speed * Time.deltaTime);
+
+        transform.position = newPosition;
+
+        if (Vector2.Distance(newPosition, _targetPlanet.transform.position) <= 0.1f)
         {
-            Vector3 newPosition = Vector3.MoveTowards(transform.position, _target.transform.position, speed * Time.deltaTime);
+            if (_targetPlanet.Owner == _shipOwner)
+            {
+                _targetPlanet.ResupplyUnits(_unitsAmount);
+            }
+            else
+            {
+                _targetPlanet.TakeDamage(_shipOwner, _unitsAmount);
+            }
 
-            transform.position = newPosition;
-
-            _arrived = Vector3.Distance(newPosition, _target.transform.position) <= 0.1f;
-        }
-
-        if (_arrived)
-        {
-            GameActions.Instance.Disembark(_who, _target, _amount);
-            
             Destroy(gameObject);
         }
     }
