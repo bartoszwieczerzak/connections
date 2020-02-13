@@ -18,7 +18,7 @@ public class PlayerInputs : MonoBehaviour
 
         Instance = this;
 
-        DontDestroyOnLoad(this);
+        // DontDestroyOnLoad(this);
     }
 
     #endregion
