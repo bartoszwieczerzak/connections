@@ -18,7 +18,7 @@ public class Game : MonoBehaviour
 
         Instance = this;
 
-        DontDestroyOnLoad(this);
+        // DontDestroyOnLoad(this);
     }
 
     #endregion
