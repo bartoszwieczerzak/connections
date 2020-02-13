@@ -12,6 +12,11 @@ public class Menu : MonoBehaviour
     {
         SceneManager.LoadScene(1);
     }
+    
+    public void Credits()
+    {
+        SceneManager.LoadScene(2);
+    }
 
     public void Retry()
     {
