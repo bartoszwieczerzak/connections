@@ -76,7 +76,7 @@ SpriteRenderer:
   m_DrawMode: 2
   m_Size: {x: 25, y: 12}
   m_AdaptiveModeThreshold: 0
-  m_SpriteTileMode: 1
+  m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
