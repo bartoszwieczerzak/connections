@@ -38,8 +38,10 @@ public class PlayerInputs : MonoBehaviour
     [SerializeField] private float _unitsGatherSpeed = 1.0f;
     [SerializeField] private GameObject _unitsGatheredText;
     [SerializeField] private float _gatheringTime = 3f;
-    [SerializeField] private Image _filledCircle; 
-        
+    [SerializeField] private Image _filledCircle;
+
+    private float _gatheringStage = 0.0f;
+    
     public int UnitsGathered => Mathf.FloorToInt(_unitsGathered);
 
     private void Start()
@@ -56,6 +58,8 @@ public class PlayerInputs : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             PickSourcePlanet();
+
+            _gatheringStage = 0.0f;
         }
 
         if (Input.GetMouseButton(0))
@@ -137,6 +141,15 @@ public class PlayerInputs : MonoBehaviour
         _filledCircle.transform.position = _sourcePlanet.transform.position;
 
         _filledCircle.fillAmount = unitsGatheredPerc;
+        
+        // vibrate after reaching next level of gathering units
+        if (_gatheringStage < unitsGatheredPerc)
+        {
+            Handheld.Vibrate();
+            Debug.LogFormat("Vibrating after reaching {0} percent of gathered units!", (_gatheringStage * 10));
+
+            _gatheringStage += 0.2f;
+        }
     }
 
     private void ShowMouseTrailMarker()
