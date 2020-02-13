@@ -93,7 +93,10 @@ public class Planet : MonoBehaviour
 
     private void GrowPopulation()
     {
-        Units += _planetStats.PopulationGrowth;
+        float growUnitsBy = Units * (_planetStats.PopulationGrowth / 100f);
+        Units += Mathf.FloorToInt(growUnitsBy);
+        // Units += _planetStats.PopulationGrowth;
+        
         Units = Mathf.Clamp(Units, 0, int.MaxValue);
     }
 
