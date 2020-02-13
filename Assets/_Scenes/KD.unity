@@ -944,6 +944,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: eee6fa25134f09b45863f4911c4078e7,
         type: 2}
+    - target: {fileID: 1202355101518787803, guid: b403f06906e304b80b8c539c31c371bd,
+        type: 3}
+      propertyPath: _minPopulationGrowth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1202355101518787803, guid: b403f06906e304b80b8c539c31c371bd,
+        type: 3}
+      propertyPath: _maxPopulationGrowth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1202355101518787807, guid: b403f06906e304b80b8c539c31c371bd,
         type: 3}
       propertyPath: m_Name
