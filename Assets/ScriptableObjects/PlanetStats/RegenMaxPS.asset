@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 758cf54121f44475e8de2f8d30390bf3, type: 3}
   m_Name: RegenMaxPS
   m_EditorClassIdentifier: 
-  PopulationGrowth: 10
+  PopulationGrowth: 3
   PopulationCycleTime: 3
   DefenseMultiplier: 1

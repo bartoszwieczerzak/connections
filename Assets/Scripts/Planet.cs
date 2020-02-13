@@ -8,9 +8,20 @@ public class Planet : MonoBehaviour
     [SerializeField] private Owner _owner = Owner.None;
     [SerializeField] private PlanetStats _planetStats;
     [SerializeField] private int _resupplyAmount = 1;
+    
+    [Header("Prefabs")]
     [SerializeField] private Ship _playerShipPrefab;
     [SerializeField] private Ship _enemyShipPrefab;
+    [SerializeField] private GameObject _supplyChainMarkerPrefab;
+    
+    [Header("Units growth")]
+    [SerializeField] private float _minPopulationGrowth = 1f;
+    [SerializeField] private float _maxPopulationGrowth = 100f;
 
+    [Header("Text labels")]
+    [SerializeField] private TextMeshProUGUI _unitsLabel;
+    [SerializeField] private TextMeshProUGUI _shieldLabel;
+    [SerializeField] private TextMeshProUGUI _growthLabel;
     public int Units
     {
         get => _units;
@@ -29,12 +40,9 @@ public class Planet : MonoBehaviour
     private Planet _previousSupplyingPlanet;
 
     private bool _supplyChainAlreadyStarted = false;
-    [SerializeField] private GameObject _supplyChainMarkerPrefab;
     private GameObject _supplyChainMarkerGo;
 
-    [SerializeField] private TextMeshProUGUI _unitsLabel;
-    [SerializeField] private TextMeshProUGUI _shieldLabel;
-    [SerializeField] private TextMeshProUGUI _growthLabel;
+
     public Owner Owner => _owner;
 
     public bool OwnByPlayer => _owner == Owner.Player;
@@ -93,7 +101,11 @@ public class Planet : MonoBehaviour
 
     private void GrowPopulation()
     {
-        Units += _planetStats.PopulationGrowth;
+        float growUnitsBy = Units * (_planetStats.PopulationGrowth / 100f);
+        
+        growUnitsBy = Mathf.Clamp(growUnitsBy, _minPopulationGrowth, _maxPopulationGrowth);
+        Units += Mathf.FloorToInt(growUnitsBy);
+
         Units = Mathf.Clamp(Units, 0, int.MaxValue);
     }
 
