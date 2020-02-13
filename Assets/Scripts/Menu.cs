@@ -8,14 +8,14 @@ public class Menu : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void Play()
+    public void GoToLevelSelection()
     {
         SceneManager.LoadScene(1);
     }
     
     public void Credits()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
 
     public void Retry()
@@ -25,13 +25,26 @@ public class Menu : MonoBehaviour
 
     public void NextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneManager.LoadScene(1);
+    }
+
+    public void LoadLevel(int levelNumber)
+    {
+        SceneManager.LoadScene(levelNumber + 1);
     }
 
     public void Quit()
     {
         Debug.Log("Quiting the game...");
 
-        Application.Quit();
+        // save any game data here
+        #if UNITY_EDITOR
+            // Application.Quit() does not work in the editor so
+            // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
 }

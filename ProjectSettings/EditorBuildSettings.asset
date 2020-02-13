@@ -9,9 +9,12 @@ EditorBuildSettings:
     path: Assets/_Scenes/MainMenu.unity
     guid: 495dfeb6d413d42a0a9aa52ec8a04900
   - enabled: 1
+    path: Assets/_Scenes/LevelSelection.unity
+    guid: 943c41f1a95ae4d5493911bd8d01ce16
+  - enabled: 1
     path: Assets/_Scenes/KD.unity
     guid: 1f5bad9cdc4104bb998a262d49135d73
   - enabled: 1
-    path: Assets/_Scenes/Credits.unity
-    guid: 118ab14087f71455b885784e94177a9b
+    path: Assets/_Scenes/Credits_StarWars.unity
+    guid: ca0d52a9baedd4301ba45fc06ec1b86f
   m_configObjects: {}
