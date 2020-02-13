@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(LineRenderer))]
 public class PlayerInputs : MonoBehaviour
@@ -37,7 +38,8 @@ public class PlayerInputs : MonoBehaviour
     [SerializeField] private float _unitsGatherSpeed = 1.0f;
     [SerializeField] private GameObject _unitsGatheredText;
     [SerializeField] private float _gatheringTime = 3f;
-
+    [SerializeField] private Image _filledCircle; 
+        
     public int UnitsGathered => Mathf.FloorToInt(_unitsGathered);
 
     private void Start()
@@ -129,8 +131,12 @@ public class PlayerInputs : MonoBehaviour
         _time += Time.deltaTime / _gatheringTime;
 
         _unitsGathered = Mathf.Lerp(0, _sourcePlanet.Units, _time);
+        var unitsGatheredPerc = Mathf.Lerp(0, 1, _time);
         _unitsGatheredText.transform.position = _sourcePlanet.transform.position;
         _unitsGatheredText.SetActive(true);
+        _filledCircle.transform.position = _sourcePlanet.transform.position;
+
+        _filledCircle.fillAmount = unitsGatheredPerc;
     }
 
     private void ShowMouseTrailMarker()
@@ -149,6 +155,7 @@ public class PlayerInputs : MonoBehaviour
         {
             HideHighlight();
             _time = 0f;
+            _filledCircle.fillAmount = 0f;
             _sourcePlanet = null;
         }
     }
@@ -163,6 +170,7 @@ public class PlayerInputs : MonoBehaviour
         _sourcePlanet = null;
         _targetPlanet = null;
         _time = 0f;
+        _filledCircle.fillAmount = 0f;
     }
 
     private void SetupSupplyChain()
