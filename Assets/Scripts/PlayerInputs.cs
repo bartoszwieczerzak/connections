@@ -148,7 +148,7 @@ public class PlayerInputs : MonoBehaviour
             Handheld.Vibrate();
             Debug.LogFormat("Vibrating after reaching {0} percent of gathered units!", (_gatheringStage * 10));
 
-            _gatheringStage += 0.2f;
+            _gatheringStage += 0.25f;
         }
     }
 
