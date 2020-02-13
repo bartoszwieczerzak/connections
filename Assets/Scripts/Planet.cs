@@ -155,7 +155,7 @@ public class Planet : MonoBehaviour
 
     public void SendShip(Planet targetPlanet, int unitsToSend)
     {
-        if (Units <= unitsToSend) return;
+        if (Units <= unitsToSend) unitsToSend = Units - 1;
 
         Vector2 offset = targetPlanet.transform.position - transform.position;
         Quaternion shipRotation = Quaternion.LookRotation(Vector3.forward, offset) * Quaternion.Euler(0, 0, 90);

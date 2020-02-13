@@ -78,6 +78,11 @@ public class PlayerInputs : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
+            if (_hoverPlanet != null)
+            {
+                _hoverPlanet.SupplyingPlanet = null;
+            }
+
             PickSourcePlanet();
         }
 
