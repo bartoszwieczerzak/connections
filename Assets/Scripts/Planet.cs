@@ -22,6 +22,7 @@ public class Planet : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _unitsLabel;
     [SerializeField] private TextMeshProUGUI _shieldLabel;
     [SerializeField] private TextMeshProUGUI _growthLabel;
+    [SerializeField] private TextMeshProUGUI _unitsGainLoseLabel;
     public int Units
     {
         get => _units;
@@ -41,7 +42,7 @@ public class Planet : MonoBehaviour
 
     private bool _supplyChainAlreadyStarted = false;
     private GameObject _supplyChainMarkerGo;
-
+    private Animator _animator;
 
     public Owner Owner => _owner;
 
@@ -57,6 +58,7 @@ public class Planet : MonoBehaviour
 
     void Start()
     {
+        _animator = _unitsGainLoseLabel.GetComponent<Animator>();
         _shieldLabel.text = "x" + _planetStats.DefenseMultiplier;
         _growthLabel.text = "+" + _planetStats.PopulationGrowth + "/" + _planetStats.PopulationCycleTime + "s";
 
@@ -104,9 +106,9 @@ public class Planet : MonoBehaviour
         float growUnitsBy = Units * (_planetStats.PopulationGrowth / 100f);
         
         growUnitsBy = Mathf.Clamp(growUnitsBy, _minPopulationGrowth, _maxPopulationGrowth);
-        Units += Mathf.FloorToInt(growUnitsBy);
-
-        Units = Mathf.Clamp(Units, 0, int.MaxValue);
+        int unitsgrow = Mathf.FloorToInt(growUnitsBy);
+        
+        AddUnits(unitsgrow);
     }
 
     private IEnumerator SendSupplyCoroutine()
@@ -131,15 +133,28 @@ public class Planet : MonoBehaviour
         StartCoroutine(SendSupplyCoroutine());
     }
 
-    public void ResupplyUnits(int amount)
+    private void AddUnits(int amount)
     {
         Units += amount;
+     
+        Units = Mathf.Clamp(Units, 0, int.MaxValue);
+        
+        _unitsGainLoseLabel.text = amount.ToString();
+        _animator.SetTrigger("UnitsGain");
+    }
+    public void ResupplyUnits(int amount)
+    {
+        AddUnits(amount);
     }
 
     public void TakeDamage(Owner shipOwner, int unitsAmount)
     {
         var unitsToRemove = unitsAmount / _planetStats.DefenseMultiplier;
         var unitsLeft = Mathf.FloorToInt(Units - unitsToRemove);
+        
+        _unitsGainLoseLabel.text = unitsToRemove.ToString();
+        _animator.SetTrigger("UnitsLost");
+
         if (unitsLeft < 0)
         {
             _owner = shipOwner;
