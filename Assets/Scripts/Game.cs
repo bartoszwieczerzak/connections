@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Game : MonoBehaviour
 {
@@ -23,13 +25,25 @@ public class Game : MonoBehaviour
 
     #endregion
 
-    [SerializeField] private Color _playerColor;
+    [Header("Player colors")] [SerializeField]
+    private Color _playerColor;
+
     [SerializeField] private Color _enemyColor;
     [SerializeField] private Color _nooneColor;
-    [SerializeField] private GameObject _winPanel;
+    [Header("Panels")] [SerializeField] private GameObject _winPanel;
     [SerializeField] private GameObject _losePanel;
-    
+
+    [Header("Hud elements")] [SerializeField]
+    private Slider _unitsSlider;
+
+    [SerializeField] private TextMeshProUGUI _playerUnitsCountText;
+    [SerializeField] private TextMeshProUGUI _aiUnitsCountText;
+    [SerializeField] private TextMeshProUGUI _playerPlanetsCountText;
+    [SerializeField] private TextMeshProUGUI _noonePlanetsCountText;
+    [SerializeField] private TextMeshProUGUI _aiPlanetsCountText;
+
     private readonly List<Planet> _planets = new List<Planet>();
+    public readonly List<Ship> Ships = new List<Ship>();
 
     public Color PlayerColor => _playerColor;
     public Color EnemyColor => _enemyColor;
@@ -55,14 +69,34 @@ public class Game : MonoBehaviour
     private void CheckWinLoseCondition()
     {
         var playerPlanetsCount = _planets.Count(p => p.Owner == Owner.Player);
-        var enemyPlanetsCount = _planets.Count(p => p.Owner == Owner.Ai);
         var noonePlanetsCount = _planets.Count(p => p.Owner == Owner.None);
+        var aiPlanetsCount = _planets.Count(p => p.Owner == Owner.Ai);
 
-        if (playerPlanetsCount == 0 && enemyPlanetsCount == 0)
+        _playerPlanetsCountText.text = "P: " + playerPlanetsCount;
+        _noonePlanetsCountText.text = noonePlanetsCount.ToString();
+        _aiPlanetsCountText.text = "P: " + aiPlanetsCount;
+
+        var playerPlanetsUnitsCount = _planets.FindAll(p => p.Owner == Owner.Player).Sum(p => p.Units);
+        var aiPlanetsUnitsCount = _planets.FindAll(p => p.Owner == Owner.Ai).Sum(p => p.Units);
+
+        var playerUnitsInShips = Ships.FindAll(s => s.ShipOwner == Owner.Player).Sum(s => s.UnitsAmount);
+        var aiUnitsInShips = Ships.FindAll(s => s.ShipOwner == Owner.Ai).Sum(s => s.UnitsAmount);
+
+        var totalPlayerUnits = playerPlanetsUnitsCount + playerUnitsInShips;
+        var totalAiUnits = aiPlanetsUnitsCount + aiUnitsInShips;
+        var totalUnits = totalPlayerUnits + totalAiUnits;
+
+        float ratio = (float)totalPlayerUnits / totalUnits;
+        
+        _unitsSlider.value = ratio;
+        _playerUnitsCountText.text = "U: " + totalPlayerUnits;
+        _aiUnitsCountText.text = "U: " + totalAiUnits;
+
+        if (playerPlanetsCount == 0 && aiPlanetsCount == 0)
         {
             GameDraw();
         }
-        else if (enemyPlanetsCount == 0)
+        else if (aiPlanetsCount == 0)
         {
             GameWin();
         }
@@ -71,6 +105,7 @@ public class Game : MonoBehaviour
             GameOver();
         }
     }
+
     private void GameDraw()
     {
         // Debug.Log("That's a draw!");

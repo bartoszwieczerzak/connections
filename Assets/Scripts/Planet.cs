@@ -71,8 +71,7 @@ public class Planet : MonoBehaviour
     {
         _shieldLabel.text = "x" + _planetStats.DefenseMultiplier;
         _unitsLabel.color = OwnByPlayer ? Game.Instance.PlayerColor : OwnByAi ? Game.Instance.EnemyColor : Game.Instance.NooneColor;
-
-        Debug.Log("_supplyingPlanet: " + _supplyingPlanet + " _previousSupplyingPlanet: " + _previousSupplyingPlanet + " _supplyChainAlreadyStarted: " + _supplyChainAlreadyStarted);
+        
         if (_previousSupplyingPlanet && _previousSupplyingPlanet != _supplyingPlanet)
         {
             if (_supplyChainMarkerGo) Destroy(_supplyChainMarkerGo);

@@ -12,8 +12,13 @@ public class Ship : MonoBehaviour
 
     [SerializeField] private float _speed = 1.0f;
 
+    public int UnitsAmount => _unitsAmount;
+    public Owner ShipOwner => _shipOwner;
+
     public void Fly(Owner shipOwner, Planet sourcePlanet, Planet targetPlanet, int unitsAmount)
     {
+        Game.Instance.Ships.Add(this);
+        
         _unitsLabel = GetComponentInChildren<TMP_Text>();
         _unitsLabel.text = unitsAmount.ToString();
         
@@ -35,13 +40,14 @@ public class Ship : MonoBehaviour
         {
             if (_targetPlanet.Owner == _shipOwner)
             {
-                _targetPlanet.ResupplyUnits(_unitsAmount);
+                _targetPlanet.ResupplyUnits(UnitsAmount);
             }
             else
             {
-                _targetPlanet.TakeDamage(_shipOwner, _unitsAmount);
+                _targetPlanet.TakeDamage(_shipOwner, UnitsAmount);
             }
 
+            Game.Instance.Ships.Remove(this);
             Destroy(gameObject);
         }
     }
