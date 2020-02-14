@@ -81,7 +81,8 @@ MonoBehaviour:
     topRight: {r: 1, g: 0.89079213, b: 0, a: 1}
     bottomLeft: {r: 1, g: 0.593554, b: 0, a: 1}
     bottomRight: {r: 1, g: 0.2691771, b: 0, a: 1}
-  m_fontColorGradientPreset: {fileID: 0}
+  m_fontColorGradientPreset: {fileID: 11400000, guid: ec08ed851c011415ab7ecad5d292e235,
+    type: 2}
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_overrideHtmlColors: 0
@@ -507,16 +508,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1416600117262952227, guid: 6745cb26266b940d781c5d959509a9de,
         type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 450
-      objectReference: {fileID: 0}
-    - target: {fileID: 1416600117262952227, guid: 6745cb26266b940d781c5d959509a9de,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 1416600117262952227, guid: 6745cb26266b940d781c5d959509a9de,
-        type: 3}
       propertyPath: m_Pivot.y
       value: 1
       objectReference: {fileID: 0}
@@ -634,16 +625,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1416600117262952227, guid: 6745cb26266b940d781c5d959509a9de,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 450
-      objectReference: {fileID: 0}
-    - target: {fileID: 1416600117262952227, guid: 6745cb26266b940d781c5d959509a9de,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1416600117262952227, guid: 6745cb26266b940d781c5d959509a9de,
         type: 3}
