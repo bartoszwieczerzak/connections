@@ -62,6 +62,6 @@ public class AudioManager : MonoBehaviour
         }
 
         // Debug.LogFormat("Playing {0} sound", type.ToString());
-        //s.Source.Play();
+        s.Source.Play();
     }
 }
