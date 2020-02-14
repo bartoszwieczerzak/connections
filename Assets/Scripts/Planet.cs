@@ -8,21 +8,23 @@ public class Planet : MonoBehaviour
     [SerializeField] private Owner _owner = Owner.None;
     [SerializeField] private PlanetStats _planetStats;
     [SerializeField] private int _resupplyAmount = 1;
-    
-    [Header("Prefabs")]
-    [SerializeField] private Ship _playerShipPrefab;
+
+    [Header("Prefabs")] [SerializeField] private Ship _playerShipPrefab;
     [SerializeField] private Ship _enemyShipPrefab;
     [SerializeField] private GameObject _supplyChainMarkerPrefab;
-    
-    [Header("Units growth")]
-    [SerializeField] private float _minPopulationGrowth = 1f;
+
+    [Header("Units growth")] [SerializeField]
+    private float _minPopulationGrowth = 1f;
+
     [SerializeField] private float _maxPopulationGrowth = 100f;
 
-    [Header("Text labels")]
-    [SerializeField] private TextMeshProUGUI _unitsLabel;
+    [Header("Text labels")] [SerializeField]
+    private TextMeshProUGUI _unitsLabel;
+
     [SerializeField] private TextMeshProUGUI _shieldLabel;
     [SerializeField] private TextMeshProUGUI _growthLabel;
-    [SerializeField] private TextMeshProUGUI _unitsGainLoseLabel;
+    [SerializeField] private GameObject _unitsGainLoseLabelPrefab;
+
     public int Units
     {
         get => _units;
@@ -40,9 +42,9 @@ public class Planet : MonoBehaviour
     private Planet _supplyingPlanet;
     private Planet _previousSupplyingPlanet;
 
-    private bool _supplyChainAlreadyStarted = false;
+    private bool _supplyChainAlreadyStarted;
     private GameObject _supplyChainMarkerGo;
-    private Animator _animator;
+    private Canvas _mainGuiCanvas;
 
     public Owner Owner => _owner;
 
@@ -58,7 +60,7 @@ public class Planet : MonoBehaviour
 
     void Start()
     {
-        _animator = _unitsGainLoseLabel.GetComponent<Animator>();
+        _mainGuiCanvas = GetComponentInChildren<Canvas>();
         _shieldLabel.text = "x" + _planetStats.DefenseMultiplier;
         _growthLabel.text = "+" + _planetStats.PopulationGrowth + "/" + _planetStats.PopulationCycleTime + "s";
 
@@ -104,10 +106,10 @@ public class Planet : MonoBehaviour
     private void GrowPopulation()
     {
         float growUnitsBy = Units * (_planetStats.PopulationGrowth / 100f);
-        
+
         growUnitsBy = Mathf.Clamp(growUnitsBy, _minPopulationGrowth, _maxPopulationGrowth);
         int unitsgrow = Mathf.FloorToInt(growUnitsBy);
-        
+
         AddUnits(unitsgrow);
     }
 
@@ -136,12 +138,24 @@ public class Planet : MonoBehaviour
     private void AddUnits(int amount)
     {
         Units += amount;
-     
+
         Units = Mathf.Clamp(Units, 0, int.MaxValue);
-        
-        _unitsGainLoseLabel.text = amount.ToString();
-        _animator.SetTrigger("UnitsGain");
+
+        ShowGainLoseText(amount, true);
     }
+
+    private void ShowGainLoseText(int amount, bool gain)
+    {
+        string animTrigger = gain ? "UnitsGain" : "UnitsLost";
+        string prefixSign = gain ? "+" : "-";
+
+        GameObject unitsGainLoseLabelGo = Instantiate(_unitsGainLoseLabelPrefab, transform.position, Quaternion.identity, _mainGuiCanvas.transform);
+        TextMeshProUGUI unitsGainLoseLabel = unitsGainLoseLabelGo.GetComponent<TextMeshProUGUI>();
+        Animator animator = unitsGainLoseLabelGo.GetComponent<Animator>();
+        unitsGainLoseLabel.text = prefixSign + amount;
+        animator.SetTrigger(animTrigger);
+    }
+
     public void ResupplyUnits(int amount)
     {
         AddUnits(amount);
@@ -149,11 +163,10 @@ public class Planet : MonoBehaviour
 
     public void TakeDamage(Owner shipOwner, int unitsAmount)
     {
-        var unitsToRemove = unitsAmount / _planetStats.DefenseMultiplier;
-        var unitsLeft = Mathf.FloorToInt(Units - unitsToRemove);
-        
-        _unitsGainLoseLabel.text = unitsToRemove.ToString();
-        _animator.SetTrigger("UnitsLost");
+        int unitsToRemove = Mathf.FloorToInt(unitsAmount / _planetStats.DefenseMultiplier);
+        var unitsLeft = Units - unitsToRemove;
+
+        ShowGainLoseText(unitsToRemove, false);
 
         if (unitsLeft < 0)
         {
@@ -179,6 +192,8 @@ public class Planet : MonoBehaviour
         Ship ship = Instantiate(shipPrefab, transform.position, shipRotation, transform);
 
         ship.Fly(_owner, this, targetPlanet, unitsToSend);
+
+        ShowGainLoseText(unitsToSend, false);
 
         Units -= unitsToSend;
     }
