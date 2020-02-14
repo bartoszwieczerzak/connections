@@ -6762,6 +6762,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LosePanel
       objectReference: {fileID: 0}
+    - target: {fileID: 1144802083131042769, guid: f75144e615a2c42d49c2ee6478453e7a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f75144e615a2c42d49c2ee6478453e7a, type: 3}
 --- !u!1001 &1329642157051708628
@@ -7458,6 +7463,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7311547473076252345, guid: d24bbb919d96e944ab5a4551aad4eb37,
+        type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: c4c370947ffda3e4fad12296411c425d,
+        type: 2}
+    - target: {fileID: 7311547473076252345, guid: d24bbb919d96e944ab5a4551aad4eb37,
+        type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7311547473076252347, guid: d24bbb919d96e944ab5a4551aad4eb37,
         type: 3}

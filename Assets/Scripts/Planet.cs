@@ -149,7 +149,9 @@ public class Planet : MonoBehaviour
         string animTrigger = gain ? "UnitsGain" : "UnitsLost";
         string prefixSign = gain ? "+" : "-";
 
-        GameObject unitsGainLoseLabelGo = Instantiate(_unitsGainLoseLabelPrefab, transform.position, Quaternion.identity, _mainGuiCanvas.transform);
+        Vector3 newPosition =  new Vector3(Random.Range(-0.5f,0.5f),Random.Range(-0.2f,0.2f), 0) + transform.position;
+        
+        GameObject unitsGainLoseLabelGo = Instantiate(_unitsGainLoseLabelPrefab, newPosition, Quaternion.identity, _mainGuiCanvas.transform);
         TextMeshProUGUI unitsGainLoseLabel = unitsGainLoseLabelGo.GetComponent<TextMeshProUGUI>();
         Animator animator = unitsGainLoseLabelGo.GetComponent<Animator>();
         unitsGainLoseLabel.text = prefixSign + amount;
@@ -189,6 +191,7 @@ public class Planet : MonoBehaviour
         Quaternion shipRotation = Quaternion.LookRotation(Vector3.forward, offset) * Quaternion.Euler(0, 0, 90);
 
         var shipPrefab = OwnByPlayer ? _playerShipPrefab : _enemyShipPrefab;
+        
         Ship ship = Instantiate(shipPrefab, transform.position, shipRotation, transform);
 
         ship.Fly(_owner, this, targetPlanet, unitsToSend);
