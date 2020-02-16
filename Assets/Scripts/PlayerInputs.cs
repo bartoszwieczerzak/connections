@@ -58,7 +58,7 @@ public class PlayerInputs : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             PickSourcePlanet();
-
+            _sourcePlanet.ShowRange();
             _gatheringStage = 0.25f;
         }
 
@@ -69,6 +69,14 @@ public class PlayerInputs : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
+            _sourcePlanet.HideRange();
+
+            float calculatedDistance = Vector3.Distance(_sourcePlanet.transform.position, _mainCamera.ScreenToWorldPoint(Input.mousePosition));
+            
+            Debug.Log("DISTANCE IS: " + calculatedDistance);
+            
+            if (calculatedDistance > _sourcePlanet.PlanetRange) return;
+            
             PickTargetPlanet();
             SendUnits();
             _unitsGathered = 0f;
