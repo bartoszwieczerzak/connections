@@ -69,6 +69,8 @@ public class PlayerInputs : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
+            if (!_sourcePlanet) return;
+            
             _sourcePlanet.HideRange();
 
             float calculatedDistance = Vector3.Distance(_sourcePlanet.transform.position, _mainCamera.ScreenToWorldPoint(Input.mousePosition));
