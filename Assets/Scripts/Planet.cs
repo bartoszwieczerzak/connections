@@ -26,7 +26,10 @@ public class Planet : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _growthLabel;
     [SerializeField] private GameObject _unitsGainLoseLabelPrefab;
     [SerializeField] private Image _cooldownCircle;
-    
+
+    [Header("Cooldown")]
+    [SerializeField] private int _cooldownMaxUnits = 1000;
+    [SerializeField] private float _cooldownMaxTime = 10.0f;
     public int Units
     {
         get => _units;
@@ -201,8 +204,8 @@ public class Planet : MonoBehaviour
     {
         if (Units <= unitsToSend) unitsToSend = Units - 1;
 
-        var unitsForCooldown = Mathf.Clamp(unitsToSend, 1, 1000);
-        var cooldownTime = unitsForCooldown / 10.0f;
+        var unitsForCooldown = Mathf.Clamp(unitsToSend, 1, _cooldownMaxUnits);
+        var cooldownTime = unitsForCooldown / _cooldownMaxTime;
         ActivateCooldown(cooldownTime);
         
         Vector2 offset = targetPlanet.transform.position - transform.position;
