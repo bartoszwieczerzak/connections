@@ -51,13 +51,38 @@ public class Game : MonoBehaviour
 
     public List<Planet> Planets => _planets;
 
+    private Planet _playerMainPlanet;
+    private Planet _aiMainPlanet;
+
     void Start()
     {
         GameObject[] planetGameObjects = GameObject.FindGameObjectsWithTag(Tag.Planet);
 
         foreach (GameObject go in planetGameObjects)
         {
-            _planets.Add(go.GetComponent<Planet>());
+            Planet planet = go.GetComponent<Planet>();
+            _planets.Add(planet);
+
+            if (planet.IsMainPlanet)
+            {
+                if (planet.OwnByPlayer && !_playerMainPlanet)
+                {
+                    _playerMainPlanet = planet;
+                }
+                else if (planet.OwnByAi && !_aiMainPlanet)
+                {
+                    _aiMainPlanet = planet;
+                }
+                else
+                {
+                    Debug.LogWarning("There are more than 1 main planet per player: " + planet.name);
+                }
+            }
+        }
+
+        if (!_playerMainPlanet || !_aiMainPlanet)
+        {
+            Debug.LogWarning("There is not enough main planets in the game!\n PLAYER MAIN PLANET: " + _playerMainPlanet + "AI MAIN PLANET: " +_aiMainPlanet);
         }
     }
 
@@ -86,8 +111,8 @@ public class Game : MonoBehaviour
         var totalAiUnits = aiPlanetsUnitsCount + aiUnitsInShips;
         var totalUnits = totalPlayerUnits + totalAiUnits;
 
-        float ratio = (float)totalPlayerUnits / totalUnits;
-        
+        float ratio = (float) totalPlayerUnits / totalUnits;
+
         _unitsSlider.value = ratio;
         _playerUnitsCountText.text = "U: " + totalPlayerUnits;
         _aiUnitsCountText.text = "U: " + totalAiUnits;
@@ -96,11 +121,11 @@ public class Game : MonoBehaviour
         {
             GameDraw();
         }
-        else if (totalAiUnits <= 0)
+        else if (totalAiUnits <= 0 || !_aiMainPlanet.OwnByAi)
         {
             GameWin();
         }
-        else if (totalPlayerUnits <= 0)
+        else if (totalPlayerUnits <= 0 || !_playerMainPlanet.OwnByPlayer)
         {
             GameOver();
         }

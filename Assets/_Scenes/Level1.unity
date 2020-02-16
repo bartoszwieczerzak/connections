@@ -630,6 +630,11 @@ PrefabInstance:
       propertyPath: _units
       value: 1000
       objectReference: {fileID: 0}
+    - target: {fileID: 5882893293882203519, guid: 5e5ce651a6df64a72907f5fd9acb6cdb,
+        type: 3}
+      propertyPath: _isMainPlanet
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8689573313520925968, guid: 5e5ce651a6df64a72907f5fd9acb6cdb,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -919,6 +924,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _maxPopulationGrowth
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1202355101518787803, guid: b403f06906e304b80b8c539c31c371bd,
+        type: 3}
+      propertyPath: _isMainPlanet
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1202355101518787807, guid: b403f06906e304b80b8c539c31c371bd,
         type: 3}
@@ -6752,6 +6762,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _units
       value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 4931911463605622189, guid: d8f656e1d82014fd7ad9bc0cc6767cba,
+        type: 3}
+      propertyPath: _isMainPlanet
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4931911464518790305, guid: d8f656e1d82014fd7ad9bc0cc6767cba,
         type: 3}

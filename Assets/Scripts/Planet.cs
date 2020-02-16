@@ -9,6 +9,7 @@ public class Planet : MonoBehaviour
     [SerializeField] private Owner _owner = Owner.None;
     [SerializeField] private PlanetStats _planetStats;
     [SerializeField] private int _resupplyAmount = 1;
+    [SerializeField] private bool _isMainPlanet = false;
 
     [Header("Prefabs")]
     [SerializeField] private Ship _playerShipPrefab;
@@ -44,6 +45,8 @@ public class Planet : MonoBehaviour
         }
     }
 
+    public bool IsMainPlanet => _isMainPlanet;
+    
     private Planet _supplyingPlanet;
     private Planet _previousSupplyingPlanet;
 
