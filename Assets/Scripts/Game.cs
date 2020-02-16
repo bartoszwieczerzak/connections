@@ -96,11 +96,11 @@ public class Game : MonoBehaviour
         {
             GameDraw();
         }
-        else if (aiPlanetsCount == 0)
+        else if (totalAiUnits <= 0)
         {
             GameWin();
         }
-        else if (playerPlanetsCount == 0)
+        else if (totalPlayerUnits <= 0)
         {
             GameOver();
         }
