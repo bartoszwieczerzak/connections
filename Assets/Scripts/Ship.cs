@@ -44,8 +44,12 @@ public class Ship : MonoBehaviour
         }
         
         _unitsLabel.text = _unitsAmount.ToString();
-        
-        if (_unitsAmount <= 0) Destroy(gameObject);
+
+        if (_unitsAmount <= 0)
+        {
+            _unitsAmount = 0;
+            Destroy(gameObject);
+        }
     }
 
     void LateUpdate()
