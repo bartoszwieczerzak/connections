@@ -71,7 +71,7 @@ public class PlayerInputs : MonoBehaviour
         {
             PickTargetPlanet();
             SendUnits();
-            _unitsGathered = 1f;
+            _unitsGathered = 0f;
             _unitsGatheredText.SetActive(false);
             _sourcePlanet = null;
         }
@@ -182,16 +182,12 @@ public class PlayerInputs : MonoBehaviour
 
     private void SendUnits()
     {
-        if (!_sourcePlanet || !_targetPlanet) return;
+        if (!_sourcePlanet || !_targetPlanet || _sourcePlanet.IsCooldownActive) return;
 
         _sourcePlanet.SendShip(_targetPlanet, UnitsGathered);
 
         _selectedPlanetHighlight.SetActive(false);
 
-        var unitsForCooldown = Mathf.Clamp(UnitsGathered, 1, 1000);
-        var cooldownTime = unitsForCooldown / 10.0f;
-        _sourcePlanet.ActivateCooldown(cooldownTime);
-        
         _sourcePlanet = null;
         _targetPlanet = null;
         _time = 0f;

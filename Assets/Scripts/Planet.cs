@@ -201,6 +201,10 @@ public class Planet : MonoBehaviour
     {
         if (Units <= unitsToSend) unitsToSend = Units - 1;
 
+        var unitsForCooldown = Mathf.Clamp(unitsToSend, 1, 1000);
+        var cooldownTime = unitsForCooldown / 10.0f;
+        ActivateCooldown(cooldownTime);
+        
         Vector2 offset = targetPlanet.transform.position - transform.position;
         Quaternion shipRotation = Quaternion.LookRotation(Vector3.forward, offset) * Quaternion.Euler(0, 0, 90);
 
