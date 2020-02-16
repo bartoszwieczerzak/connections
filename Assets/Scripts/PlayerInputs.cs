@@ -150,8 +150,10 @@ public class PlayerInputs : MonoBehaviour
         // vibrate after reaching next level of gathering units
         if (_gatheringStage <= unitsGatheredPerc)
         {
-            Handheld.Vibrate();
-            Debug.LogFormat("Vibrating after reaching {0} percent of gathered units!", (_gatheringStage * 100));
+            #if UNITY_ANDROID || UNITY_IOS
+                Handheld.Vibrate();
+                Debug.LogFormat("Vibrating after reaching {0} percent of gathered units!", (_gatheringStage * 100));
+            #endif
 
             _gatheringStage += 0.25f;
         }
