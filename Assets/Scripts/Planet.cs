@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Planet : MonoBehaviour
 {
@@ -9,22 +10,23 @@ public class Planet : MonoBehaviour
     [SerializeField] private PlanetStats _planetStats;
     [SerializeField] private int _resupplyAmount = 1;
 
-    [Header("Prefabs")] [SerializeField] private Ship _playerShipPrefab;
+    [Header("Prefabs")]
+    [SerializeField] private Ship _playerShipPrefab;
     [SerializeField] private Ship _enemyShipPrefab;
     [SerializeField] private GameObject _supplyChainMarkerPrefab;
 
-    [Header("Units growth")] [SerializeField]
-    private float _minPopulationGrowth = 1f;
-
+    [Header("Units growth")]
+    [SerializeField] private float _minPopulationGrowth = 1f;
     [SerializeField] private float _maxPopulationGrowth = 100f;
 
-    [Header("Text labels")] [SerializeField]
-    private TextMeshProUGUI _unitsLabel;
+    [Header("Text labels")]
+    [SerializeField] private TextMeshProUGUI _unitsLabel;
 
     [SerializeField] private TextMeshProUGUI _shieldLabel;
     [SerializeField] private TextMeshProUGUI _growthLabel;
     [SerializeField] private GameObject _unitsGainLoseLabelPrefab;
-
+    [SerializeField] private Image _cooldownCircle;
+    
     public int Units
     {
         get => _units;
@@ -45,6 +47,10 @@ public class Planet : MonoBehaviour
     private bool _supplyChainAlreadyStarted;
     private GameObject _supplyChainMarkerGo;
     private Canvas _mainGuiCanvas;
+    
+    private float _cooldownTime = 0f;
+
+    public bool IsCooldownActive => _cooldownTime > 0f;
 
     public Owner Owner => _owner;
 
@@ -69,6 +75,11 @@ public class Planet : MonoBehaviour
 
     void Update()
     {
+        if (IsCooldownActive)
+        {
+            _cooldownCircle.fillAmount = _cooldownTime/100;
+            _cooldownTime -= Time.deltaTime;
+        }
         _shieldLabel.text = "x" + _planetStats.DefenseMultiplier;
         _unitsLabel.color = OwnByPlayer ? Game.Instance.PlayerColor : OwnByAi ? Game.Instance.EnemyColor : Game.Instance.NooneColor;
         
@@ -90,6 +101,10 @@ public class Planet : MonoBehaviour
         }
     }
 
+    public void ActivateCooldown(float cooldownTime)
+    {
+        _cooldownTime = cooldownTime;
+    }
     private IEnumerator AddTroopsCoroutine()
     {
         yield return new WaitForSeconds(_planetStats.PopulationCycleTime);
