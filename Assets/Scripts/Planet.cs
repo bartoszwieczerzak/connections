@@ -11,6 +11,14 @@ public class Planet : MonoBehaviour
     [SerializeField] private int _resupplyAmount = 1;
     [SerializeField] private bool _isMainPlanet = false;
 
+    [Header("Planet statistics")]
+    [Range(-5, 10)]
+    public int  PopulationGrowth = 1;
+    [Range(0.1f, 10.0f)]
+    public float PopulationCycleTime = 3.0f;
+    [Range(1.0f, 5.0f)]
+    public float DefenseMultiplier = 1.0f;
+
     [Header("Prefabs")]
     [SerializeField] private Ship _playerShipPrefab;
     [SerializeField] private Ship _enemyShipPrefab;
@@ -73,8 +81,8 @@ public class Planet : MonoBehaviour
     void Start()
     {
         _mainGuiCanvas = GetComponentInChildren<Canvas>();
-        _shieldLabel.text = "x" + _planetStats.DefenseMultiplier;
-        _growthLabel.text = "+" + _planetStats.PopulationGrowth + "/" + _planetStats.PopulationCycleTime + "s";
+        _shieldLabel.text = "x" + DefenseMultiplier;
+        _growthLabel.text = "+" + PopulationGrowth + "/" + PopulationCycleTime + "s";
 
         StartCoroutine(AddTroopsCoroutine());
     }
@@ -86,7 +94,7 @@ public class Planet : MonoBehaviour
             _cooldownCircle.fillAmount = _cooldownTime/100;
             _cooldownTime -= Time.deltaTime;
         }
-        _shieldLabel.text = "x" + _planetStats.DefenseMultiplier;
+        _shieldLabel.text = "x" + DefenseMultiplier;
         _unitsLabel.color = OwnByPlayer ? Game.Instance.PlayerColor : OwnByAi ? Game.Instance.EnemyColor : Game.Instance.NooneColor;
         
         if (_previousSupplyingPlanet && _previousSupplyingPlanet != _supplyingPlanet)
@@ -113,7 +121,7 @@ public class Planet : MonoBehaviour
     }
     private IEnumerator AddTroopsCoroutine()
     {
-        yield return new WaitForSeconds(_planetStats.PopulationCycleTime);
+        yield return new WaitForSeconds(PopulationCycleTime);
 
         if (Owner != Owner.None)
         {
@@ -125,7 +133,7 @@ public class Planet : MonoBehaviour
 
     private void GrowPopulation()
     {
-        float growUnitsBy = Units * (_planetStats.PopulationGrowth / 100f);
+        float growUnitsBy = Units * (PopulationGrowth / 100f);
 
         growUnitsBy = Mathf.Clamp(growUnitsBy, _minPopulationGrowth, _maxPopulationGrowth);
         int unitsgrow = Mathf.FloorToInt(growUnitsBy);
@@ -185,7 +193,7 @@ public class Planet : MonoBehaviour
 
     public void TakeDamage(Owner shipOwner, int unitsAmount)
     {
-        int unitsToRemove = Mathf.FloorToInt(unitsAmount / _planetStats.DefenseMultiplier);
+        int unitsToRemove = Mathf.FloorToInt(unitsAmount / DefenseMultiplier);
         var unitsLeft = Units - unitsToRemove;
 
         ShowGainLoseText(unitsToRemove, false);
