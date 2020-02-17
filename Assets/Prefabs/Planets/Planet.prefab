@@ -227,6 +227,10 @@ MonoBehaviour:
   _owner: 2
   _planetStats: {fileID: 11400000, guid: c0486d495e7704bbdb84dc8e57953591, type: 2}
   _resupplyAmount: 1
+  _isMainPlanet: 0
+  _populationGrowth: 1
+  _populationCycleTime: 3
+  _defenseMultiplier: 1
   _playerShipPrefab: {fileID: 7848467820968779894, guid: c90333c29f37d854fb035357cc8b8e3b,
     type: 3}
   _enemyShipPrefab: {fileID: 8888222798515557953, guid: 06bdb613f09466d408bec2d2ad8f2688,
@@ -241,6 +245,8 @@ MonoBehaviour:
   _unitsGainLoseLabelPrefab: {fileID: 2644563411492630015, guid: 1d8615a317dffcf42a049c2bb777cc77,
     type: 3}
   _cooldownCircle: {fileID: 7377786748336499015}
+  _cooldownMaxUnits: 1000
+  _cooldownMaxTime: 10
 --- !u!114 &465911974354413920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5429,7 +5435,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 5dc203b593f01ff43a9b31814d4838ae, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 04ba6c6fb453ca3449f2d6c6f3a9e8d4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
