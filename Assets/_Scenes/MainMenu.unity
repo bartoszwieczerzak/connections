@@ -518,7 +518,7 @@ MonoBehaviour:
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 1000, y: 200}
+  m_CellSize: {x: 800, y: 150}
   m_Spacing: {x: 0, y: 30}
   m_Constraint: 1
   m_ConstraintCount: 1
@@ -810,7 +810,7 @@ PrefabInstance:
     - target: {fileID: 7695988299538394227, guid: 6745cb26266b940d781c5d959509a9de,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Credits
+      value: GoToCredits
       objectReference: {fileID: 0}
     - target: {fileID: 7695988299538394227, guid: 6745cb26266b940d781c5d959509a9de,
         type: 3}
@@ -1113,8 +1113,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7695988299538394227, guid: 6745cb26266b940d781c5d959509a9de,
         type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7695988299538394227, guid: 6745cb26266b940d781c5d959509a9de,
+        type: 3}
       propertyPath: m_Interactable
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7695988299538394227, guid: 6745cb26266b940d781c5d959509a9de,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7695988299538394227, guid: 6745cb26266b940d781c5d959509a9de,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7695988299538394227, guid: 6745cb26266b940d781c5d959509a9de,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 286133161}
+    - target: {fileID: 7695988299538394227, guid: 6745cb26266b940d781c5d959509a9de,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GoToOptions
+      objectReference: {fileID: 0}
+    - target: {fileID: 7695988299538394227, guid: 6745cb26266b940d781c5d959509a9de,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6745cb26266b940d781c5d959509a9de, type: 3}

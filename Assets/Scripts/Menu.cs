@@ -3,19 +3,24 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
-    public void MainMenu()
+    public void GoToMainMenu()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void GoToOptions()
+    {
+        SceneManager.LoadScene("Options");
     }
 
     public void GoToLevelSelection()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("LevelSelection");
     }
-    
-    public void Credits()
+
+    public void GoToCredits()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene("Credits");
     }
 
     public void Retry()
@@ -23,15 +28,14 @@ public class Menu : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void NextLevel()
+    public void GoToNextLevel()
     {
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
-    public void LoadLevel(int levelNumber)
+    public void GoToLevel(int levelNumber)
     {
-        SceneManager.LoadScene(levelNumber + 1);
+        SceneManager.LoadScene("Level" + levelNumber);
     }
 
     public void Quit()
@@ -39,12 +43,12 @@ public class Menu : MonoBehaviour
         Debug.Log("Quiting the game...");
 
         // save any game data here
-        #if UNITY_EDITOR
-            // Application.Quit() does not work in the editor so
-            // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
+#if UNITY_EDITOR
+        // Application.Quit() does not work in the editor so
+        // UnityEditor.EditorApplication.isPlaying need to be set to false to end the game
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
             Application.Quit();
-        #endif
+#endif
     }
 }

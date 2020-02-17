@@ -83,5 +83,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Planet_Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7095557652402495728, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 04ba6c6fb453ca3449f2d6c6f3a9e8d4,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: aec944a5a5f15ff40b4209d3cccf9cdc, type: 3}
