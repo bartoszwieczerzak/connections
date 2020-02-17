@@ -15,19 +15,41 @@ public class Ship : MonoBehaviour
     public int UnitsAmount => _unitsAmount;
     public Owner ShipOwner => _shipOwner;
 
+    private int _unitsToRemove;
+    private float _flyTime = 1f;
     public void Fly(Owner shipOwner, Planet sourcePlanet, Planet targetPlanet, int unitsAmount)
     {
+        
         Game.Instance.Ships.Add(this);
-        
+
         _unitsLabel = GetComponentInChildren<TMP_Text>();
-        _unitsLabel.text = unitsAmount.ToString();
-        
+
         _shipOwner = shipOwner;
         _sourcePlanet = sourcePlanet;
         _targetPlanet = targetPlanet;
         _unitsAmount = unitsAmount;
 
         transform.position = _sourcePlanet.transform.position;
+    }
+
+    void Update()
+    {
+        _flyTime += Time.deltaTime;
+        if (_flyTime >= 1f)
+        {
+            _flyTime = 0f;
+            _unitsAmount -= _unitsToRemove;
+
+            _unitsToRemove++;
+        }
+        
+        _unitsLabel.text = _unitsAmount.ToString();
+
+        if (_unitsAmount <= 0)
+        {
+            _unitsAmount = 0;
+            Destroy(gameObject);
+        }
     }
 
     void LateUpdate()

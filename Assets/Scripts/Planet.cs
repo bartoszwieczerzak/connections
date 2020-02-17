@@ -61,7 +61,11 @@ public class Planet : MonoBehaviour
     private bool _supplyChainAlreadyStarted;
     private GameObject _supplyChainMarkerGo;
     private Canvas _mainGuiCanvas;
-    
+
+    [SerializeField] private GameObject _rangeCircle;
+    [SerializeField] private float _planetRange = 5f;
+
+    public float PlanetRange => _planetRange;
     private float _cooldownTime = 0f;
 
     public bool IsCooldownActive => _cooldownTime > 0f;
@@ -72,6 +76,16 @@ public class Planet : MonoBehaviour
     public bool OwnByAi => _owner == Owner.Ai;
     public bool OwnByNoone => _owner == Owner.None;
 
+    public void ShowRange()
+    {
+        _rangeCircle.SetActive(true);
+    }
+    
+    public void HideRange()
+    {
+        _rangeCircle.SetActive(false);
+    }
+    
     public Planet SupplyingPlanet
     {
         get => _supplyingPlanet;
