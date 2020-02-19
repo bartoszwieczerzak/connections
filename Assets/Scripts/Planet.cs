@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class Planet : MonoBehaviour
 {
@@ -62,6 +64,7 @@ public class Planet : MonoBehaviour
     private GameObject _supplyChainMarkerGo;
     private Canvas _mainGuiCanvas;
 
+    [Header("Range")]
     [SerializeField] private GameObject _rangeCircle;
     [SerializeField] private float _planetRange = 5f;
 
@@ -245,5 +248,11 @@ public class Planet : MonoBehaviour
         ShowGainLoseText(unitsToSend, false);
 
         Units -= unitsToSend;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, PlanetRange);
     }
 }

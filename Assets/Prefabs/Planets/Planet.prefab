@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 465911974354413923}
   - component: {fileID: 465911974354413922}
   - component: {fileID: 5470242634374954172}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Planet
   m_TagString: PLANET
   m_Icon: {fileID: 0}
@@ -229,6 +229,9 @@ MonoBehaviour:
   _planetStats: {fileID: 11400000, guid: c0486d495e7704bbdb84dc8e57953591, type: 2}
   _resupplyAmount: 1
   _isMainPlanet: 0
+  _populationGrowth: 1
+  _populationCycleTime: 3
+  _defenseMultiplier: 1
   _playerShipPrefab: {fileID: 7848467820968779894, guid: c90333c29f37d854fb035357cc8b8e3b,
     type: 3}
   _enemyShipPrefab: {fileID: 8888222798515557953, guid: 06bdb613f09466d408bec2d2ad8f2688,
