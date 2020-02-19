@@ -58,11 +58,11 @@ public class PlayerInputs : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             PickSourcePlanet();
-            if (_sourcePlanet)
-            {
-                _sourcePlanet.ShowRange();
-                _gatheringStage = 0.25f;
-            }
+            
+            if (!_sourcePlanet) return;
+            
+            _sourcePlanet.ShowRange();
+            _gatheringStage = 0.25f;
         }
 
         if (Input.GetMouseButton(0))
