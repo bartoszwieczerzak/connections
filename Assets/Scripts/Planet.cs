@@ -102,6 +102,8 @@ public class Planet : MonoBehaviour
         _growthLabel.text = "+" + _populationGrowth + "/" + _populationCycleTime + "s";
 
         StartCoroutine(AddTroopsCoroutine());
+        
+        _rangeCircle.transform.localScale = new Vector3(PlanetRange, PlanetRange, 1);
     }
 
     void Update()
