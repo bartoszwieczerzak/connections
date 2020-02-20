@@ -140,8 +140,9 @@ public class EnemyAi : MonoBehaviour
     Planet FindRandomPlanetInRange(Planet source, Owner owner)
     {
         LayerMask mask = LayerMask.GetMask("Planets");
-        int planetColliderRadious = 1;
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(source.transform.position, source.PlanetRange - planetColliderRadious, mask);
+
+        float scanRange = source.PlanetRange - source.GetComponent<CircleCollider2D>().radius;
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(source.transform.position, scanRange, mask);
         Planet[] exclude = new[] {source};
         Planet[] planetsInRange = colliders
             .Select(col => col.gameObject.GetComponent <Planet>())
