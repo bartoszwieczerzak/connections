@@ -80,7 +80,7 @@ public class PlayerInputs : MonoBehaviour
 
             float calculatedDistance = Vector2.Distance(_sourcePlanet.transform.position, _mainCamera.ScreenToWorldPoint(Input.mousePosition));
             
-            Debug.Log("DISTANCE IS: " + calculatedDistance + " " + _sourcePlanet.transform.position + "  " +  _mainCamera.ScreenToWorldPoint(Input.mousePosition));
+            Debug.Log("DISTANCE IS: " + calculatedDistance);
             
             if (calculatedDistance > _sourcePlanet.PlanetRange) return;
             
