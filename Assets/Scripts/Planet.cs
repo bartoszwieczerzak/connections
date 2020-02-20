@@ -75,10 +75,6 @@ public class Planet : MonoBehaviour
 
     public Owner Owner => _owner;
 
-    public bool OwnByPlayer => _owner == Owner.Player;
-    public bool OwnByAi => _owner == Owner.Ai;
-    public bool OwnByNoone => _owner == Owner.None;
-
     public void ShowRange()
     {
         _rangeCircle.SetActive(true);
@@ -114,7 +110,7 @@ public class Planet : MonoBehaviour
             _cooldownTime -= Time.deltaTime;
         }
         _shieldLabel.text = "x" + _defenseMultiplier;
-        _unitsLabel.color = OwnByPlayer ? Game.Instance.PlayerColor : OwnByAi ? Game.Instance.EnemyColor : Game.Instance.NooneColor;
+        _unitsLabel.color = Owner == Owner.Player1 ? Game.Instance.PlayerColor : Owner == Owner.Player2 ? Game.Instance.EnemyColor : Game.Instance.NooneColor;
         
         if (_previousSupplyingPlanet && _previousSupplyingPlanet != _supplyingPlanet)
         {
@@ -241,7 +237,7 @@ public class Planet : MonoBehaviour
         Vector2 offset = targetPlanet.transform.position - transform.position;
         Quaternion shipRotation = Quaternion.LookRotation(Vector3.forward, offset) * Quaternion.Euler(0, 0, 90);
 
-        var shipPrefab = OwnByPlayer ? _playerShipPrefab : _enemyShipPrefab;
+        var shipPrefab = Owner == Owner.Player1 ? _playerShipPrefab : _enemyShipPrefab;
         
         Ship ship = Instantiate(shipPrefab, transform.position, shipRotation, transform);
 

@@ -1,6 +1,6 @@
 ﻿public enum Owner
 {
-    Player,
-    Ai,
+    Player1,
+    Player2,
     None
 }
