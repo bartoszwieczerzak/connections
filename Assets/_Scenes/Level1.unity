@@ -6517,29 +6517,19 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnemyAI (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 5156149183129699723, guid: b18db7c7e97db4c8eb54340cb505a821,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5156149183129699724, guid: b18db7c7e97db4c8eb54340cb505a821,
-        type: 3}
-      propertyPath: _actor
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5156149183129699724, guid: b18db7c7e97db4c8eb54340cb505a821,
         type: 3}
       propertyPath: _minUnitsToSend
-      value: 40
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 5156149183129699724, guid: b18db7c7e97db4c8eb54340cb505a821,
         type: 3}
       propertyPath: _maxUnitsToSend
-      value: 250
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 5156149183129699724, guid: b18db7c7e97db4c8eb54340cb505a821,
         type: 3}
-      propertyPath: enableLog
+      propertyPath: _actor
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5156149183129699725, guid: b18db7c7e97db4c8eb54340cb505a821,
