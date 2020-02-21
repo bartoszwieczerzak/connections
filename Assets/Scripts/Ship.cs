@@ -67,12 +67,16 @@ public class Ship : MonoBehaviour
             {
                 _targetPlanet.ResupplyUnits(UnitsAmount);
             }
-            else
+            else if (_targetPlanet.Owner != Owner.None)
             {
                 _targetPlanet.TakeDamage(_shipOwner, UnitsAmount);
                 
                 GameObject fights = Instantiate(fightsEffect, transform.position, Quaternion.identity);
                 Destroy(fights, 2f);
+            }
+            else
+            {
+                _targetPlanet.TakeDamage(_shipOwner, UnitsAmount);
             }
 
             Game.Instance.Ships.Remove(this);
