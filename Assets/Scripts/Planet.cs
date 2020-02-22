@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,18 +8,28 @@ public class Planet : MonoBehaviour
 {
     [SerializeField] private int _units;
     [SerializeField] private Owner _owner = Owner.None;
-    [SerializeField] private PlanetStats _planetStats;
     [SerializeField] private int _resupplyAmount = 1;
     [SerializeField] private bool _isMainPlanet = false;
-
+    
+    private float _populationCycleTime = 3.0f;
     [Header("Planet statistics")]
+    [SerializeField]
     [Range(-5, 10)]
-    public int  _populationGrowth = 1;
-    [Range(0.1f, 10.0f)]
-    public float _populationCycleTime = 3.0f;
-    [Range(1.0f, 5.0f)]
-    public float _defenseMultiplier = 1.0f;
+    private int  _populationGrowth = 1;
+    [SerializeField]
+    [Range(1, 5)]
+    private int _defenseMultiplier = 1;
 
+    [SerializeField]
+    private Sprite[] _populationGrowthAmountIcons;
+    [SerializeField]
+    private SpriteRenderer _populationGrowthIconRenderer;
+    
+    [SerializeField]
+    private Sprite[] _defenseAmountIcons;
+    [SerializeField]
+    private SpriteRenderer _defenceIconRenderer;
+    
     [Header("Prefabs")]
     [SerializeField] private Ship _playerShipPrefab;
     [SerializeField] private Ship _enemyShipPrefab;
@@ -69,7 +78,7 @@ public class Planet : MonoBehaviour
     [SerializeField] private float _planetRange = 5f;
 
     public float PlanetRange => _planetRange;
-    private float _cooldownTime = 0f;
+    private float _cooldownTime;
 
     public bool IsCooldownActive => _cooldownTime > 0f;
 
@@ -97,9 +106,12 @@ public class Planet : MonoBehaviour
 
     void Start()
     {
+        _defenceIconRenderer.sprite = _defenseAmountIcons[_defenseMultiplier];
+        _populationGrowthIconRenderer.sprite = _populationGrowthAmountIcons[_populationGrowth + 5];
+    
         _mainGuiCanvas = GetComponentInChildren<Canvas>();
         _shieldLabel.text = "x" + _defenseMultiplier;
-        _growthLabel.text = "+" + _populationGrowth + "/" + _populationCycleTime + "s";
+        _growthLabel.text = _populationGrowth.ToString();
 
         StartCoroutine(AddTroopsCoroutine());
         
