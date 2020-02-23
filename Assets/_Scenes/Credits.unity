@@ -571,25 +571,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec pellentesque
-    ornare blandit. Maecenas aliquet commodo malesuada. Sed ultrices suscipit mattis.
-    Maecenas sagittis, diam commodo accumsan tincidunt, nulla diam congue turpis,
-    quis tincidunt tortor mi bibendum dolor. Morbi facilisis velit risus, molestie
-    sollicitudin ipsum auctor maximus. Fusce ultrices lectus vitae sem lobortis, ut
-    consequat ipsum faucibus. Nam tortor dolor, dictum nec libero quis, dictum malesuada
-    sapien. In nec sem sed mi accumsan aliquam id sed diam.
+  m_text: 'Created by:
 
 
-    Morbi quam ligula, rhoncus sed fermentum quis, placerat ac orci. Praesent in mauris
-    sagittis, aliquet nibh non, vulputate orci. Sed eget justo ac diam pharetra efficitur
-    et non dolor. Praesent pellentesque purus sed justo tincidunt, blandit rutrum
-    sem imperdiet. Vivamus commodo dolor sit amet ligula posuere ultricies. Proin
-    imperdiet tellus non ex interdum condimentum. Etiam vel pharetra nibh. Sed eu
-    tempus dui. Cras nec velit nec ex efficitur hendrerit non ut lacus. Vestibulum
-    varius libero eu molestie viverra.
+    Kamil Dybicz
 
-
-    ...'
+    Bartosz Wieczerzak'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -658,12 +645,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: -14.773816, w: 0}
   m_textInfo:
     textComponent: {fileID: 1203077093}
-    characterCount: 1059
+    characterCount: 44
     spriteCount: 0
-    spaceCount: 155
-    wordCount: 153
+    spaceCount: 6
+    wordCount: 6
     linkCount: 0
-    lineCount: 21
+    lineCount: 4
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -768,7 +755,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ScrollStartY: -2
   ScrollStartZ: -6
-  ScrollSpeed: 0.4
+  ScrollSpeed: 0.2
   ScrollEnd: 1000
   subject: {fileID: 1203077097}
 --- !u!1001 &1352139964

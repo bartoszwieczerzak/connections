@@ -206,8 +206,10 @@ public class Planet : MonoBehaviour
 
     private void ShowGainLoseText(int amount, bool gain)
     {
+        if (amount == 0) return;
+        
         string animTrigger = gain ? "UnitsGain" : "UnitsLost";
-        string prefixSign = gain ? "+" : "-";
+        string prefixSign = "";// gain ? "+" : "-";
 
         Vector3 newPosition =  new Vector3(Random.Range(-0.5f,0.5f),Random.Range(-0.2f,0.2f), 0) + transform.position;
         
