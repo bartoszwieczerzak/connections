@@ -45,13 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 215c0c5e3c2956d419181730fc994a06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hoverPlanetHighlight: {fileID: 5401791316670688774, guid: c9ecdfbdc176a6246a221222ec2cfb1b,
-    type: 3}
-  _selectedPlanetHighlight: {fileID: 3270414945172075957, guid: 3fa4f2426ae71084da23091260442f13,
-    type: 3}
+  _hoverPlanetHighlight: {fileID: 0}
+  _selectedPlanetHighlight: {fileID: 0}
   _unitsGatherSpeed: 2
-  _unitsGatheredText: {fileID: 7311547473076252343, guid: d24bbb919d96e944ab5a4551aad4eb37,
-    type: 3}
+  _unitsGatheredText: {fileID: 0}
+  _gatheringTime: 3
+  _filledCircle: {fileID: 0}
 --- !u!114 &6858938029151064969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,11 +63,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 616f48449ad3a42438bcbc8df505540b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerColor: {r: 0.12967247, g: 0.39522073, b: 0.8867924, a: 1}
-  _enemyColor: {r: 1, g: 0, b: 0.020421028, a: 1}
-  _nooneColor: {r: 1, g: 1, b: 1, a: 1}
+  _playerColor: {r: 0.27058825, g: 0.6313726, b: 0.87058824, a: 1}
+  _enemyColor: {r: 0.5647059, g: 0.23921569, b: 0.38431373, a: 1}
+  _nooneColor: {r: 0.8862745, g: 0.9490196, b: 0.4, a: 1}
   _winPanel: {fileID: 0}
   _losePanel: {fileID: 0}
+  _unitsSlider: {fileID: 0}
+  _playerUnitsCountText: {fileID: 0}
+  _aiUnitsCountText: {fileID: 0}
+  _playerPlanetsCountText: {fileID: 0}
+  _noonePlanetsCountText: {fileID: 0}
+  _aiPlanetsCountText: {fileID: 0}
 --- !u!120 &6858938029151064970
 LineRenderer:
   m_ObjectHideFlags: 0
