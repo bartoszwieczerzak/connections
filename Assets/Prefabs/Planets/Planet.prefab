@@ -261,7 +261,8 @@ MonoBehaviour:
     type: 3}
   _supplyChainMarkerPrefab: {fileID: 1160342633780197495, guid: 9807d2031b5bd834cb6f422f2658651e,
     type: 3}
-  _populationGrowtMinMaxRange: 100
+  _minPopulationGrowth: 1
+  _maxPopulationGrowth: 100
   _unitsLabel: {fileID: 465911974460166253}
   _shieldLabel: {fileID: 5953145107890776683}
   _growthLabel: {fileID: 2232105948789592538}
@@ -708,7 +709,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e7a0537ca7a66344a8ffe0230a5a9020, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9b68786aabf137a418653fffec002ca3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
