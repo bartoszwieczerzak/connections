@@ -63,9 +63,9 @@ public class Ship : MonoBehaviour
 
         if (Vector2.Distance(newPosition, _targetPlanet.transform.position) <= 0.1f)
         {
-            if (_targetPlanet.Owner == _shipOwner)
+            if (_targetPlanet.Owner == _shipOwner || _targetPlanet.Owner == Owner.None)
             {
-                _targetPlanet.ResupplyUnits(UnitsAmount);
+                _targetPlanet.ResupplyUnits(_shipOwner, UnitsAmount);
             }
             else if (_targetPlanet.Owner != Owner.None)
             {

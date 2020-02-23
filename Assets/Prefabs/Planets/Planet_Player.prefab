@@ -64,11 +64,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 465911974354413921, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
         type: 3}
-      propertyPath: _populationGrowthAmountIcons.Array.size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 465911974354413921, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
-        type: 3}
       propertyPath: _units
       value: 100
       objectReference: {fileID: 0}
@@ -82,42 +77,6 @@ PrefabInstance:
       propertyPath: _supplyChainMarkerPrefab
       value: 
       objectReference: {fileID: 1160342633780197495, guid: 9807d2031b5bd834cb6f422f2658651e,
-        type: 3}
-    - target: {fileID: 465911974354413921, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
-        type: 3}
-      propertyPath: _populationGrowthAmountIcons.Array.data[0]
-      value: 
-      objectReference: {fileID: -8896180724349905873, guid: dc36224e73784cb4d9b85da3362e64e0,
-        type: 3}
-    - target: {fileID: 465911974354413921, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
-        type: 3}
-      propertyPath: _populationGrowthAmountIcons.Array.data[1]
-      value: 
-      objectReference: {fileID: -3938096657548370477, guid: dc36224e73784cb4d9b85da3362e64e0,
-        type: 3}
-    - target: {fileID: 465911974354413921, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
-        type: 3}
-      propertyPath: _populationGrowthAmountIcons.Array.data[2]
-      value: 
-      objectReference: {fileID: 7867697854252965312, guid: dc36224e73784cb4d9b85da3362e64e0,
-        type: 3}
-    - target: {fileID: 465911974354413921, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
-        type: 3}
-      propertyPath: _populationGrowthAmountIcons.Array.data[3]
-      value: 
-      objectReference: {fileID: -8354520141985862148, guid: dc36224e73784cb4d9b85da3362e64e0,
-        type: 3}
-    - target: {fileID: 465911974354413921, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
-        type: 3}
-      propertyPath: _populationGrowthAmountIcons.Array.data[4]
-      value: 
-      objectReference: {fileID: 8185505848568208383, guid: dc36224e73784cb4d9b85da3362e64e0,
-        type: 3}
-    - target: {fileID: 465911974354413921, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
-        type: 3}
-      propertyPath: _populationGrowthAmountIcons.Array.data[5]
-      value: 
-      objectReference: {fileID: 7381074541478147160, guid: dc36224e73784cb4d9b85da3362e64e0,
         type: 3}
     - target: {fileID: 465911974354413925, guid: aec944a5a5f15ff40b4209d3cccf9cdc,
         type: 3}

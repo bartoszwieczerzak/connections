@@ -36,8 +36,7 @@ public class Planet : MonoBehaviour
     [SerializeField] private GameObject _supplyChainMarkerPrefab;
 
     [Header("Units growth")]
-    [SerializeField] private float _minPopulationGrowth = 1f;
-    [SerializeField] private float _maxPopulationGrowth = 100f;
+    [SerializeField] private int _populationGrowtMinMaxRange = 100;
 
     [Header("Text labels")]
     [SerializeField] private TextMeshProUGUI _unitsLabel;
@@ -103,6 +102,7 @@ public class Planet : MonoBehaviour
     void Start()
     {
         _defenceIconRenderer.sprite = _defenseAmountIcons[_defenseMultiplier];
+        //Debug.Log("Planet " + name + " growth: " + _populationGrowth + " [" + _populationGrowth + 5 + "]");
         _populationGrowthIconRenderer.sprite = _populationGrowthAmountIcons[_populationGrowth + 5];
     
         _mainGuiCanvas = GetComponentInChildren<Canvas>();
@@ -162,7 +162,7 @@ public class Planet : MonoBehaviour
     {
         float growUnitsBy = Units * (_populationGrowth / 100f);
 
-        growUnitsBy = Mathf.Clamp(growUnitsBy, _minPopulationGrowth, _maxPopulationGrowth);
+        growUnitsBy = Mathf.Clamp(growUnitsBy, - _populationGrowtMinMaxRange, _populationGrowtMinMaxRange);
         int unitsgrow = Mathf.FloorToInt(growUnitsBy);
 
         AddUnits(unitsgrow);
@@ -177,7 +177,7 @@ public class Planet : MonoBehaviour
             if (Units > 1)
             {
                 Units -= _resupplyAmount;
-                _supplyingPlanet.ResupplyUnits(_resupplyAmount);
+                _supplyingPlanet.ResupplyUnits(_owner, _resupplyAmount);
             }
         }
         else
@@ -213,9 +213,10 @@ public class Planet : MonoBehaviour
         animator.SetTrigger(animTrigger);
     }
 
-    public void ResupplyUnits(int amount)
+    public void ResupplyUnits(Owner shipOwner, int amount)
     {
         AddUnits(amount);
+        _owner = shipOwner;
     }
 
     public void TakeDamage(Owner shipOwner, int unitsAmount)
