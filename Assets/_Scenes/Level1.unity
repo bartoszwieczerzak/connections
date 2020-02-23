@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.21320492, g: 0.10699066, b: 0.15724537, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1582,7 +1582,7 @@ PrefabInstance:
     - target: {fileID: 5156149183129699723, guid: b18db7c7e97db4c8eb54340cb505a821,
         type: 3}
       propertyPath: m_Name
-      value: EnemyAI
+      value: Player2 AI
       objectReference: {fileID: 0}
     - target: {fileID: 5156149183129699723, guid: b18db7c7e97db4c8eb54340cb505a821,
         type: 3}
@@ -1627,7 +1627,7 @@ PrefabInstance:
     - target: {fileID: 5156149183129699725, guid: b18db7c7e97db4c8eb54340cb505a821,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5156149183129699725, guid: b18db7c7e97db4c8eb54340cb505a821,
         type: 3}
@@ -6617,7 +6617,7 @@ PrefabInstance:
     - target: {fileID: 5156149183129699723, guid: b18db7c7e97db4c8eb54340cb505a821,
         type: 3}
       propertyPath: m_Name
-      value: EnemyAI (1)
+      value: Player1 AI
       objectReference: {fileID: 0}
     - target: {fileID: 5156149183129699724, guid: b18db7c7e97db4c8eb54340cb505a821,
         type: 3}
@@ -6672,7 +6672,7 @@ PrefabInstance:
     - target: {fileID: 5156149183129699725, guid: b18db7c7e97db4c8eb54340cb505a821,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5156149183129699725, guid: b18db7c7e97db4c8eb54340cb505a821,
         type: 3}
