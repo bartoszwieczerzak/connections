@@ -40,6 +40,8 @@ public class PlayerInputs : MonoBehaviour
     [SerializeField] private float _gatheringTime = 3f;
     [SerializeField] private Image _filledCircle;
 
+    [SerializeField] private Owner actor = Owner.Player1;
+
     private float _gatheringStage;
     
     public int UnitsGathered => Mathf.FloorToInt(_unitsGathered);
@@ -78,7 +80,7 @@ public class PlayerInputs : MonoBehaviour
 
             float calculatedDistance = Vector2.Distance(_sourcePlanet.transform.position, _mainCamera.ScreenToWorldPoint(Input.mousePosition));
             
-            Debug.Log("DISTANCE IS: " + calculatedDistance + " " + _sourcePlanet.transform.position + "  " +  _mainCamera.ScreenToWorldPoint(Input.mousePosition));
+            Debug.Log("DISTANCE IS: " + calculatedDistance);
             
             if (calculatedDistance > _sourcePlanet.PlanetRange) return;
             
@@ -138,7 +140,7 @@ public class PlayerInputs : MonoBehaviour
 
     private void PickSourcePlanet()
     {
-        if (!_hoverPlanet || !_hoverPlanet.OwnByPlayer) return;
+        if (!_hoverPlanet || _hoverPlanet.Owner != actor) return;
 
         _sourcePlanet = _hoverPlanet;
         ShowHighlight(_hoverPlanet.transform.position);

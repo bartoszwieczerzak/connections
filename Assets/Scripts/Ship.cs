@@ -11,6 +11,7 @@ public class Ship : MonoBehaviour
     private TMP_Text _unitsLabel;
 
     [SerializeField] private float _speed = 1.0f;
+    [SerializeField] private GameObject fightsEffect;
 
     public int UnitsAmount => _unitsAmount;
     public Owner ShipOwner => _shipOwner;
@@ -48,6 +49,8 @@ public class Ship : MonoBehaviour
         if (_unitsAmount <= 0)
         {
             _unitsAmount = 0;
+
+            Game.Instance.Ships.Remove(this);
             Destroy(gameObject);
         }
     }
@@ -60,9 +63,16 @@ public class Ship : MonoBehaviour
 
         if (Vector2.Distance(newPosition, _targetPlanet.transform.position) <= 0.1f)
         {
-            if (_targetPlanet.Owner == _shipOwner)
+            if (_targetPlanet.Owner == _shipOwner || _targetPlanet.Owner == Owner.None)
             {
-                _targetPlanet.ResupplyUnits(UnitsAmount);
+                _targetPlanet.ResupplyUnits(_shipOwner, UnitsAmount);
+            }
+            else if (_targetPlanet.Owner != Owner.None)
+            {
+                _targetPlanet.TakeDamage(_shipOwner, UnitsAmount);
+                
+                GameObject fights = Instantiate(fightsEffect, transform.position, Quaternion.identity);
+                Destroy(fights, 2f);
             }
             else
             {

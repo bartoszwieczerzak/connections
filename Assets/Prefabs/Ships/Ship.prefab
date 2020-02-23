@@ -194,6 +194,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 1
+  fightsEffect: {fileID: 2978510673818050703, guid: 018b3c01fdec34981aafdbdbd13d7f00,
+    type: 3}
 --- !u!1 &4634871944159449049
 GameObject:
   m_ObjectHideFlags: 0

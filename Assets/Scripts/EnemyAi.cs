@@ -14,11 +14,19 @@ public class EnemyAi : MonoBehaviour
     [SerializeField] private int _minUnitsToSend = 50;
     [SerializeField] private int _maxUnitsToSend = 150;
 
+    [SerializeField] private Owner _actor = Owner.Player2;
+    private Owner[] _enemies;
+
     [Header("Logging")]
     [SerializeField] private bool enableLog = true;
 
     void Start()
     {
+        List<Owner> enemies = Enum.GetValues(typeof(Owner)).Cast<Owner>().ToList();
+        enemies.Remove(_actor);
+        enemies.Remove(Owner.None);
+        _enemies = enemies.ToArray();
+        
         StartCoroutine("DelayedStart");
     }
 
@@ -31,7 +39,7 @@ public class EnemyAi : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
-        List<Planet> allAiPlanets = Game.Instance.Planets.Where(planet => planet.OwnByAi).ToList();
+        List<Planet> allAiPlanets = Game.Instance.Planets.Where(planet => planet.Owner == _actor).ToList();
         List<Planet> actionablePlanets = allAiPlanets.Where(planet => !planet.IsCooldownActive).ToList();
         
         LogFormat("--------------------------------");
@@ -39,7 +47,7 @@ public class EnemyAi : MonoBehaviour
 
         foreach (Planet selectedPlanet in actionablePlanets)
         {
-            Planet closestPlayerPlanet = FindRandomPlanetInRange(selectedPlanet, Owner.Player);
+            Planet closestPlayerPlanet = FindRandomPlanetInRange(selectedPlanet, _enemies);
             if (closestPlayerPlanet)
             {
                 if (selectedPlanet.Units > _minUnitsToSend)
@@ -91,7 +99,7 @@ public class EnemyAi : MonoBehaviour
                 LogFormat("- {0} doesn't have neighbor to takeover", selectedPlanet.name);
             }
             
-            Planet closestOwnPlanet = FindRandomPlanetInRange(selectedPlanet, Owner.Ai);
+            Planet closestOwnPlanet = FindRandomPlanetInRange(selectedPlanet, _actor);
             if (closestOwnPlanet)
             {
                 if (selectedPlanet.Units > _minUnitsToSend && closestOwnPlanet.Units * 1.3f < selectedPlanet.Units)
@@ -137,7 +145,7 @@ public class EnemyAi : MonoBehaviour
         return planets[idx];
     }
 
-    Planet FindRandomPlanetInRange(Planet source, Owner owner)
+    Planet FindRandomPlanetInRange(Planet source, params Owner[] owners)
     {
         LayerMask mask = LayerMask.GetMask("Planets");
 
@@ -147,7 +155,7 @@ public class EnemyAi : MonoBehaviour
         Planet[] planetsInRange = colliders
             .Select(col => col.gameObject.GetComponent <Planet>())
             .Except(exclude)
-            .Where(planet => planet.Owner == owner)
+            .Where(planet => owners.Any(owner => owner == planet.Owner))
             .ToArray();
 
         if (planetsInRange.Length == 0) return null;

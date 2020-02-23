@@ -65,11 +65,11 @@ public class Game : MonoBehaviour
 
             if (planet.IsMainPlanet)
             {
-                if (planet.OwnByPlayer && !_playerMainPlanet)
+                if (planet.Owner == Owner.Player1 && !_playerMainPlanet)
                 {
                     _playerMainPlanet = planet;
                 }
-                else if (planet.OwnByAi && !_aiMainPlanet)
+                else if (planet.Owner == Owner.Player2 && !_aiMainPlanet)
                 {
                     _aiMainPlanet = planet;
                 }
@@ -93,19 +93,19 @@ public class Game : MonoBehaviour
 
     private void CheckWinLoseCondition()
     {
-        var playerPlanetsCount = _planets.Count(p => p.Owner == Owner.Player);
+        var playerPlanetsCount = _planets.Count(p => p.Owner == Owner.Player1);
         var noonePlanetsCount = _planets.Count(p => p.Owner == Owner.None);
-        var aiPlanetsCount = _planets.Count(p => p.Owner == Owner.Ai);
+        var aiPlanetsCount = _planets.Count(p => p.Owner == Owner.Player2);
 
         _playerPlanetsCountText.text = "P: " + playerPlanetsCount;
         _noonePlanetsCountText.text = noonePlanetsCount.ToString();
         _aiPlanetsCountText.text = "P: " + aiPlanetsCount;
 
-        var playerPlanetsUnitsCount = _planets.FindAll(p => p.Owner == Owner.Player).Sum(p => p.Units);
-        var aiPlanetsUnitsCount = _planets.FindAll(p => p.Owner == Owner.Ai).Sum(p => p.Units);
+        var playerPlanetsUnitsCount = _planets.FindAll(p => p.Owner == Owner.Player1).Sum(p => p.Units);
+        var aiPlanetsUnitsCount = _planets.FindAll(p => p.Owner == Owner.Player2).Sum(p => p.Units);
 
-        var playerUnitsInShips = Ships.FindAll(s => s.ShipOwner == Owner.Player).Sum(s => s.UnitsAmount);
-        var aiUnitsInShips = Ships.FindAll(s => s.ShipOwner == Owner.Ai).Sum(s => s.UnitsAmount);
+        var playerUnitsInShips = Ships.FindAll(s => s.ShipOwner == Owner.Player1).Sum(s => s.UnitsAmount);
+        var aiUnitsInShips = Ships.FindAll(s => s.ShipOwner == Owner.Player2).Sum(s => s.UnitsAmount);
 
         var totalPlayerUnits = playerPlanetsUnitsCount + playerUnitsInShips;
         var totalAiUnits = aiPlanetsUnitsCount + aiUnitsInShips;
@@ -121,11 +121,11 @@ public class Game : MonoBehaviour
         {
             GameDraw();
         }
-        else if (totalAiUnits <= 0 || !_aiMainPlanet.OwnByAi)
+        else if (totalAiUnits <= 0 || _aiMainPlanet.Owner != Owner.Player2)
         {
             GameWin();
         }
-        else if (totalPlayerUnits <= 0 || !_playerMainPlanet.OwnByPlayer)
+        else if (totalPlayerUnits <= 0 || _playerMainPlanet.Owner != Owner.Player1)
         {
             GameOver();
         }

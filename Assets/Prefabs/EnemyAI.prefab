@@ -46,3 +46,7 @@ MonoBehaviour:
   _initialDelay: 2
   _minTurnDelay: 3
   _maxTurnDelay: 3
+  _minUnitsToSend: 50
+  _maxUnitsToSend: 150
+  _actor: 1
+  enableLog: 0

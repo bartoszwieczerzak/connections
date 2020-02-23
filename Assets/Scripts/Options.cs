@@ -13,22 +13,7 @@ public class Options : MonoBehaviour
 
     void Start()
     {
-        float musicVolume = 0f;
-        audioMixer.GetFloat("MusicVolume", out musicVolume);
-        musicSlider.SetValueWithoutNotify(musicVolume);
-
-        float sfxVolume = 0f;
-        audioMixer.GetFloat("SfxVolume", out sfxVolume);
-        sfxSlider.SetValueWithoutNotify(sfxVolume);
-    }
-
-    public void SetMusicVolume(float volume)
-    {
-        audioMixer.SetFloat("MusicVolume", volume);
-    }
-
-    public void SetSfxVolume(float volume)
-    {
-        audioMixer.SetFloat("SfxVolume", volume);
+        musicSlider.SetValueWithoutNotify(PlayerPrefs.GetFloat("MusicVolume", 0.75f));
+        sfxSlider.SetValueWithoutNotify(PlayerPrefs.GetFloat("SfxVolume", 1f));
     }
 }

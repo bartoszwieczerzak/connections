@@ -36,8 +36,7 @@ public class Planet : MonoBehaviour
     [SerializeField] private GameObject _supplyChainMarkerPrefab;
 
     [Header("Units growth")]
-    [SerializeField] private float _minPopulationGrowth = 1f;
-    [SerializeField] private float _maxPopulationGrowth = 100f;
+    [SerializeField] private int _populationGrowtMinMaxRange = 100;
 
     [Header("Text labels")]
     [SerializeField] private TextMeshProUGUI _unitsLabel;
@@ -84,10 +83,6 @@ public class Planet : MonoBehaviour
 
     public Owner Owner => _owner;
 
-    public bool OwnByPlayer => _owner == Owner.Player;
-    public bool OwnByAi => _owner == Owner.Ai;
-    public bool OwnByNoone => _owner == Owner.None;
-
     public void ShowRange()
     {
         _rangeCircle.SetActive(true);
@@ -127,7 +122,7 @@ public class Planet : MonoBehaviour
             _cooldownTime -= Time.deltaTime;
         }
         _shieldLabel.text = "x" + _defenseMultiplier;
-        _unitsLabel.color = OwnByPlayer ? Game.Instance.PlayerColor : OwnByAi ? Game.Instance.EnemyColor : Game.Instance.NooneColor;
+        _unitsLabel.color = Owner == Owner.Player1 ? Game.Instance.PlayerColor : Owner == Owner.Player2 ? Game.Instance.EnemyColor : Game.Instance.NooneColor;
         
         if (_previousSupplyingPlanet && _previousSupplyingPlanet != _supplyingPlanet)
         {
@@ -167,7 +162,7 @@ public class Planet : MonoBehaviour
     {
         float growUnitsBy = Units * (_populationGrowth / 100f);
 
-        growUnitsBy = Mathf.Clamp(growUnitsBy, _minPopulationGrowth, _maxPopulationGrowth);
+        growUnitsBy = Mathf.Clamp(growUnitsBy, - _populationGrowtMinMaxRange, _populationGrowtMinMaxRange);
         int unitsgrow = Mathf.FloorToInt(growUnitsBy);
 
         AddUnits(unitsgrow);
@@ -182,7 +177,7 @@ public class Planet : MonoBehaviour
             if (Units > 1)
             {
                 Units -= _resupplyAmount;
-                _supplyingPlanet.ResupplyUnits(_resupplyAmount);
+                _supplyingPlanet.ResupplyUnits(_owner, _resupplyAmount);
             }
         }
         else
@@ -220,9 +215,10 @@ public class Planet : MonoBehaviour
         animator.SetTrigger(animTrigger);
     }
 
-    public void ResupplyUnits(int amount)
+    public void ResupplyUnits(Owner shipOwner, int amount)
     {
         AddUnits(amount);
+        _owner = shipOwner;
     }
 
     public void TakeDamage(Owner shipOwner, int unitsAmount)
@@ -256,7 +252,7 @@ public class Planet : MonoBehaviour
         Vector2 offset = targetPlanet.transform.position - transform.position;
         Quaternion shipRotation = Quaternion.LookRotation(Vector3.forward, offset) * Quaternion.Euler(0, 0, 90);
 
-        var shipPrefab = OwnByPlayer ? _playerShipPrefab : _enemyShipPrefab;
+        var shipPrefab = Owner == Owner.Player1 ? _playerShipPrefab : _enemyShipPrefab;
         
         Ship ship = Instantiate(shipPrefab, transform.position, shipRotation, transform);
 
