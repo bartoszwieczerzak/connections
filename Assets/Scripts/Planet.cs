@@ -107,6 +107,7 @@ public class Planet : MonoBehaviour
     void Start()
     {
         _defenceIconRenderer.sprite = _defenseAmountIcons[_defenseMultiplier];
+        //Debug.Log("Planet " + name + " growth: " + _populationGrowth + " [" + _populationGrowth + 5 + "]");
         _populationGrowthIconRenderer.sprite = _populationGrowthAmountIcons[_populationGrowth + 5];
     
         _mainGuiCanvas = GetComponentInChildren<Canvas>();
