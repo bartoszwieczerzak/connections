@@ -1589,6 +1589,16 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5156149183129699724, guid: b18db7c7e97db4c8eb54340cb505a821,
+        type: 3}
+      propertyPath: _minTurnDelay
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5156149183129699724, guid: b18db7c7e97db4c8eb54340cb505a821,
+        type: 3}
+      propertyPath: _maxTurnDelay
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5156149183129699725, guid: b18db7c7e97db4c8eb54340cb505a821,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6633,6 +6643,11 @@ PrefabInstance:
         type: 3}
       propertyPath: _actor
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5156149183129699724, guid: b18db7c7e97db4c8eb54340cb505a821,
+        type: 3}
+      propertyPath: _minTurnDelay
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5156149183129699725, guid: b18db7c7e97db4c8eb54340cb505a821,
         type: 3}
