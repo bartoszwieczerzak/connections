@@ -261,8 +261,7 @@ MonoBehaviour:
     type: 3}
   _supplyChainMarkerPrefab: {fileID: 1160342633780197495, guid: 9807d2031b5bd834cb6f422f2658651e,
     type: 3}
-  _minPopulationGrowth: 1
-  _maxPopulationGrowth: 100
+  _populationGrowtMinMaxRange: 100
   _unitsLabel: {fileID: 465911974460166253}
   _shieldLabel: {fileID: 5953145107890776683}
   _growthLabel: {fileID: 2232105948789592538}
@@ -511,8 +510,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 1000
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c4c370947ffda3e4fad12296411c425d, type: 2}
-  m_sharedMaterial: {fileID: 7361592662590989336, guid: c4c370947ffda3e4fad12296411c425d,
+  m_fontAsset: {fileID: 11400000, guid: 7ed7712800a4e462c860100281aebf7f, type: 2}
+  m_sharedMaterial: {fileID: 7037654308371579030, guid: 7ed7712800a4e462c860100281aebf7f,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -538,8 +537,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 7
-  m_fontSizeBase: 7
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -785,7 +784,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 10
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c4c370947ffda3e4fad12296411c425d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7ed7712800a4e462c860100281aebf7f, type: 2}
   m_sharedMaterial: {fileID: 7361592662590989336, guid: c4c370947ffda3e4fad12296411c425d,
     type: 2}
   m_fontSharedMaterials: []
@@ -812,8 +811,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 8
-  m_fontSizeBase: 8
+  m_fontSize: 6
+  m_fontSizeBase: 6
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -864,7 +863,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_subTextObjects:
   - {fileID: 0}
   - {fileID: 0}
@@ -941,7 +940,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 20
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c4c370947ffda3e4fad12296411c425d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7ed7712800a4e462c860100281aebf7f, type: 2}
   m_sharedMaterial: {fileID: 7361592662590989336, guid: c4c370947ffda3e4fad12296411c425d,
     type: 2}
   m_fontSharedMaterials: []
@@ -968,8 +967,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 8
-  m_fontSizeBase: 8
+  m_fontSize: 4
+  m_fontSizeBase: 4
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1020,7 +1019,7 @@ MonoBehaviour:
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_subTextObjects:
   - {fileID: 0}
   - {fileID: 0}
@@ -1225,7 +1224,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2021d673f8161704292f4f35a28c3cea, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 20c73668c584c4598accfcbcbddba283, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
