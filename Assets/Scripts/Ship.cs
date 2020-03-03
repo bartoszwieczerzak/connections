@@ -24,6 +24,7 @@ public class Ship : MonoBehaviour
         Game.Instance.Ships.Add(this);
 
         _unitsLabel = GetComponentInChildren<TMP_Text>();
+        _unitsLabel.text = unitsAmount.ToString();
 
         _shipOwner = shipOwner;
         _sourcePlanet = sourcePlanet;
@@ -31,28 +32,6 @@ public class Ship : MonoBehaviour
         _unitsAmount = unitsAmount;
 
         transform.position = _sourcePlanet.transform.position;
-    }
-
-    void Update()
-    {
-        _flyTime += Time.deltaTime;
-        if (_flyTime >= 1f)
-        {
-            _flyTime = 0f;
-            _unitsAmount -= _unitsToRemove;
-
-            _unitsToRemove++;
-        }
-        
-        _unitsLabel.text = _unitsAmount.ToString();
-
-        if (_unitsAmount <= 0)
-        {
-            _unitsAmount = 0;
-
-            Game.Instance.Ships.Remove(this);
-            Destroy(gameObject);
-        }
     }
 
     void LateUpdate()

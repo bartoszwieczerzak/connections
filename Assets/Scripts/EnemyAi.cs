@@ -8,8 +8,8 @@ using Random = UnityEngine.Random;
 public class EnemyAi : MonoBehaviour
 {
     [SerializeField] private float _initialDelay = 3.0f;
-    [SerializeField, Range(3.0f, 10.0f)] private float _minTurnDelay = 5.0f;
-    [SerializeField, Range(3.0f, 25.0f)] private float _maxTurnDelay = 8.0f;
+    [SerializeField, Range(1.0f, 10.0f)] private float _minTurnDelay = 5.0f;
+    [SerializeField, Range(1.0f, 25.0f)] private float _maxTurnDelay = 8.0f;
     
     [SerializeField] private int _minUnitsToSend = 50;
     [SerializeField] private int _maxUnitsToSend = 150;
@@ -59,7 +59,7 @@ public class EnemyAi : MonoBehaviour
 
                     LogFormat("- {0} attacks {1} with {2} units", selectedPlanet.name, closestPlayerPlanet.name, unitsToSend);
 
-                    yield return new WaitForSeconds(1.5f);
+                    yield return new WaitForSeconds(Random.Range(_minTurnDelay, _maxTurnDelay));
 
                     continue;
                 }
@@ -78,14 +78,14 @@ public class EnemyAi : MonoBehaviour
             {
                 if (selectedPlanet.Units > _minUnitsToSend)
                 {
-                    int unitsToSend = Random.Range(_minUnitsToSend, _maxUnitsToSend);
+                    int unitsToSend = Random.Range(_minUnitsToSend, Mathf.Max(_minUnitsToSend, _maxUnitsToSend / 2));
                     unitsToSend = Mathf.Clamp(unitsToSend, _minUnitsToSend, selectedPlanet.Units);
 
                     selectedPlanet.SendShip(closestUninhabitedPlanet, unitsToSend);
 
                     LogFormat("- {0} takes over {1} with {2} units", selectedPlanet.name, closestUninhabitedPlanet.name, unitsToSend);
 
-                    yield return new WaitForSeconds(1.5f);
+                    yield return new WaitForSeconds(Random.Range(_minTurnDelay, _maxTurnDelay));
 
                     continue;
                 }
@@ -111,7 +111,7 @@ public class EnemyAi : MonoBehaviour
 
                     LogFormat("- {0} supports {1} with {2} units", selectedPlanet.name, closestOwnPlanet.name, unitsToSend);
                     
-                    yield return new WaitForSeconds(1.5f);
+                    yield return new WaitForSeconds(Random.Range(_minTurnDelay, _maxTurnDelay));
                 
                     continue;
                 }
