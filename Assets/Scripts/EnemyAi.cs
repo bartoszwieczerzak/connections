@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 public class EnemyAi : MonoBehaviour
@@ -16,6 +17,10 @@ public class EnemyAi : MonoBehaviour
 
     [SerializeField] private Owner _actor = Owner.Player2;
     private Owner[] _enemies;
+    
+    [Space]
+    [SerializeField] private float _gatheringTime = 3f;
+    private float _time;
 
     [Header("Logging")]
     [SerializeField] private bool enableLog = true;
@@ -55,6 +60,12 @@ public class EnemyAi : MonoBehaviour
                     int unitsToSend = (int) (closestPlayerPlanet.Units * 1.3f);
                     unitsToSend = Mathf.Clamp(unitsToSend, _minUnitsToSend, selectedPlanet.Units - 1);
 
+                    _time = 0f;
+                    while (!UnitsChargeUp(selectedPlanet, unitsToSend))
+                    {
+                        yield return null;
+                    }
+
                     selectedPlanet.SendShip(closestPlayerPlanet, unitsToSend);
 
                     LogFormat("- {0} attacks {1} with {2} units", selectedPlanet.name, closestPlayerPlanet.name, unitsToSend);
@@ -63,10 +74,8 @@ public class EnemyAi : MonoBehaviour
 
                     continue;
                 }
-                else
-                {
-                    LogFormat("- {0} has not enough ({2}) units to attack {1}", selectedPlanet.name, closestPlayerPlanet.name, selectedPlanet.Units);
-                }
+                
+                LogFormat("- {0} has not enough ({2}) units to attack {1}", selectedPlanet.name, closestPlayerPlanet.name, selectedPlanet.Units);
             }
             else
             {
@@ -81,6 +90,12 @@ public class EnemyAi : MonoBehaviour
                     int unitsToSend = Random.Range(_minUnitsToSend, Mathf.Max(_minUnitsToSend, _maxUnitsToSend / 2));
                     unitsToSend = Mathf.Clamp(unitsToSend, _minUnitsToSend, selectedPlanet.Units);
 
+                    _time = 0f;
+                    while (!UnitsChargeUp(selectedPlanet, unitsToSend))
+                    {
+                        yield return null;
+                    }
+                    
                     selectedPlanet.SendShip(closestUninhabitedPlanet, unitsToSend);
 
                     LogFormat("- {0} takes over {1} with {2} units", selectedPlanet.name, closestUninhabitedPlanet.name, unitsToSend);
@@ -89,10 +104,8 @@ public class EnemyAi : MonoBehaviour
 
                     continue;
                 }
-                else
-                {
-                    LogFormat("- {0} has not enough ({2}) units to takeover {1}", selectedPlanet.name, closestUninhabitedPlanet.name, selectedPlanet.Units);
-                }
+
+                LogFormat("- {0} has not enough ({2}) units to takeover {1}", selectedPlanet.name, closestUninhabitedPlanet.name, selectedPlanet.Units);
             }
             else
             {
@@ -106,7 +119,13 @@ public class EnemyAi : MonoBehaviour
                 {
                     int unitsToSend = (selectedPlanet.Units - closestOwnPlanet.Units) / 3;
                     unitsToSend = Mathf.Clamp(unitsToSend, _minUnitsToSend, selectedPlanet.Units - _minUnitsToSend);
-
+                    
+                    _time = 0f;
+                    while (!UnitsChargeUp(selectedPlanet, unitsToSend))
+                    {
+                        yield return null;
+                    }
+                    
                     selectedPlanet.SendShip(closestOwnPlanet, unitsToSend);  
 
                     LogFormat("- {0} supports {1} with {2} units", selectedPlanet.name, closestOwnPlanet.name, unitsToSend);
@@ -115,10 +134,8 @@ public class EnemyAi : MonoBehaviour
                 
                     continue;
                 }
-                else
-                {
-                    LogFormat("- {0} has not enough ({2}) units to support {1}", selectedPlanet.name, closestOwnPlanet.name, selectedPlanet.Units);
-                }
+
+                LogFormat("- {0} has not enough ({2}) units to support {1}", selectedPlanet.name, closestOwnPlanet.name, selectedPlanet.Units);
             }
             else
             {
@@ -135,6 +152,16 @@ public class EnemyAi : MonoBehaviour
         {
             LogFormat("AI lost it's last planet! Ending AI fighting coroutine!");
         }
+    }
+    
+    private bool UnitsChargeUp(Planet sourcePlanet, int unitsToGather)
+    {
+        _time += Time.deltaTime / _gatheringTime;
+
+        int unitsGathered = (int) Mathf.Lerp(0, unitsToGather, _time);
+        // LogFormat("Gathered {0} from {1} units on {2} (total: {3})", unitsGathered, unitsToGather, sourcePlanet.name, sourcePlanet.Units);
+
+        return unitsGathered == unitsToGather;
     }
 
     Planet SelectRandomPlanet(List<Planet> planets)
